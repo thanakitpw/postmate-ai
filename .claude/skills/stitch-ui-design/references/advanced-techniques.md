@@ -27,11 +27,12 @@ Stitch can interpret hand-drawn sketches, wireframes, and rough mockups.
 4. **Include notes** - Add text describing interactions or states
 
 **Example workflow:**
+
 ```
 1. Sketch wireframe on paper or tablet
 2. Take clear photo or scan
 3. Upload to Stitch with prompt:
-   "Convert this wireframe to a modern web interface with 
+   "Convert this wireframe to a modern web interface with
    glassmorphic design and purple gradient accents"
 4. Refine generated design with annotations
 ```
@@ -41,6 +42,7 @@ Stitch can interpret hand-drawn sketches, wireframes, and rough mockups.
 Upload screenshots of existing designs to create similar layouts with your own branding.
 
 **Prompt structure:**
+
 ```
 Create a [type] similar to this reference image, but with:
 - [Your color scheme]
@@ -50,6 +52,7 @@ Create a [type] similar to this reference image, but with:
 ```
 
 **Example:**
+
 ```
 Create a pricing page similar to this reference, but with:
 - Navy blue and gold color scheme
@@ -68,6 +71,7 @@ Create a pricing page similar to this reference, but with:
 Define reusable design tokens in your initial prompt for consistency across screens.
 
 **Token categories:**
+
 - Colors (primary, secondary, accent, neutral, semantic)
 - Typography (font families, sizes, weights, line heights)
 - Spacing (scale: 4px, 8px, 16px, 24px, 32px, 48px, 64px)
@@ -75,6 +79,7 @@ Define reusable design tokens in your initial prompt for consistency across scre
 - Shadows (elevation levels)
 
 **Example prompt:**
+
 ```
 Dashboard using this design system:
 
@@ -101,6 +106,7 @@ Shadows: Subtle elevation with 0 4px 6px rgba(0,0,0,0.1)
 Create a component library by generating individual components first, then composing them into full screens.
 
 **Workflow:**
+
 ```
 1. Generate base components:
    - Button variants (primary, secondary, outline, ghost)
@@ -114,7 +120,7 @@ Create a component library by generating individual components first, then compo
    - Variants
 
 3. Compose screens using established components:
-   "Create a settings page using the button and input 
+   "Create a settings page using the button and input
    components from previous generations"
 ```
 
@@ -129,6 +135,7 @@ Start with mobile design, then scale up to tablet and desktop.
 **Prompt sequence:**
 
 **Step 1 - Mobile (375px):**
+
 ```
 Mobile app home screen for recipe platform
 
@@ -146,6 +153,7 @@ Content:
 ```
 
 **Step 2 - Tablet (768px):**
+
 ```
 Adapt the mobile recipe home screen for tablet:
 - 2-column recipe grid
@@ -155,6 +163,7 @@ Adapt the mobile recipe home screen for tablet:
 ```
 
 **Step 3 - Desktop (1440px):**
+
 ```
 Adapt for desktop:
 - 3-column recipe grid
@@ -168,6 +177,7 @@ Adapt for desktop:
 Specify exact breakpoints and layout changes.
 
 **Example:**
+
 ```
 Responsive product grid:
 
@@ -198,6 +208,7 @@ Include accessibility requirements directly in prompts.
 **Key areas to specify:**
 
 1. **Color Contrast**
+
 ```
 Ensure all text meets WCAG AA standards:
 - Normal text: 4.5:1 contrast ratio minimum
@@ -206,12 +217,14 @@ Ensure all text meets WCAG AA standards:
 ```
 
 2. **Touch Targets**
+
 ```
 All interactive elements minimum 44x44px touch target size
 Adequate spacing between clickable elements (8px minimum)
 ```
 
 3. **Keyboard Navigation**
+
 ```
 Clear focus indicators on all interactive elements
 Logical tab order following visual flow
@@ -219,6 +232,7 @@ Skip navigation link for keyboard users
 ```
 
 4. **Screen Reader Support**
+
 ```
 Descriptive button labels (not just "Click here")
 Alt text for all meaningful images
@@ -227,6 +241,7 @@ Heading hierarchy (H1 → H2 → H3)
 ```
 
 **Comprehensive accessibility prompt:**
+
 ```
 Create an accessible contact form:
 
@@ -272,6 +287,7 @@ Design a video player interface that supports:
 Request performance-conscious designs from the start.
 
 **Image optimization:**
+
 ```
 E-commerce product gallery with performance optimization:
 - Lazy loading for images below fold
@@ -282,6 +298,7 @@ E-commerce product gallery with performance optimization:
 ```
 
 **Code efficiency:**
+
 ```
 Generate lightweight HTML/CSS without:
 - Unnecessary wrapper divs
@@ -295,6 +312,7 @@ Generate lightweight HTML/CSS without:
 Design for core functionality first, then enhance.
 
 **Example:**
+
 ```
 Create a filterable product list with progressive enhancement:
 
@@ -319,6 +337,7 @@ Enhanced (with JavaScript):
 Build from atoms → molecules → organisms → templates → pages.
 
 **Atoms (basic elements):**
+
 ```
 Generate design system atoms:
 - Button (primary, secondary, outline, ghost, danger)
@@ -329,6 +348,7 @@ Generate design system atoms:
 ```
 
 **Molecules (simple combinations):**
+
 ```
 Create molecules using atoms:
 - Search bar (input + button + icon)
@@ -338,6 +358,7 @@ Create molecules using atoms:
 ```
 
 **Organisms (complex components):**
+
 ```
 Build organisms from molecules:
 - Navigation bar (logo + search bar + user menu)
@@ -347,6 +368,7 @@ Build organisms from molecules:
 ```
 
 **Templates (page layouts):**
+
 ```
 Compose templates from organisms:
 - Dashboard layout (sidebar + header + content grid)
@@ -359,6 +381,7 @@ Compose templates from organisms:
 Create systematic variations of components.
 
 **Button variants prompt:**
+
 ```
 Generate button component with all variants:
 
@@ -390,6 +413,7 @@ Include: Icon support (left/right), full-width option
 Generate multiple versions based on different conditions.
 
 **Example:**
+
 ```
 Create 3 hero section variants for A/B testing:
 
@@ -416,6 +440,7 @@ All variants use same brand colors and maintain mobile responsiveness
 Design for all possible states, not just the happy path.
 
 **Comprehensive state prompt:**
+
 ```
 Design a data table with all states:
 
@@ -484,6 +509,7 @@ Before exporting, ensure designs are developer-ready.
 Optimize Stitch → Figma workflow.
 
 **Steps:**
+
 ```
 1. Generate design in Stitch with detailed specifications
 2. Use "Paste to Figma" export
@@ -532,6 +558,7 @@ Improve exported HTML/CSS for production.
 These advanced techniques help you move beyond basic Stitch usage to create production-ready, accessible, and performant designs. Combine these strategies with the core prompting principles to maximize your efficiency and output quality.
 
 **Key takeaways:**
+
 - Use images and references to accelerate design
 - Establish design systems early for consistency
 - Design responsively from the start

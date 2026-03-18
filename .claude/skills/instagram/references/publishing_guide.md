@@ -3,52 +3,57 @@
 ## Specs de Mídia
 
 ### Foto (IMAGE)
-| Propriedade | Requisito |
-|-------------|-----------|
-| Formato | JPEG (obrigatório — PNG/WebP são convertidos automaticamente pelo publish.py via Pillow) |
-| Resolução mínima | 320 x 320 px |
-| Resolução máxima | 1080 x 1350 px (recomendado) |
-| Aspect ratio | 4:5 (portrait) a 1.91:1 (landscape) |
-| Tamanho máximo | 8 MB |
-| Color space | sRGB |
+
+| Propriedade      | Requisito                                                                                |
+| ---------------- | ---------------------------------------------------------------------------------------- |
+| Formato          | JPEG (obrigatório — PNG/WebP são convertidos automaticamente pelo publish.py via Pillow) |
+| Resolução mínima | 320 x 320 px                                                                             |
+| Resolução máxima | 1080 x 1350 px (recomendado)                                                             |
+| Aspect ratio     | 4:5 (portrait) a 1.91:1 (landscape)                                                      |
+| Tamanho máximo   | 8 MB                                                                                     |
+| Color space      | sRGB                                                                                     |
 
 ### Vídeo (VIDEO)
-| Propriedade | Requisito |
-|-------------|-----------|
-| Formato | MP4 (H.264 codec) |
-| Resolução mínima | 640 x 640 px |
-| Resolução máxima | 1920 x 1080 px |
-| Duração | 3 segundos a 60 minutos |
-| Tamanho máximo | 250 MB (recomendado < 100 MB) |
-| Frame rate | 23-60 fps |
-| Audio | AAC, 48kHz sample rate |
+
+| Propriedade      | Requisito                     |
+| ---------------- | ----------------------------- |
+| Formato          | MP4 (H.264 codec)             |
+| Resolução mínima | 640 x 640 px                  |
+| Resolução máxima | 1920 x 1080 px                |
+| Duração          | 3 segundos a 60 minutos       |
+| Tamanho máximo   | 250 MB (recomendado < 100 MB) |
+| Frame rate       | 23-60 fps                     |
+| Audio            | AAC, 48kHz sample rate        |
 
 ### Reel (REELS)
-| Propriedade | Requisito |
-|-------------|-----------|
-| Formato | MP4 (H.264 codec) |
-| Aspect ratio | 9:16 (vertical, obrigatório) |
-| Resolução recomendada | 1080 x 1920 px |
-| Duração | 3 segundos a 15 minutos |
-| Tamanho máximo | 250 MB |
-| Audio | Obrigatório (pode ser mudo, mas track precisa existir) |
+
+| Propriedade           | Requisito                                              |
+| --------------------- | ------------------------------------------------------ |
+| Formato               | MP4 (H.264 codec)                                      |
+| Aspect ratio          | 9:16 (vertical, obrigatório)                           |
+| Resolução recomendada | 1080 x 1920 px                                         |
+| Duração               | 3 segundos a 15 minutos                                |
+| Tamanho máximo        | 250 MB                                                 |
+| Audio                 | Obrigatório (pode ser mudo, mas track precisa existir) |
 
 ### Story (STORIES)
-| Propriedade | Requisito |
-|-------------|-----------|
-| Formato foto | JPEG |
-| Formato vídeo | MP4 |
-| Aspect ratio | 9:16 (1080 x 1920 px recomendado) |
-| Duração vídeo | Até 60 segundos |
-| Desaparece | Após 24 horas |
+
+| Propriedade   | Requisito                         |
+| ------------- | --------------------------------- |
+| Formato foto  | JPEG                              |
+| Formato vídeo | MP4                               |
+| Aspect ratio  | 9:16 (1080 x 1920 px recomendado) |
+| Duração vídeo | Até 60 segundos                   |
+| Desaparece    | Após 24 horas                     |
 
 ### Carrossel (CAROUSEL_ALBUM)
-| Propriedade | Requisito |
-|-------------|-----------|
-| Itens | 2 a 10 imagens/vídeos |
-| Tipos permitidos | Mix de fotos e vídeos |
-| Cada item segue specs | De IMAGE ou VIDEO acima |
-| Aspect ratio | Todos os itens devem ter o mesmo aspect ratio |
+
+| Propriedade           | Requisito                                     |
+| --------------------- | --------------------------------------------- |
+| Itens                 | 2 a 10 imagens/vídeos                         |
+| Tipos permitidos      | Mix de fotos e vídeos                         |
+| Cada item segue specs | De IMAGE ou VIDEO acima                       |
+| Aspect ratio          | Todos os itens devem ter o mesmo aspect ratio |
 
 ## Fluxo de Publicação (2-Step)
 
@@ -124,18 +129,19 @@ draft → approved → scheduled → container_created → published
                                     failed
 ```
 
-| Status | Significado | Próxima ação |
-|--------|-------------|--------------|
-| `draft` | Rascunho, não será publicado automaticamente | `--approve --id X` |
-| `approved` | Aprovado para publicação | `schedule.py --process` |
-| `scheduled` | Agendado para data futura | Aguardar horário |
-| `container_created` | Container criado na API, aguardando publish | Recovery automático |
-| `published` | Publicado com sucesso | Concluído |
-| `failed` | Erro na publicação | Verificar error_msg, retry possível |
+| Status              | Significado                                  | Próxima ação                        |
+| ------------------- | -------------------------------------------- | ----------------------------------- |
+| `draft`             | Rascunho, não será publicado automaticamente | `--approve --id X`                  |
+| `approved`          | Aprovado para publicação                     | `schedule.py --process`             |
+| `scheduled`         | Agendado para data futura                    | Aguardar horário                    |
+| `container_created` | Container criado na API, aguardando publish  | Recovery automático                 |
+| `published`         | Publicado com sucesso                        | Concluído                           |
+| `failed`            | Erro na publicação                           | Verificar error_msg, retry possível |
 
 ## Recovery de Crash
 
 Se o processo crashar entre `container_created` e `published`:
+
 1. O `schedule.py --process` detecta posts com status `container_created`
 2. Verifica se o container ainda é válido via API
 3. Se válido → publica
@@ -155,11 +161,13 @@ O `publish.py` detecta se o caminho é local (não começa com http):
 ## Captions e Hashtags
 
 ### Limites
+
 - Caption: máximo 2.200 caracteres
 - Hashtags: máximo 30 por post
 - Menções (@): sem limite oficial
 
 ### Templates (via templates.py)
+
 ```python
 caption_template = "Nova promoção: {produto}! {desconto}% OFF"
 # Com variáveis: produto="Tênis", desconto=30
@@ -167,7 +175,9 @@ caption_template = "Nova promoção: {produto}! {desconto}% OFF"
 ```
 
 ### Hashtags em Templates
+
 Hashtags são armazenadas como JSON array e adicionadas ao final da caption:
+
 ```
 Caption renderizada + "\n\n" + " ".join(hashtags)
 ```

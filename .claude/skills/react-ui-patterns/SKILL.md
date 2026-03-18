@@ -57,12 +57,12 @@ Do we have data?
 
 ### Skeleton vs Spinner
 
-| Use Skeleton When | Use Spinner When |
-|-------------------|------------------|
-| Known content shape | Unknown content shape |
-| List/card layouts | Modal actions |
-| Initial page load | Button submissions |
-| Content placeholders | Inline operations |
+| Use Skeleton When    | Use Spinner When      |
+| -------------------- | --------------------- |
+| Known content shape  | Unknown content shape |
+| List/card layouts    | Modal actions         |
+| Initial page load    | Button submissions    |
+| Content placeholders | Inline operations     |
 
 ## Error Handling Patterns
 
@@ -83,11 +83,11 @@ Do we have data?
 // CORRECT - Error always surfaced to user
 const [createItem, { loading }] = useCreateItemMutation({
   onCompleted: () => {
-    toast.success({ title: 'Item created' });
+    toast.success({ title: "Item created" });
   },
   onError: (error) => {
-    console.error('createItem failed:', error);
-    toast.error({ title: 'Failed to create item' });
+    console.error("createItem failed:", error);
+    toast.error({ title: "Failed to create item" });
   },
 });
 
@@ -125,11 +125,7 @@ const ErrorState = ({ error, onRetry, title }: ErrorStateProps) => (
 ### Button Loading State
 
 ```tsx
-<Button
-  onClick={handleSubmit}
-  isLoading={isSubmitting}
-  disabled={!isValid || isSubmitting}
->
+<Button onClick={handleSubmit} isLoading={isSubmitting} disabled={!isValid || isSubmitting}>
   Submit
 </Button>
 ```
@@ -165,12 +161,7 @@ Every list/collection MUST have an empty state:
 return <FlatList data={items} />;
 
 // CORRECT - Explicit empty state
-return (
-  <FlatList
-    data={items}
-    ListEmptyComponent={<EmptyState />}
-  />
-);
+return <FlatList data={items} ListEmptyComponent={<EmptyState />} />;
 ```
 
 ### Contextual Empty States
@@ -203,7 +194,7 @@ const MyForm = () => {
 
   const handleSubmit = async () => {
     if (!isValid) {
-      toast.error({ title: 'Please fix errors' });
+      toast.error({ title: "Please fix errors" });
       return;
     }
     await submit({ variables: { input: values } });
@@ -213,7 +204,7 @@ const MyForm = () => {
     <form>
       <Input
         value={values.name}
-        onChange={handleChange('name')}
+        onChange={handleChange("name")}
         error={touched.name ? errors.name : undefined}
       />
       <Button
@@ -253,9 +244,9 @@ try {
 
 // CORRECT - Error surfaced
 onError: (error) => {
-  console.error('operation failed:', error);
-  toast.error({ title: 'Operation failed' });
-}
+  console.error("operation failed:", error);
+  toast.error({ title: "Operation failed" });
+};
 ```
 
 ### Button States
@@ -275,6 +266,7 @@ onError: (error) => {
 Before completing any UI component:
 
 **UI States:**
+
 - [ ] Error state handled and shown to user
 - [ ] Loading state shown only when no data exists
 - [ ] Empty state provided for collections
@@ -282,6 +274,7 @@ Before completing any UI component:
 - [ ] Buttons show loading indicator when appropriate
 
 **Data & Mutations:**
+
 - [ ] Mutations have onError handler
 - [ ] All user actions have feedback (toast/visual)
 
@@ -292,4 +285,5 @@ Before completing any UI component:
 - **formik-patterns**: Apply form submission patterns
 
 ## When to Use
+
 This skill is applicable to execute the workflow or actions described in the overview.

@@ -39,18 +39,20 @@ Building products around AI APIs
 
 ### The Wrapper Stack
 ```
+
 User Input
-    ↓
+↓
 Input Validation + Sanitization
-    ↓
+↓
 Prompt Template + Context
-    ↓
+↓
 AI API (OpenAI/Anthropic/etc.)
-    ↓
+↓
 Output Parsing + Validation
-    ↓
+↓
 User-Friendly Response
-```
+
+````
 
 ### Basic Implementation
 ```javascript
@@ -84,16 +86,18 @@ async function generateContent(userInput, context) {
   const output = response.content[0].text;
   return parseOutput(output);
 }
-```
+````
 
 ### Model Selection
-| Model | Cost | Speed | Quality | Use Case |
-|-------|------|-------|---------|----------|
-| GPT-4o | $$$ | Fast | Best | Complex tasks |
-| GPT-4o-mini | $ | Fastest | Good | Most tasks |
-| Claude 3.5 Sonnet | $$ | Fast | Excellent | Balanced |
-| Claude 3 Haiku | $ | Fastest | Good | High volume |
-```
+
+| Model             | Cost | Speed   | Quality   | Use Case      |
+| ----------------- | ---- | ------- | --------- | ------------- |
+| GPT-4o            | $$$  | Fast    | Best      | Complex tasks |
+| GPT-4o-mini       | $    | Fastest | Good      | Most tasks    |
+| Claude 3.5 Sonnet | $$   | Fast    | Excellent | Balanced      |
+| Claude 3 Haiku    | $    | Fastest | Good      | High volume   |
+
+````
 
 ### Prompt Engineering for Products
 
@@ -120,9 +124,10 @@ const promptTemplates = {
       Length: ${input.length} sentences`,
   },
 };
-```
+````
 
 ### Output Control
+
 ```javascript
 // Force structured output
 const systemPrompt = `
@@ -143,20 +148,22 @@ function parseAIOutput(text) {
     // Fallback: extract JSON from response
     const match = text.match(/\{[\s\S]*\}/);
     if (match) return JSON.parse(match[0]);
-    throw new Error('Invalid AI output');
+    throw new Error("Invalid AI output");
   }
 }
 ```
 
 ### Quality Control
-| Technique | Purpose |
-|-----------|---------|
-| Examples in prompt | Guide output style |
-| Output format spec | Consistent structure |
-| Validation | Catch malformed responses |
-| Retry logic | Handle failures |
-| Fallback models | Reliability |
-```
+
+| Technique          | Purpose                   |
+| ------------------ | ------------------------- |
+| Examples in prompt | Guide output style        |
+| Output format spec | Consistent structure      |
+| Validation         | Catch malformed responses |
+| Retry logic        | Handle failures           |
+| Fallback models    | Reliability               |
+
+````
 
 ### Cost Management
 
@@ -193,34 +200,37 @@ function calculateCost(usage) {
   return (usage.input_tokens * rate.input +
           usage.output_tokens * rate.output) / 1_000_000;
 }
-```
+````
 
 ### Cost Reduction Strategies
-| Strategy | Savings |
-|----------|---------|
-| Use cheaper models | 10-50x |
-| Limit output tokens | Variable |
-| Cache common queries | High |
-| Batch similar requests | Medium |
-| Truncate input | Variable |
+
+| Strategy               | Savings  |
+| ---------------------- | -------- |
+| Use cheaper models     | 10-50x   |
+| Limit output tokens    | Variable |
+| Cache common queries   | High     |
+| Batch similar requests | Medium   |
+| Truncate input         | Variable |
 
 ### Usage Limits
+
 ```javascript
 async function checkUsageLimits(userId) {
   const usage = await db.usage.sum({
     where: {
       userId,
-      createdAt: { gte: startOfMonth() }
-    }
+      createdAt: { gte: startOfMonth() },
+    },
   });
 
   const limits = await getUserLimits(userId);
   if (usage.cost >= limits.monthlyCost) {
-    throw new Error('Monthly limit reached');
+    throw new Error("Monthly limit reached");
   }
   return true;
 }
 ```
+
 ```
 
 ## Anti-Patterns
@@ -276,3 +286,4 @@ Works well with: `llm-architect`, `micro-saas-launcher`, `frontend`, `backend`
 
 ## When to Use
 This skill is applicable to execute the workflow or actions described in the overview.
+```

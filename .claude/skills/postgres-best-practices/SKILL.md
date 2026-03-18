@@ -13,6 +13,7 @@ Comprehensive performance optimization guide for Postgres, maintained by Supabas
 ## When to Apply
 
 Reference these guidelines when:
+
 - Writing SQL queries or designing schemas
 - Implementing indexes or query optimization
 - Reviewing database performance issues
@@ -22,16 +23,16 @@ Reference these guidelines when:
 
 ## Rule Categories by Priority
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Query Performance | CRITICAL | `query-` |
-| 2 | Connection Management | CRITICAL | `conn-` |
-| 3 | Security & RLS | CRITICAL | `security-` |
-| 4 | Schema Design | HIGH | `schema-` |
-| 5 | Concurrency & Locking | MEDIUM-HIGH | `lock-` |
-| 6 | Data Access Patterns | MEDIUM | `data-` |
-| 7 | Monitoring & Diagnostics | LOW-MEDIUM | `monitor-` |
-| 8 | Advanced Features | LOW | `advanced-` |
+| Priority | Category                 | Impact      | Prefix      |
+| -------- | ------------------------ | ----------- | ----------- |
+| 1        | Query Performance        | CRITICAL    | `query-`    |
+| 2        | Connection Management    | CRITICAL    | `conn-`     |
+| 3        | Security & RLS           | CRITICAL    | `security-` |
+| 4        | Schema Design            | HIGH        | `schema-`   |
+| 5        | Concurrency & Locking    | MEDIUM-HIGH | `lock-`     |
+| 6        | Data Access Patterns     | MEDIUM      | `data-`     |
+| 7        | Monitoring & Diagnostics | LOW-MEDIUM  | `monitor-`  |
+| 8        | Advanced Features        | LOW         | `advanced-` |
 
 ## How to Use
 
@@ -44,6 +45,7 @@ rules/_sections.md
 ```
 
 Each rule file contains:
+
 - Brief explanation of why it matters
 - Incorrect SQL example with explanation
 - Correct SQL example with explanation
@@ -56,4 +58,5 @@ Each rule file contains:
 For the complete guide with all rules expanded: `AGENTS.md`
 
 ## When to Use
+
 This skill is applicable to execute the workflow or actions described in the overview.

@@ -24,16 +24,19 @@ Base URL: `https://graph.instagram.com/v21.0`
 Retorna informações do perfil.
 
 **Campos disponíveis:**
+
 - `id`, `username`, `name`, `account_type`
 - `biography`, `followers_count`, `follows_count`, `media_count`
 - `profile_picture_url`, `website`
 
 **Exemplo:**
+
 ```
 GET /me?fields=id,username,name,account_type,biography,followers_count,follows_count,media_count&access_token=TOKEN
 ```
 
 **Resposta:**
+
 ```json
 {
   "id": "17841400000000",
@@ -56,6 +59,7 @@ GET /me?fields=id,username,name,account_type,biography,followers_count,follows_c
 Lista mídia publicada pelo usuário.
 
 **Parâmetros:**
+
 - `fields`: id, caption, media_type, media_url, permalink, timestamp, thumbnail_url
 - `limit`: 1-100 (default 25)
 - `after`/`before`: cursor de paginação
@@ -84,14 +88,14 @@ Para CAROUSEL_ALBUM — retorna itens do carrossel.
 POST /{user-id}/media
 ```
 
-| Tipo | Parâmetros obrigatórios |
-|------|------------------------|
-| Foto | `image_url`, `caption` (opcional) |
-| Vídeo | `video_url`, `caption`, `media_type=VIDEO` |
-| Reel | `video_url`, `caption`, `media_type=REELS` |
-| Story (foto) | `image_url`, `media_type=STORIES` |
-| Story (vídeo) | `video_url`, `media_type=STORIES` |
-| Carousel item | `image_url` ou `video_url`, `is_carousel_item=true` |
+| Tipo               | Parâmetros obrigatórios                                    |
+| ------------------ | ---------------------------------------------------------- |
+| Foto               | `image_url`, `caption` (opcional)                          |
+| Vídeo              | `video_url`, `caption`, `media_type=VIDEO`                 |
+| Reel               | `video_url`, `caption`, `media_type=REELS`                 |
+| Story (foto)       | `image_url`, `media_type=STORIES`                          |
+| Story (vídeo)      | `video_url`, `media_type=STORIES`                          |
+| Carousel item      | `image_url` ou `video_url`, `is_carousel_item=true`        |
 | Carousel container | `media_type=CAROUSEL`, `children=[id1,id2,...]`, `caption` |
 
 **Resposta:** `{"id": "container_id"}`
@@ -168,28 +172,32 @@ Ocultar/mostrar comentário.
 ### GET /{media-id}/insights
 
 **Métricas para IMAGE/CAROUSEL:**
+
 - `impressions` — Vezes que a mídia foi exibida
 - `reach` — Contas únicas que viram
 - `engagement` — Likes + comments + saves
 - `saved` — Vezes que foi salva
 
 **Métricas adicionais para VIDEO/REELS:**
+
 - `video_views` — Visualizações do vídeo
 - `plays` — Vezes que o reel foi reproduzido
 
 **Parâmetros:**
+
 ```
 metric=impressions,reach,engagement,saved
 ```
 
 **Resposta:**
+
 ```json
 {
   "data": [
     {
       "name": "impressions",
       "period": "lifetime",
-      "values": [{"value": 250}],
+      "values": [{ "value": 250 }],
       "title": "Impressions"
     }
   ]
@@ -205,15 +213,18 @@ metric=impressions,reach,engagement,saved
 Métricas agregadas da conta.
 
 **Métricas por período `day`:**
+
 - `impressions` — Total de impressões
 - `reach` — Contas únicas alcançadas
 - `follower_count` — Total de seguidores (só `day`)
 - `profile_views` — Visualizações do perfil
 
 **Métricas por período `week` / `days_28`:**
+
 - `impressions`, `reach`
 
 **Parâmetros:**
+
 ```
 metric=impressions,reach,follower_count,profile_views
 period=day
@@ -232,6 +243,7 @@ until=UNIX_TIMESTAMP
 Busca o ID de uma hashtag.
 
 **Parâmetros:**
+
 - `user_id`: ID da conta
 - `q`: nome da hashtag (sem #)
 
@@ -274,14 +286,16 @@ Mensagens de uma conversa.
 Enviar mensagem.
 
 **Body:**
+
 ```json
 {
-  "recipient": {"id": "user_ig_scoped_id"},
-  "message": {"text": "Olá!"}
+  "recipient": { "id": "user_ig_scoped_id" },
+  "message": { "text": "Olá!" }
 }
 ```
 
 **Restrições:**
+
 - Apenas responder a conversas existentes (dentro de janela de 24hrs)
 - Ou usar Message Templates aprovados (requer aprovação Meta)
 
@@ -299,18 +313,19 @@ Mídias em que o usuário foi mencionado/tagueado.
 
 ## Erros Comuns
 
-| Código | Subcódigo | Significado | Ação |
-|--------|-----------|-------------|------|
-| 4 | - | Rate limit atingido | Backoff 1 hora |
-| 10 | - | Permissão negada | Verificar scopes |
-| 17 | - | Rate limit da conta | Esperar período indicado |
-| 24 | - | Webhook inválido | Verificar URL/certificado |
-| 100 | - | Parâmetro inválido | Verificar request |
-| 190 | - | Token expirado/inválido | Refresh token |
-| 200 | - | Permissão insuficiente | Verificar app review |
-| 368 | - | Conteúdo bloqueado | Política de conteúdo |
+| Código | Subcódigo | Significado             | Ação                      |
+| ------ | --------- | ----------------------- | ------------------------- |
+| 4      | -         | Rate limit atingido     | Backoff 1 hora            |
+| 10     | -         | Permissão negada        | Verificar scopes          |
+| 17     | -         | Rate limit da conta     | Esperar período indicado  |
+| 24     | -         | Webhook inválido        | Verificar URL/certificado |
+| 100    | -         | Parâmetro inválido      | Verificar request         |
+| 190    | -         | Token expirado/inválido | Refresh token             |
+| 200    | -         | Permissão insuficiente  | Verificar app review      |
+| 368    | -         | Conteúdo bloqueado      | Política de conteúdo      |
 
 **Formato de erro padrão:**
+
 ```json
 {
   "error": {

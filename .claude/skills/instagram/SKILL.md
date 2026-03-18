@@ -3,19 +3,19 @@ name: instagram
 description: Integracao completa com Instagram via Graph API. Publicacao, analytics, comentarios, DMs, hashtags, agendamento, templates e gestao de contas Business/Creator.
 risk: critical
 source: community
-date_added: '2026-03-06'
+date_added: "2026-03-06"
 author: renat
 tags:
-- social-media
-- instagram
-- graph-api
-- content
+  - social-media
+  - instagram
+  - graph-api
+  - content
 tools:
-- claude-code
-- antigravity
-- cursor
-- gemini-cli
-- codex-cli
+  - claude-code
+  - antigravity
+  - cursor
+  - gemini-cli
+  - codex-cli
 ---
 
 # Skill: Instagram Integration
@@ -47,20 +47,20 @@ confirmações antes de ações públicas).
 
 ## Resumo Rápido
 
-| Área | Scripts | O que faz |
-|------|---------|-----------|
-| **Setup** | `account_setup.py`, `auth.py` | Configurar conta, OAuth, token |
-| **Publicação** | `publish.py`, `schedule.py` | Publicar foto/vídeo/reel/story/carrossel, agendar |
-| **Comunidade** | `comments.py`, `messages.py` | Comentários, DMs, menções |
-| **Analytics** | `insights.py`, `analyze.py` | Métricas, melhores horários, top posts |
-| **Hashtags** | `hashtags.py` | Pesquisa e tracking |
-| **Inteligência** | `templates.py`, `analyze.py` | Templates de conteúdo, tendências |
-| **Infra** | `export.py`, `serve_api.py`, `run_all.py` | Exportar, dashboard, sync |
-| **Leitura** | `profile.py`, `media.py` | Perfil, listar mídia |
+| Área             | Scripts                                   | O que faz                                         |
+| ---------------- | ----------------------------------------- | ------------------------------------------------- |
+| **Setup**        | `account_setup.py`, `auth.py`             | Configurar conta, OAuth, token                    |
+| **Publicação**   | `publish.py`, `schedule.py`               | Publicar foto/vídeo/reel/story/carrossel, agendar |
+| **Comunidade**   | `comments.py`, `messages.py`              | Comentários, DMs, menções                         |
+| **Analytics**    | `insights.py`, `analyze.py`               | Métricas, melhores horários, top posts            |
+| **Hashtags**     | `hashtags.py`                             | Pesquisa e tracking                               |
+| **Inteligência** | `templates.py`, `analyze.py`              | Templates de conteúdo, tendências                 |
+| **Infra**        | `export.py`, `serve_api.py`, `run_all.py` | Exportar, dashboard, sync                         |
+| **Leitura**      | `profile.py`, `media.py`                  | Perfil, listar mídia                              |
 
 ## Localização
 
-```
+````
 C:\Users\renat\skills\instagram\
 ├── SKILL.md
 ├── scripts/
@@ -99,13 +99,13 @@ C:\Users\renat\skills\instagram\
 ├── static/
 │   └── dashboard.html                # Dashboard Chart.js
 └── data/
-    
+
 
 ## Instalação (Uma Vez)
 
 ```bash
 pip install -r C:\Users\renat\skills\instagram\scripts\requirements.txt
-```
+````
 
 ## Configuração Inicial
 
@@ -154,6 +154,7 @@ python C:\Users\renat\skills\instagram\scripts\publish.py --type photo --image f
 ## Aprovar Rascunho Para Publicação
 
 python C:\Users\renat\skills\instagram\scripts\publish.py --approve --id 5
+
 ```
 
 ## Agendar Publicação Futura
@@ -192,6 +193,7 @@ python C:\Users\renat\skills\instagram\scripts\comments.py --mentions
 ## Comentários Não Respondidos
 
 python C:\Users\renat\skills\instagram\scripts\comments.py --unreplied
+
 ```
 
 ## Enviar Dm
@@ -218,6 +220,7 @@ python C:\Users\renat\skills\instagram\scripts\insights.py --user --period day -
 ## Buscar E Salvar Insights De Todos Os Posts Recentes
 
 python C:\Users\renat\skills\instagram\scripts\insights.py --fetch-all --limit 20
+
 ```
 
 ## Melhores Horários Para Postar (Baseado Nos Seus Dados)
@@ -244,6 +247,7 @@ python C:\Users\renat\skills\instagram\scripts\hashtags.py --top "tecnologia"
 ## Info Da Hashtag (Contagem De Posts)
 
 python C:\Users\renat\skills\instagram\scripts\hashtags.py --info "marketing"
+
 ```
 
 ## Criar Template
@@ -270,6 +274,7 @@ python C:\Users\renat\skills\instagram\scripts\media.py --list --limit 10
 ## Detalhes De Um Post
 
 python C:\Users\renat\skills\instagram\scripts\media.py --details --media-id 12345
+
 ```
 
 ## Exportar Analytics Para Csv
@@ -303,7 +308,8 @@ python C:\Users\renat\skills\instagram\scripts\run_all.py
 ## Sync Parcial
 
 python C:\Users\renat\skills\instagram\scripts\run_all.py --only media insights
-```
+
+````
 
 ## Rate Limits
 
@@ -351,7 +357,7 @@ Coisas que a Instagram Graph API **não permite**:
 
 ```bash
 python C:\Users\renat\skills\instagram\scripts\publish.py --type photo --image foto.jpg --caption "Texto"
-```
+````
 
 ## "Me Mostra Meus Analytics"
 
@@ -387,6 +393,7 @@ python C:\Users\renat\skills\instagram\scripts\serve_api.py
 ## Referências
 
 Consultar quando precisar de detalhes:
+
 - `references/graph_api.md` — Endpoints, parâmetros e responses da API
 - `references/publishing_guide.md` — Specs de mídia (dimensões, formatos, tamanhos)
 - `references/rate_limits.md` — Rate limits detalhados e estratégias

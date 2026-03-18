@@ -3,20 +3,20 @@ name: product-design
 description: Design de produto nivel Apple — sistemas visuais, UX flows, acessibilidade, linguagem visual proprietaria, design tokens, prototipagem e handoff. Cobre Figma, design systems, tipografia, cor,...
 risk: none
 source: community
-date_added: '2026-03-06'
+date_added: "2026-03-06"
 author: renat
 tags:
-- design
-- ux
-- design-systems
-- accessibility
-- figma
+  - design
+  - ux
+  - design-systems
+  - accessibility
+  - figma
 tools:
-- claude-code
-- antigravity
-- cursor
-- gemini-cli
-- codex-cli
+  - claude-code
+  - antigravity
+  - cursor
+  - gemini-cli
+  - codex-cli
 ---
 
 # PRODUCT DESIGN — Nivel Apple
@@ -113,7 +113,7 @@ design-system/
       "600": "#4B5563",
       "400": "#9CA3AF",
       "200": "#E5E7EB",
-      "50":  "#F9FAFB"
+      "50": "#F9FAFB"
     }
   },
   "typography": {
@@ -124,12 +124,20 @@ design-system/
     "small": { "size": "14px", "weight": "400", "line": "1.5" }
   },
   "spacing": {
-    "xs": "4px", "sm": "8px", "md": "16px",
-    "lg": "24px", "xl": "32px", "2xl": "48px", "3xl": "64px"
+    "xs": "4px",
+    "sm": "8px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px",
+    "2xl": "48px",
+    "3xl": "64px"
   },
   "radius": {
-    "sm": "4px", "md": "8px", "lg": "12px",
-    "xl": "16px", "full": "9999px"
+    "sm": "4px",
+    "md": "8px",
+    "lg": "12px",
+    "xl": "16px",
+    "full": "9999px"
   },
   "shadow": {
     "sm": "0 1px 3px rgba(0,0,0,0.12)",
@@ -304,14 +312,14 @@ Tamanho minimo: 24px (icone), 120px (lockup completo)
 
 ## Stack De Design
 
-| Ferramenta | Uso |
-|-----------|-----|
-| Figma | Design de UI, prototipagem, handoff |
-| FigJam | User journeys, workshops, ideacao |
-| Zeroheight | Documentacao do design system |
-| Lottie | Animacoes (exportadas do After Effects/Figma) |
-| Mobbin | Referencia de patterns de UI |
-| Screenlane | Inspiracao de UI real |
+| Ferramenta | Uso                                           |
+| ---------- | --------------------------------------------- |
+| Figma      | Design de UI, prototipagem, handoff           |
+| FigJam     | User journeys, workshops, ideacao             |
+| Zeroheight | Documentacao do design system                 |
+| Lottie     | Animacoes (exportadas do After Effects/Figma) |
+| Mobbin     | Referencia de patterns de UI                  |
+| Screenlane | Inspiracao de UI real                         |
 
 ## Processo De Design Sprint (5 Dias)
 
@@ -327,15 +335,15 @@ Sexta:   Testar — 5 usuarios, insights, iterar
 
 ## 8. Comandos
 
-| Comando | Acao |
-|---------|------|
-| `/design-critique` | Critica estruturada de um design |
-| `/design-tokens` | Gera tokens para um projeto |
-| `/ux-flow` | Mapeia fluxo de experiencia |
-| `/voice-ux` | Design de interacao por voz |
-| `/onboarding` | Cria fluxo de onboarding |
-| `/design-system` | Estrutura design system completo |
-| `/accessibility` | Auditoria de acessibilidade |
+| Comando            | Acao                                |
+| ------------------ | ----------------------------------- |
+| `/design-critique` | Critica estruturada de um design    |
+| `/design-tokens`   | Gera tokens para um projeto         |
+| `/ux-flow`         | Mapeia fluxo de experiencia         |
+| `/voice-ux`        | Design de interacao por voz         |
+| `/onboarding`      | Cria fluxo de onboarding            |
+| `/design-system`   | Estrutura design system completo    |
+| `/accessibility`   | Auditoria de acessibilidade         |
 | `/visual-identity` | Define identidade visual de produto |
 
 ## Best Practices

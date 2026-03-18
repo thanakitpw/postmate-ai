@@ -26,6 +26,7 @@
 ## Passo 3: Configurar OAuth
 
 ### Redirect URI
+
 1. Vá em Settings → Basic
 2. Em "Valid OAuth Redirect URIs", adicione:
    ```
@@ -34,6 +35,7 @@
    (Esta é a porta padrão do auth.py)
 
 ### Obter Credenciais
+
 1. Anote o **App ID** (visível no topo do dashboard)
 2. Vá em Settings → Basic → **App Secret** (clique "Show")
 3. Guarde ambos — serão usados no setup
@@ -70,6 +72,7 @@ python C:\Users\renat\skills\instagram\scripts\auth.py --setup
 ```
 
 O script vai:
+
 1. Pedir App ID e App Secret
 2. Abrir o navegador na página de autorização do Facebook
 3. Você autoriza o app e as permissões
@@ -79,6 +82,7 @@ O script vai:
 7. Salva tudo no banco SQLite
 
 ### Resultado esperado:
+
 ```json
 {
   "status": "success",
@@ -107,25 +111,31 @@ python C:\Users\renat\skills\instagram\scripts\media.py --list --limit 3
 ## Troubleshooting
 
 ### "No Instagram Business Account found"
+
 - Verifique se a conta IG é Business ou Creator (não Personal)
 - Verifique se a Facebook Page está vinculada à conta IG
 - Execute: `python scripts/account_setup.py --check`
 
 ### "Invalid OAuth redirect_uri"
+
 - Confirme que `http://localhost:8765/callback` está nas Redirect URIs do app
 - Verifique se não há espaço extra na URL
 
 ### "App not approved"
+
 - Em modo de desenvolvimento, adicione seu perfil como Tester
 - Para produção, submeta para App Review
 
 ### Token expirado
+
 ```bash
 python C:\Users\renat\skills\instagram\scripts\auth.py --refresh
 ```
+
 O token longo dura 60 dias e é renovado automaticamente quando faltam 7 dias.
 
 ### "Permission denied" (code 10/200)
+
 - Verifique se o scope necessário foi autorizado
 - Consulte `references/permissions.md` para o scope correto
 - Pode ser necessário re-autorizar: `python scripts/auth.py --setup`
@@ -133,6 +143,7 @@ O token longo dura 60 dias e é renovado automaticamente quando faltam 7 dias.
 ## Variáveis de Ambiente (Opcional)
 
 Em vez de digitar no setup, pode usar env vars:
+
 ```bash
 export INSTAGRAM_APP_ID="seu_app_id"
 export INSTAGRAM_APP_SECRET="seu_app_secret"

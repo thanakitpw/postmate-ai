@@ -5,6 +5,7 @@ risk: unknown
 source: community
 date_added: "2026-02-27"
 ---
+
 # Mobile Design System
 
 **(Mobile-First · Touch-First · Platform-Respectful)**
@@ -99,7 +100,7 @@ If **any of the following are not explicitly stated**, you MUST ask before proce
 
 ### 🚫 Performance Sins (Non-Negotiable)
 
-| ❌ Never                   | Why                  | ✅ Always                                |
+| ❌ Never                  | Why                  | ✅ Always                               |
 | ------------------------- | -------------------- | --------------------------------------- |
 | ScrollView for long lists | Memory explosion     | FlatList / FlashList / ListView.builder |
 | Inline renderItem         | Re-renders all rows  | useCallback + memo                      |
@@ -112,7 +113,7 @@ If **any of the following are not explicitly stated**, you MUST ask before proce
 
 ### 🚫 Touch & UX Sins
 
-| ❌ Never               | Why                  | ✅ Always          |
+| ❌ Never              | Why                  | ✅ Always         |
 | --------------------- | -------------------- | ----------------- |
 | Touch <44–48px        | Miss taps            | Min touch target  |
 | Gesture-only action   | Excludes users       | Button fallback   |
@@ -124,7 +125,7 @@ If **any of the following are not explicitly stated**, you MUST ask before proce
 
 ### 🚫 Security Sins
 
-| ❌ Never                | Why                | ✅ Always               |
+| ❌ Never               | Why                | ✅ Always              |
 | ---------------------- | ------------------ | ---------------------- |
 | Tokens in AsyncStorage | Easily stolen      | SecureStore / Keychain |
 | Hardcoded secrets      | Reverse engineered | Env + secure storage   |
@@ -161,15 +162,15 @@ Error semantics                Pickers / dialogs
 
 ### Fitts’ Law (Touch Reality)
 
-* Finger ≠ cursor
-* Accuracy is low
-* Reach matters more than precision
+- Finger ≠ cursor
+- Accuracy is low
+- Reach matters more than precision
 
 **Rules:**
 
-* Primary CTAs live in **thumb zone**
-* Destructive actions pushed away
-* No hover assumptions
+- Primary CTAs live in **thumb zone**
+- Destructive actions pushed away
+- No hover assumptions
 
 ---
 
@@ -212,8 +213,8 @@ class Item extends StatelessWidget {
 }
 ```
 
-* `const` everywhere possible
-* Targeted rebuilds only
+- `const` everywhere possible
+- Targeted rebuilds only
 
 ---
 
@@ -259,23 +260,23 @@ No debate without justification.
 
 ### Before Shipping
 
-* [ ] Touch targets ≥ 44–48px
-* [ ] Offline handled
-* [ ] Secure storage used
-* [ ] Lists optimized
-* [ ] Logs stripped
-* [ ] Tested on low-end devices
-* [ ] Accessibility labels present
-* [ ] MFRI ≥ 3
+- [ ] Touch targets ≥ 44–48px
+- [ ] Offline handled
+- [ ] Secure storage used
+- [ ] Lists optimized
+- [ ] Logs stripped
+- [ ] Tested on low-end devices
+- [ ] Accessibility labels present
+- [ ] MFRI ≥ 3
 
 ---
 
 ## 11. Related Skills
 
-* **frontend-design** – Visual systems & components
-* **frontend-dev-guidelines** – RN/TS architecture
-* **backend-dev-guidelines** – Mobile-safe APIs
-* **error-tracking** – Crash & performance telemetry
+- **frontend-design** – Visual systems & components
+- **frontend-dev-guidelines** – RN/TS architecture
+- **backend-dev-guidelines** – Mobile-safe APIs
+- **error-tracking** – Crash & performance telemetry
 
 ---
 
@@ -286,4 +287,5 @@ No debate without justification.
 ---
 
 ## When to Use
+
 This skill is applicable to execute the workflow or actions described in the overview.

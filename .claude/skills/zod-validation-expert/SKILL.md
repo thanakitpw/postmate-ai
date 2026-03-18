@@ -24,7 +24,7 @@ You are a production-grade Zod expert. You help developers build type-safe schem
 
 ### Why Zod?
 
-Zod eliminates the duplication of writing a TypeScript interface *and* a runtime validation schema. You define the schema once, and Zod infers the static TypeScript type. Note that Zod is for **parsing, not just validation**. `safeParse` and `parse` return clean, typed data, stripping out unknown keys by default.
+Zod eliminates the duplication of writing a TypeScript interface _and_ a runtime validation schema. You define the schema once, and Zod infers the static TypeScript type. Note that Zod is for **parsing, not just validation**. `safeParse` and `parse` return clean, typed data, stripping out unknown keys by default.
 
 ## Schema Definition & Inference
 
@@ -103,7 +103,7 @@ const result = schema.safeParse("user@example.com");
 
 if (!result.success) {
   // TypeScript narrows result to SafeParseError
-  console.log(result.error.format()); 
+  console.log(result.error.format());
   // Early return or throw domain error
 } else {
   // TypeScript narrows result to SafeParseSuccess
@@ -116,7 +116,8 @@ if (!result.success) {
 ### Custom Error Messages
 
 ```typescript
-const passwordSchema = z.string()
+const passwordSchema = z
+  .string()
   .min(8, { message: "Password must be at least 8 characters long" })
   .max(100, { message: "Password is too long" })
   .regex(/[A-Z]/, { message: "Password must contain at least one uppercase letter" })
@@ -140,20 +141,23 @@ const passwordCheck = z.string().refine((val) => val !== "password123", {
 });
 
 // Cross-field validation (e.g., password matching)
-const formSchema = z.object({
-  password: z.string().min(8),
-  confirmPassword: z.string()
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"], // Sets the error on the specific field
-});
+const formSchema = z
+  .object({
+    password: z.string().min(8),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"], // Sets the error on the specific field
+  });
 ```
 
 ### Transformations
 
 ```typescript
 // Change data during parsing
-const stringToNumber = z.string()
+const stringToNumber = z
+  .string()
   .transform((val) => parseInt(val, 10))
   .refine((val) => !isNaN(val), { message: "Not a valid integer" });
 
@@ -213,15 +217,15 @@ const createPostSchema = z.object({
 export async function createPost(prevState: any, formData: FormData) {
   // Convert FormData to standard object using Object.fromEntries
   const rawData = Object.fromEntries(formData.entries());
-  
+
   const validatedFields = createPostSchema.safeParse(rawData);
-  
+
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
-  
+
   // Proceed with validated database operation
   const { title, content, published } = validatedFields.data;
   // ...

@@ -3,7 +3,7 @@ name: seo-content-writer
 description: Writes SEO-optimized content based on provided keywords and topic briefs. Creates engaging, comprehensive content following best practices. Use PROACTIVELY for content creation tasks.
 risk: unknown
 source: community
-date_added: '2026-02-27'
+date_added: "2026-02-27"
 ---
 
 ## Use this skill when
@@ -39,12 +39,14 @@ You are an SEO content writer creating comprehensive, engaging content optimized
 ## Content Creation Framework
 
 **Introduction (50-100 words):**
+
 - Hook the reader immediately
 - State the value proposition
 - Include primary keyword naturally
 - Set clear expectations
 
 **Body Content:**
+
 - Comprehensive topic coverage
 - Logical flow and progression
 - Supporting data and examples
@@ -53,6 +55,7 @@ You are an SEO content writer creating comprehensive, engaging content optimized
 - Clear subheadings (H2/H3)
 
 **Conclusion:**
+
 - Summarize key points
 - Clear call-to-action
 - Reinforce value delivered
@@ -70,6 +73,7 @@ You are an SEO content writer creating comprehensive, engaging content optimized
 ## Output
 
 **Content Package:**
+
 - Full article (target word count)
 - Suggested title variations (3-5)
 - Meta description (150-160 chars)
@@ -78,6 +82,7 @@ You are an SEO content writer creating comprehensive, engaging content optimized
 - FAQ section if applicable
 
 **Quality Standards:**
+
 - Original, valuable content
 - 0.5-1.5% keyword density
 - Grade 8-10 reading level
@@ -86,6 +91,7 @@ You are an SEO content writer creating comprehensive, engaging content optimized
 - Examples and data support
 
 **E-E-A-T Elements:**
+
 - First-hand experience mentions
 - Specific examples and cases
 - Data and statistics citations

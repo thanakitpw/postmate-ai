@@ -9,7 +9,9 @@ This skill provides comprehensive guidance for crafting precise, actionable prom
 ## What's Included
 
 ### SKILL.md
+
 Core prompting principles and techniques:
+
 - Specificity and detail requirements
 - Visual style definition
 - Multi-screen flow structuring
@@ -23,7 +25,9 @@ Core prompting principles and techniques:
 ### References
 
 #### prompt-examples.md
+
 Comprehensive library of effective Stitch prompts organized by category:
+
 - Landing pages
 - Mobile apps
 - Dashboards
@@ -35,7 +39,9 @@ Comprehensive library of effective Stitch prompts organized by category:
 Each example includes detailed component breakdowns, style specifications, and platform requirements.
 
 #### advanced-techniques.md
+
 Advanced strategies for production-ready designs:
+
 - Image-to-UI workflows
 - Design system integration
 - Responsive design strategies
@@ -48,6 +54,7 @@ Advanced strategies for production-ready designs:
 ## When to Use This Skill
 
 Use this skill when:
+
 - Creating UI designs in Google Stitch
 - Generating mobile or web app interfaces
 - Crafting effective Stitch prompts
@@ -108,6 +115,7 @@ Platform: Responsive web (desktop-first)
 ## Best Practices
 
 ### Do's ✅
+
 - Provide specific component details
 - Define clear visual direction
 - Specify responsive behavior
@@ -118,6 +126,7 @@ Platform: Responsive web (desktop-first)
 - Consider accessibility from the start
 
 ### Don'ts ❌
+
 - Use vague descriptions ("nice website")
 - Omit visual style guidance
 - Forget platform specifications
@@ -128,12 +137,14 @@ Platform: Responsive web (desktop-first)
 ## Integration with Development
 
 ### Stitch → Figma → Code
+
 1. Generate UI in Stitch with detailed prompts
 2. Export to Figma for design system integration
 3. Hand off to developers with design specs
 4. Implement with production-ready code
 
 ### Stitch → HTML → Framework
+
 1. Generate and refine UI in Stitch
 2. Export HTML/CSS code
 3. Convert to React/Vue/Svelte components

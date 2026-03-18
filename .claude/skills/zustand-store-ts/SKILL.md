@@ -13,14 +13,15 @@ Create Zustand stores following established patterns with proper TypeScript type
 ## Quick Start
 
 Copy the template from assets/template.ts and replace placeholders:
+
 - `{{StoreName}}` → PascalCase store name (e.g., `Project`)
 - `{{description}}` → Brief description for JSDoc
 
 ## Always Use subscribeWithSelector
 
 ```typescript
-import { create } from 'zustand';
-import { subscribeWithSelector } from 'zustand/middleware';
+import { create } from "zustand";
+import { subscribeWithSelector } from "zustand/middleware";
 
 export const useMyStore = create<MyStore>()(
   subscribeWithSelector((set, get) => ({
@@ -60,7 +61,7 @@ const { items, isLoading } = useMyStore();
 ```typescript
 useMyStore.subscribe(
   (state) => state.selectedId,
-  (selectedId) => console.log('Selected:', selectedId)
+  (selectedId) => console.log("Selected:", selectedId)
 );
 ```
 
@@ -71,4 +72,5 @@ useMyStore.subscribe(
 3. Add tests in `src/frontend/src/store/*.test.ts`
 
 ## When to Use
+
 This skill is applicable to execute the workflow or actions described in the overview.

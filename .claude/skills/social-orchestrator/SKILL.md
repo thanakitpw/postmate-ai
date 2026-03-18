@@ -3,19 +3,19 @@ name: social-orchestrator
 description: Orquestrador unificado de canais sociais — coordena Instagram, Telegram e WhatsApp em um unico fluxo de trabalho. Publicacao cross-channel, metricas unificadas, reutilizacao de conteudo por...
 risk: critical
 source: community
-date_added: '2026-03-06'
+date_added: "2026-03-06"
 author: renat
 tags:
-- social-media
-- cross-channel
-- scheduling
-- campaigns
+  - social-media
+  - cross-channel
+  - scheduling
+  - campaigns
 tools:
-- claude-code
-- antigravity
-- cursor
-- gemini-cli
-- codex-cli
+  - claude-code
+  - antigravity
+  - cursor
+  - gemini-cli
+  - codex-cli
 ---
 
 # SOCIAL-ORCHESTRATOR: Canais Unificados
@@ -64,17 +64,18 @@ tags   keyboard
 
 ## 2. Skills Integradas
 
-| Canal | Skill Base | O que usa |
-|-------|-----------|-----------|
-| Instagram | `instagram` | Publicacao de fotos, videos, reels, stories, metricas |
-| Telegram | `telegram` | Mensagens, canais, inline keyboards, grupos |
-| WhatsApp | `whatsapp-cloud-api` | Templates aprovados, mensagens, links |
+| Canal     | Skill Base           | O que usa                                             |
+| --------- | -------------------- | ----------------------------------------------------- |
+| Instagram | `instagram`          | Publicacao de fotos, videos, reels, stories, metricas |
+| Telegram  | `telegram`           | Mensagens, canais, inline keyboards, grupos           |
+| WhatsApp  | `whatsapp-cloud-api` | Templates aprovados, mensagens, links                 |
 
 ---
 
 ## /Publish_All — Publicar Em Todos Os Canais
 
 **Fluxo:**
+
 1. Receber: conteudo, midia (opcional), objetivo
 2. Adaptar para cada canal automaticamente
 3. Executar em sequencia (Instagram primeiro — mais restritivo)
@@ -82,6 +83,7 @@ tags   keyboard
 5. Reportar metricas iniciais
 
 **Adaptacoes por canal:**
+
 ```
 Instagram:
 - Imagem/video otimizado (1:1 ou 4:5)
@@ -105,6 +107,7 @@ WhatsApp Business:
 ## /Campaign — Campanha Multi-Canal
 
 **Fluxo de Campanha:**
+
 ```
 1. Definir objetivo (alcance/engajamento/vendas/educacao)
 2. Definir canais (Instagram + Telegram + WhatsApp)
@@ -144,6 +147,7 @@ CONSOLIDADO:
 ## /Content_Plan — Plano De Conteudo Multi-Canal
 
 Gera plano semanal/mensal com:
+
 - Calendario editorial por canal
 - Formato recomendado por dia
 - Tema/narrativa consistente
@@ -153,34 +157,34 @@ Gera plano semanal/mensal com:
 
 ## Instagram
 
-| Tipo | Dimensao | Duracao | Ideal Para |
-|------|----------|---------|------------|
-| Feed Foto | 1080x1080 ou 1080x1350 | — | Produto, retrato |
-| Feed Video | 1080x1080 ou 4:5 | < 60s | Demos, bastidores |
-| Reels | 1080x1920 | 15-90s | Viralizacao |
-| Stories | 1080x1920 | 15s | Engajamento, CTA |
-| Carrossel | 10 slides | — | Tutorial, lista |
+| Tipo       | Dimensao               | Duracao | Ideal Para        |
+| ---------- | ---------------------- | ------- | ----------------- |
+| Feed Foto  | 1080x1080 ou 1080x1350 | —       | Produto, retrato  |
+| Feed Video | 1080x1080 ou 4:5       | < 60s   | Demos, bastidores |
+| Reels      | 1080x1920              | 15-90s  | Viralizacao       |
+| Stories    | 1080x1920              | 15s     | Engajamento, CTA  |
+| Carrossel  | 10 slides              | —       | Tutorial, lista   |
 
 ## Telegram
 
-| Tipo | Limite | Ideal Para |
-|------|--------|-----------|
-| Mensagem texto | 4.096 chars | Updates longos |
-| Foto + caption | 1.024 chars | Anuncios visuais |
-| Video | 2GB | Demos, tutoriais |
-| Documento | 2GB | PDFs, arquivos |
-| Poll | 10 opcoes | Pesquisa rapida |
-| Inline keyboard | 8 botoes | CTA multiplo |
+| Tipo            | Limite      | Ideal Para       |
+| --------------- | ----------- | ---------------- |
+| Mensagem texto  | 4.096 chars | Updates longos   |
+| Foto + caption  | 1.024 chars | Anuncios visuais |
+| Video           | 2GB         | Demos, tutoriais |
+| Documento       | 2GB         | PDFs, arquivos   |
+| Poll            | 10 opcoes   | Pesquisa rapida  |
+| Inline keyboard | 8 botoes    | CTA multiplo     |
 
 ## Whatsapp Business
 
-| Tipo | Regra | Ideal Para |
-|------|-------|-----------|
-| Template | Pre-aprovado Meta | Proativo |
-| Texto livre | So para contatos ja engajados | Resposta |
-| Media | Imagem/video/doc | Catalogo |
-| Lista | Max 10 itens | Menu opcoes |
-| Botoes | Max 3 | CTA direto |
+| Tipo        | Regra                         | Ideal Para  |
+| ----------- | ----------------------------- | ----------- |
+| Template    | Pre-aprovado Meta             | Proativo    |
+| Texto livre | So para contatos ja engajados | Resposta    |
+| Media       | Imagem/video/doc              | Catalogo    |
+| Lista       | Max 10 itens                  | Menu opcoes |
+| Botoes      | Max 3                         | CTA direto  |
 
 ---
 
@@ -218,11 +222,11 @@ Responda para saber mais 😊"
 
 ## 6. Horarios Otimizados
 
-| Canal | Horarios de Pico | Dias Melhores |
-|-------|-----------------|---------------|
-| Instagram | 11h, 14h, 20h | Ter, Qua, Sex |
-| Telegram | 9h, 13h, 18h | Seg-Sex |
-| WhatsApp | 8h, 12h, 19h | Seg, Ter, Qui |
+| Canal     | Horarios de Pico | Dias Melhores |
+| --------- | ---------------- | ------------- |
+| Instagram | 11h, 14h, 20h    | Ter, Qua, Sex |
+| Telegram  | 9h, 13h, 18h     | Seg-Sex       |
+| WhatsApp  | 8h, 12h, 19h     | Seg, Ter, Qui |
 
 ---
 
@@ -269,16 +273,16 @@ Estrategia: Publish-or-Skip (nao cancela toda campanha)
 
 ## 9. Integracao Com Ecossistema
 
-| Skill | Quando usar |
-|-------|------------|
-| `ai-studio-image` | Gerar imagem humanizada para Instagram |
-| `stability-ai` | Gerar arte/ilustracao para posts |
-| `image-studio` | Routing inteligente entre geradores de imagem |
-| `instagram` | Execucao de publicacao Instagram |
-| `telegram` | Execucao de mensagem Telegram |
-| `whatsapp-cloud-api` | Execucao de mensagem WhatsApp |
-| `context-agent` | Salvar plano de conteudo entre sessoes |
-| `task-intelligence` | Briefing antes de campanha complexa |
+| Skill                | Quando usar                                   |
+| -------------------- | --------------------------------------------- |
+| `ai-studio-image`    | Gerar imagem humanizada para Instagram        |
+| `stability-ai`       | Gerar arte/ilustracao para posts              |
+| `image-studio`       | Routing inteligente entre geradores de imagem |
+| `instagram`          | Execucao de publicacao Instagram              |
+| `telegram`           | Execucao de mensagem Telegram                 |
+| `whatsapp-cloud-api` | Execucao de mensagem WhatsApp                 |
+| `context-agent`      | Salvar plano de conteudo entre sessoes        |
+| `task-intelligence`  | Briefing antes de campanha complexa           |
 
 ## Best Practices
 

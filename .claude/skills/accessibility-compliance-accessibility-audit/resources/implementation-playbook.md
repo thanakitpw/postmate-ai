@@ -165,8 +165,7 @@ class KeyboardNavigationTester {
 
     // Get all focusable elements
     const focusable = await page.evaluate(() => {
-      const selector =
-        'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+      const selector = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
       return Array.from(document.querySelectorAll(selector)).map((el) => ({
         tagName: el.tagName.toLowerCase(),
         text: el.innerText || el.value || el.placeholder || "",
@@ -236,9 +235,7 @@ class ScreenReaderTester {
 
   async testHeadingStructure(page) {
     const headings = await page.evaluate(() => {
-      return Array.from(
-        document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
-      ).map((h) => ({
+      return Array.from(document.querySelectorAll("h1, h2, h3, h4, h5, h6")).map((h) => ({
         level: parseInt(h.tagName[1]),
         text: h.textContent.trim(),
         isEmpty: !h.textContent.trim(),
@@ -365,19 +362,16 @@ const ariaPatterns = {
 ```javascript
 // Fix missing alt text
 document.querySelectorAll("img:not([alt])").forEach((img) => {
-  const isDecorative =
-    img.role === "presentation" || img.closest('[role="presentation"]');
+  const isDecorative = img.role === "presentation" || img.closest('[role="presentation"]');
   img.setAttribute("alt", isDecorative ? "" : img.title || "Image");
 });
 
 // Fix missing labels
-document
-  .querySelectorAll("input:not([aria-label]):not([id])")
-  .forEach((input) => {
-    if (input.placeholder) {
-      input.setAttribute("aria-label", input.placeholder);
-    }
-  });
+document.querySelectorAll("input:not([aria-label]):not([id])").forEach((input) => {
+  if (input.placeholder) {
+    input.setAttribute("aria-label", input.placeholder);
+  }
+});
 
 // React accessible components
 const AccessibleButton = ({ children, onClick, ariaLabel, ...props }) => (
@@ -387,12 +381,7 @@ const AccessibleButton = ({ children, onClick, ariaLabel, ...props }) => (
 );
 
 const LiveRegion = ({ message, politeness = "polite" }) => (
-  <div
-    role="status"
-    aria-live={politeness}
-    aria-atomic="true"
-    className="sr-only"
-  >
+  <div role="status" aria-live={politeness} aria-atomic="true" className="sr-only">
     {message}
   </div>
 );
@@ -482,7 +471,7 @@ class AccessibilityReportGenerator {
             <p>${v.description}</p>
             <a href="${v.helpUrl}">Learn more</a>
         </div>
-    `,
+    `
       )
       .join("")}
 </body>
