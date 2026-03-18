@@ -1,13 +1,14 @@
 # Product Requirements Document (PRD)
+
 # PostMate AI
 
-| | |
-|---|---|
-| **Version** | 1.0 |
-| **Status** | Draft |
-| **Owner** | Best Solutions Corp |
-| **Product** | PostMate AI |
-| **Updated** | มีนาคม 2026 |
+|             |                     |
+| ----------- | ------------------- |
+| **Version** | 1.0                 |
+| **Status**  | Draft               |
+| **Owner**   | Best Solutions Corp |
+| **Product** | PostMate AI         |
+| **Updated** | มีนาคม 2026         |
 
 ---
 
@@ -51,20 +52,20 @@
 
 ### Business Goals
 
-| Goal | Metric | Target (Phase 1) |
-|---|---|---|
-| ลด manual work ของ agency | เวลาต่อ client/สัปดาห์ | ลดจาก 5h → 1h |
-| เพิ่ม posting consistency | % โพสต์ที่ตรงเวลา | > 95% |
-| รองรับ multi-client | จำนวน active projects | 10–20 projects |
-| ใช้ AI ช่วย content | % โพสต์ที่ใช้ AI generate | > 60% |
+| Goal                      | Metric                    | Target (Phase 1) |
+| ------------------------- | ------------------------- | ---------------- |
+| ลด manual work ของ agency | เวลาต่อ client/สัปดาห์    | ลดจาก 5h → 1h    |
+| เพิ่ม posting consistency | % โพสต์ที่ตรงเวลา         | > 95%            |
+| รองรับ multi-client       | จำนวน active projects     | 10–20 projects   |
+| ใช้ AI ช่วย content       | % โพสต์ที่ใช้ AI generate | > 60%            |
 
 ### Phase Goals
 
-| Phase | Goal |
-|---|---|
-| Phase 1 (0–3 เดือน) | ใช้ภายใน Best Solutions ได้จริง รับลูกค้า 3–5 ราย |
-| Phase 2 (3–6 เดือน) | ขาย SaaS ให้เอเจนซี่อื่น / SME มี MRR > 0 |
-| Phase 3 (6–12 เดือน) | White-label, marketplace, MRR > 50,000 บาท |
+| Phase                | Goal                                              |
+| -------------------- | ------------------------------------------------- |
+| Phase 1 (0–3 เดือน)  | ใช้ภายใน Best Solutions ได้จริง รับลูกค้า 3–5 ราย |
+| Phase 2 (3–6 เดือน)  | ขาย SaaS ให้เอเจนซี่อื่น / SME มี MRR > 0         |
+| Phase 3 (6–12 เดือน) | White-label, marketplace, MRR > 50,000 บาท        |
 
 ---
 
@@ -125,6 +126,7 @@ Client: คลินิกความงาม XYZ
 ระบบ login สำหรับ agency owner และทีมงาน ใช้ Supabase Auth
 
 **Login Flow:**
+
 ```
 เปิด app → หน้า Login (email + password)
     ↓ สำเร็จ
@@ -133,13 +135,14 @@ Home Dashboard (เห็นเฉพาะ client/project ของตัวเ
 
 **Roles:**
 
-| Role | สิทธิ์ |
-|---|---|
-| Owner | เข้าถึงทุกอย่าง, จัดการ user, billing |
-| Editor | สร้าง/แก้ไข/ลบ post, จัดการ project |
-| Viewer | ดูอย่างเดียว ไม่สามารถแก้ไขได้ |
+| Role   | สิทธิ์                                |
+| ------ | ------------------------------------- |
+| Owner  | เข้าถึงทุกอย่าง, จัดการ user, billing |
+| Editor | สร้าง/แก้ไข/ลบ post, จัดการ project   |
+| Viewer | ดูอย่างเดียว ไม่สามารถแก้ไขได้        |
 
 **Features:**
+
 - Login ด้วย email + password
 - Forgot password / reset password ผ่าน email
 - Session คงอยู่จนกว่าจะ logout
@@ -162,17 +165,17 @@ Home Dashboard (เห็นเฉพาะ client/project ของตัวเ
 
 ### 5.4 Brand Profile (ต่อ Project)
 
-| Field | Type | รายละเอียด |
-|---|---|---|
-| project_name | text | เช่น "ABC สาขาสยาม — Facebook" |
-| platform | enum | facebook / instagram / tiktok |
-| page_name | text | ชื่อเพจจริง |
-| business_type | text | ร้านอาหาร / คลินิก / โรงแรม / ฯลฯ |
-| target_audience | text | เช่น "วัยทำงาน 25–35 ปี กรุงเทพฯ" |
-| tone | enum | Professional / Friendly / Humorous / Inspirational / Urgent |
-| brand_voice_notes | text | freetext อธิบาย brand เพิ่มเติม |
-| language | enum | TH / EN / Both |
-| website_url | text | URL เว็บไซต์ของลูกค้า (สำหรับแชร์บทความ) |
+| Field             | Type | รายละเอียด                                                  |
+| ----------------- | ---- | ----------------------------------------------------------- |
+| project_name      | text | เช่น "ABC สาขาสยาม — Facebook"                              |
+| platform          | enum | facebook / instagram / tiktok                               |
+| page_name         | text | ชื่อเพจจริง                                                 |
+| business_type     | text | ร้านอาหาร / คลินิก / โรงแรม / ฯลฯ                           |
+| target_audience   | text | เช่น "วัยทำงาน 25–35 ปี กรุงเทพฯ"                           |
+| tone              | enum | Professional / Friendly / Humorous / Inspirational / Urgent |
+| brand_voice_notes | text | freetext อธิบาย brand เพิ่มเติม                             |
+| language          | enum | TH / EN / Both                                              |
+| website_url       | text | URL เว็บไซต์ของลูกค้า (สำหรับแชร์บทความ)                    |
 
 ---
 
@@ -195,14 +198,14 @@ Home Dashboard (เห็นเฉพาะ client/project ของตัวเ
 
 ผู้ใช้กำหนดค่าต่อไปนี้ก่อน generate แผนรายเดือน:
 
-| Setting | รายละเอียด | ตัวอย่าง |
-|---|---|---|
-| เดือนที่ต้องการวางแผน | เลือกเดือน + ปี | เมษายน 2026 |
-| วันที่จะโพสต์ต่อสัปดาห์ | checkbox เลือกวัน (จ–อา) | จันทร์, พุธ, ศุกร์, เสาร์ |
-| จำนวนโพสต์ต่อวัน (default) | ตัวเลข | 1 โพสต์/วัน |
-| Override จำนวนโพสต์บางวัน | ระบุเฉพาะวัน | เสาร์ = 2 โพสต์ |
-| ประเภทโพสต์ต่อ slot | เลือก content type | โพสต์ปกติ / แชร์บทความ / โปรโมชั่น |
-| Theme ของเดือน | brief ภาพรวมเดือน | "เดือนสงกรานต์ เน้นความสนุก" |
+| Setting                    | รายละเอียด               | ตัวอย่าง                           |
+| -------------------------- | ------------------------ | ---------------------------------- |
+| เดือนที่ต้องการวางแผน      | เลือกเดือน + ปี          | เมษายน 2026                        |
+| วันที่จะโพสต์ต่อสัปดาห์    | checkbox เลือกวัน (จ–อา) | จันทร์, พุธ, ศุกร์, เสาร์          |
+| จำนวนโพสต์ต่อวัน (default) | ตัวเลข                   | 1 โพสต์/วัน                        |
+| Override จำนวนโพสต์บางวัน  | ระบุเฉพาะวัน             | เสาร์ = 2 โพสต์                    |
+| ประเภทโพสต์ต่อ slot        | เลือก content type       | โพสต์ปกติ / แชร์บทความ / โปรโมชั่น |
+| Theme ของเดือน             | brief ภาพรวมเดือน        | "เดือนสงกรานต์ เน้นความสนุก"       |
 
 #### ตัวอย่าง Schedule Config
 
@@ -254,13 +257,13 @@ Home Dashboard (เห็นเฉพาะ client/project ของตัวเ
 
 #### Content Types ต่อ Slot
 
-| Type | ความหมาย | รายละเอียดเพิ่มเติม |
-|---|---|---|
-| `regular_post` | โพสต์รูป + caption ปกติ | - |
+| Type            | ความหมาย                    | รายละเอียดเพิ่มเติม                 |
+| --------------- | --------------------------- | ----------------------------------- |
+| `regular_post`  | โพสต์รูป + caption ปกติ     | -                                   |
 | `article_share` | แชร์บทความจากเว็บไซต์ลูกค้า | ต้องมี website_url ใน Brand Profile |
-| `promotion` | โพสต์โปรโมชั่น/ส่วนลด | ใส่ details โปรโมชั่น |
-| `engagement` | โพสต์กระตุ้น interaction | คำถาม, poll, quiz |
-| `repost` | repost content เก่าที่ดี | เลือกจาก published posts |
+| `promotion`     | โพสต์โปรโมชั่น/ส่วนลด       | ใส่ details โปรโมชั่น               |
+| `engagement`    | โพสต์กระตุ้น interaction    | คำถาม, poll, quiz                   |
+| `repost`        | repost content เก่าที่ดี    | เลือกจาก published posts            |
 
 ---
 
@@ -291,19 +294,19 @@ Home Dashboard (เห็นเฉพาะ client/project ของตัวเ
 
 ### 5.8 Tagging & Filtering
 
-| Tag | สี | ความหมาย |
-|---|---|---|
-| Promotion | ส้ม `#F97316` | โพสต์ส่งเสริมการขาย |
-| Education | เขียว `#10B981` | ให้ความรู้ / How-to |
-| Engagement | ม่วง `#8B5CF6` | กระตุ้น interaction |
-| Branding | เหลือง `#F59E0B` | สร้าง brand awareness |
-| Seasonal | แดง `#EF4444` | เทศกาล / วันสำคัญ |
+| Tag         | สี                  | ความหมาย                  |
+| ----------- | ------------------- | ------------------------- |
+| Promotion   | ส้ม `#F97316`       | โพสต์ส่งเสริมการขาย       |
+| Education   | เขียว `#10B981`     | ให้ความรู้ / How-to       |
+| Engagement  | ม่วง `#8B5CF6`      | กระตุ้น interaction       |
+| Branding    | เหลือง `#F59E0B`    | สร้าง brand awareness     |
+| Seasonal    | แดง `#EF4444`       | เทศกาล / วันสำคัญ         |
 | Testimonial | เขียวเข้ม `#059669` | รีวิว / ความคิดเห็นลูกค้า |
 
 **Filter ใน Post List:**
+
 - Platform, Tag, Status, Content Type, Date range
 - Bulk action: เปลี่ยน status, ลบ
-
 
 ### 5.8.5 Image & Media Handling
 
@@ -334,11 +337,11 @@ Home Dashboard (เห็นเฉพาะ client/project ของตัวเ
 
 **Image Ratio แนะนำตาม Platform:**
 
-| Platform | Post | Story/Reel |
-|---|---|---|
-| Facebook | 1:1 หรือ 16:9 | 9:16 |
-| Instagram Feed | 1:1 หรือ 4:5 | 9:16 |
-| TikTok | 9:16 | 9:16 |
+| Platform       | Post          | Story/Reel |
+| -------------- | ------------- | ---------- |
+| Facebook       | 1:1 หรือ 16:9 | 9:16       |
+| Instagram Feed | 1:1 หรือ 4:5  | 9:16       |
+| TikTok         | 9:16          | 9:16       |
 
 #### Phase 2 — AI Image Generation API (อนาคต)
 
@@ -376,11 +379,11 @@ Home Dashboard (เห็นเฉพาะ client/project ของตัวเ
 
 ## 6. Platform Support
 
-| Platform | MVP Method | Phase 3 Method | ข้อจำกัด |
-|---|---|---|---|
-| 📘 Facebook Page | Playwright + Session Cookies | Meta Graph API | เฉพาะ Business Page |
-| 📷 Instagram | Playwright + Session Cookies | Meta Graph API | ต้องเชื่อมกับ FB Page |
-| 🎵 TikTok | Playwright + Session Cookies | TikTok Content API | Official API รับแค่วิดีโอ |
+| Platform         | MVP Method                   | Phase 3 Method     | ข้อจำกัด                  |
+| ---------------- | ---------------------------- | ------------------ | ------------------------- |
+| 📘 Facebook Page | Playwright + Session Cookies | Meta Graph API     | เฉพาะ Business Page       |
+| 📷 Instagram     | Playwright + Session Cookies | Meta Graph API     | ต้องเชื่อมกับ FB Page     |
+| 🎵 TikTok        | Playwright + Session Cookies | TikTok Content API | Official API รับแค่วิดีโอ |
 
 > **⚠️ Risk Note:** การใช้ Playwright โพสต์ผิด ToS ของแต่ละ platform ความเสี่ยงต่ำเมื่อโพสต์ 1–5 ครั้ง/วัน/account และใช้ session จริงของ user แนะนำยื่น Meta App Review คู่ขนาน
 
@@ -571,19 +574,19 @@ CREATE INDEX idx_monthly_plan_proj  ON monthly_plan_configs(project_id, plan_mon
 
 ## 9. Tech Stack
 
-| Layer | Technology | เหตุผล |
-|---|---|---|
-| Frontend | Next.js 14 App Router + TypeScript + Tailwind | Stack หลักของ Best Solutions |
-| Auth | Supabase Auth (built-in) | Email/password, session, RLS ในที่เดียว |
-| Backend / DB | Supabase | DB, Realtime, Storage |
-| AI Engine | Claude API via OpenRouter | Content generation, monthly plan |
-| Auto-Post | Playwright (Node.js) | รัน browser จริง บน VPS |
-| Scheduler | Vercel Cron Job | ฟรี, integrate กับ Next.js ตรง |
-| Media Storage | Supabase Storage | เก็บไฟล์ที่ user upload เอง (Phase 1) |
-| Encryption | Node.js `crypto` AES-256-GCM | Built-in |
-| Hosting Frontend | Vercel | Deploy อัตโนมัติ |
-| Hosting Playwright | VPS ส่วนตัว (มีอยู่แล้ว) | รัน Playwright + Chromium |
-| Email | Brevo | Notification + password reset |
+| Layer              | Technology                                    | เหตุผล                                  |
+| ------------------ | --------------------------------------------- | --------------------------------------- |
+| Frontend           | Next.js 14 App Router + TypeScript + Tailwind | Stack หลักของ Best Solutions            |
+| Auth               | Supabase Auth (built-in)                      | Email/password, session, RLS ในที่เดียว |
+| Backend / DB       | Supabase                                      | DB, Realtime, Storage                   |
+| AI Engine          | Claude API via OpenRouter                     | Content generation, monthly plan        |
+| Auto-Post          | Playwright (Node.js)                          | รัน browser จริง บน VPS                 |
+| Scheduler          | Vercel Cron Job                               | ฟรี, integrate กับ Next.js ตรง          |
+| Media Storage      | Supabase Storage                              | เก็บไฟล์ที่ user upload เอง (Phase 1)   |
+| Encryption         | Node.js `crypto` AES-256-GCM                  | Built-in                                |
+| Hosting Frontend   | Vercel                                        | Deploy อัตโนมัติ                        |
+| Hosting Playwright | VPS ส่วนตัว (มีอยู่แล้ว)                      | รัน Playwright + Chromium               |
+| Email              | Brevo                                         | Notification + password reset           |
 
 ### Folder Structure
 
@@ -653,20 +656,20 @@ CREATE INDEX idx_monthly_plan_proj  ON monthly_plan_configs(project_id, plan_mon
         └── /projects/[id]/settings      (Brand Profile)
 ```
 
-| # | หน้า | Path | รายละเอียด |
-|---|---|---|---|
-| 0 | Login | `/login` | Email + password login |
-| 1 | Home | `/` | Client grid + stats รวม |
-| 2 | New Client | `/clients/new` | Form สร้าง client |
-| 3 | Client Dashboard | `/clients/[id]` | Project grid + stats |
-| 4 | New Project | `/clients/[id]/projects/new` | Platform + Brand Profile |
-| 5 | Calendar | `/projects/[id]` | Month/Week view |
-| 6 | Post Modal | (overlay) | Manual / AI generate |
-| 7 | AI Monthly Plan | `/projects/[id]/monthly-plan` | Config + generate + preview |
-| 8 | Post List | `/projects/[id]/posts` | Table + filter |
-| 9 | Platform Connect | `/projects/[id]/connect` | Login session |
-| 10 | Result Log | `/projects/[id]/logs` | Post results |
-| 11 | Settings | `/projects/[id]/settings` | Brand profile edit |
+| #   | หน้า             | Path                          | รายละเอียด                  |
+| --- | ---------------- | ----------------------------- | --------------------------- |
+| 0   | Login            | `/login`                      | Email + password login      |
+| 1   | Home             | `/`                           | Client grid + stats รวม     |
+| 2   | New Client       | `/clients/new`                | Form สร้าง client           |
+| 3   | Client Dashboard | `/clients/[id]`               | Project grid + stats        |
+| 4   | New Project      | `/clients/[id]/projects/new`  | Platform + Brand Profile    |
+| 5   | Calendar         | `/projects/[id]`              | Month/Week view             |
+| 6   | Post Modal       | (overlay)                     | Manual / AI generate        |
+| 7   | AI Monthly Plan  | `/projects/[id]/monthly-plan` | Config + generate + preview |
+| 8   | Post List        | `/projects/[id]/posts`        | Table + filter              |
+| 9   | Platform Connect | `/projects/[id]/connect`      | Login session               |
+| 10  | Result Log       | `/projects/[id]/logs`         | Post results                |
+| 11  | Settings         | `/projects/[id]/settings`     | Brand profile edit          |
 
 ---
 
@@ -759,11 +762,11 @@ Output ONLY valid JSON array — one object per post slot:
 
 ### Platform Caption Guidelines
 
-| Platform | Caption length | Hashtags | Style |
-|---|---|---|---|
-| Facebook | 100–300 คำ | 3–5 tags | Storytelling, CTA ชัดเจน |
-| Instagram | 50–150 คำ | 10–15 tags | Hook บรรทัดแรก, emoji, line break |
-| TikTok | 50–100 คำ | 5–8 tags | Hook 3 วิแรก, casual, กระชับ |
+| Platform  | Caption length | Hashtags   | Style                             |
+| --------- | -------------- | ---------- | --------------------------------- |
+| Facebook  | 100–300 คำ     | 3–5 tags   | Storytelling, CTA ชัดเจน          |
+| Instagram | 50–150 คำ      | 10–15 tags | Hook บรรทัดแรก, emoji, line break |
+| TikTok    | 50–100 คำ      | 5–8 tags   | Hook 3 วิแรก, casual, กระชับ      |
 
 ---
 
@@ -778,29 +781,29 @@ Output ONLY valid JSON array — one object per post slot:
 
 ### Session Security (Playwright Cookies)
 
-| วิธี | Security | แนะนำ |
-|---|---|---|
-| เก็บ Password | ❌ อันตราย | ❌ ห้ามทำ |
-| Session Cookies (AES-256-GCM) | ✅ | ✅ MVP |
-| Meta Official OAuth | ✅✅ | Phase 3 |
+| วิธี                          | Security   | แนะนำ     |
+| ----------------------------- | ---------- | --------- |
+| เก็บ Password                 | ❌ อันตราย | ❌ ห้ามทำ |
+| Session Cookies (AES-256-GCM) | ✅         | ✅ MVP    |
+| Meta Official OAuth           | ✅✅       | Phase 3   |
 
 ```typescript
 // AES-256-GCM encryption
-import { createCipheriv, createDecipheriv, randomBytes } from 'crypto'
+import { createCipheriv, createDecipheriv, randomBytes } from "crypto";
 
-const ALGORITHM = 'aes-256-gcm'
-const KEY = Buffer.from(process.env.SESSION_ENCRYPTION_KEY!, 'hex') // 32 bytes
+const ALGORITHM = "aes-256-gcm";
+const KEY = Buffer.from(process.env.SESSION_ENCRYPTION_KEY!, "hex"); // 32 bytes
 
 export function encrypt(text: string): string {
-  const iv = randomBytes(16)
-  const cipher = createCipheriv(ALGORITHM, KEY, iv)
-  const encrypted = Buffer.concat([cipher.update(text, 'utf8'), cipher.final()])
-  const authTag = cipher.getAuthTag()
+  const iv = randomBytes(16);
+  const cipher = createCipheriv(ALGORITHM, KEY, iv);
+  const encrypted = Buffer.concat([cipher.update(text, "utf8"), cipher.final()]);
+  const authTag = cipher.getAuthTag();
   return JSON.stringify({
-    iv: iv.toString('hex'),
-    data: encrypted.toString('hex'),
-    tag: authTag.toString('hex')
-  })
+    iv: iv.toString("hex"),
+    data: encrypted.toString("hex"),
+    tag: authTag.toString("hex"),
+  });
 }
 ```
 
@@ -818,12 +821,12 @@ export function encrypt(text: string): string {
 
 ยื่น Meta App Review คู่ขนานตั้งแต่ Phase 1 (ใช้เวลา 2–6 สัปดาห์)
 
-| Permission | ใช้ทำอะไร |
-|---|---|
-| `pages_manage_posts` | โพสต์ไปยัง Facebook Page |
-| `pages_read_engagement` | อ่านข้อมูล engagement |
-| `instagram_basic` | เข้าถึง Instagram Business Account |
-| `instagram_content_publish` | โพสต์รูป/วิดีโอไปยัง Instagram |
+| Permission                  | ใช้ทำอะไร                          |
+| --------------------------- | ---------------------------------- |
+| `pages_manage_posts`        | โพสต์ไปยัง Facebook Page           |
+| `pages_read_engagement`     | อ่านข้อมูล engagement              |
+| `instagram_basic`           | เข้าถึง Instagram Business Account |
+| `instagram_content_publish` | โพสต์รูป/วิดีโอไปยัง Instagram     |
 
 ### App Review Checklist
 
@@ -840,35 +843,35 @@ export function encrypt(text: string): string {
 
 ### Phase 1 — MVP (สัปดาห์ที่ 1–7)
 
-| สัปดาห์ | งาน |
-|---|---|
-| 1 | Supabase setup + Auth, Next.js project, TypeScript types |
-| 2 | Login/logout flow, Client/Project CRUD |
-| 3 | Calendar View (Month + Week) + Post chip |
-| 4 | Post Modal — Manual mode, Media upload |
-| 5 | AI Generate mode (single/series) |
-| 6 | AI Monthly Plan — config UI + generate + preview |
-| 7 | Post List + Filter, Bug fix, Deploy |
+| สัปดาห์ | งาน                                                      |
+| ------- | -------------------------------------------------------- |
+| 1       | Supabase setup + Auth, Next.js project, TypeScript types |
+| 2       | Login/logout flow, Client/Project CRUD                   |
+| 3       | Calendar View (Month + Week) + Post chip                 |
+| 4       | Post Modal — Manual mode, Media upload                   |
+| 5       | AI Generate mode (single/series)                         |
+| 6       | AI Monthly Plan — config UI + generate + preview         |
+| 7       | Post List + Filter, Bug fix, Deploy                      |
 
 ### Phase 2 — Auto-Post Playwright (สัปดาห์ที่ 8–11)
 
-| สัปดาห์ | งาน |
-|---|---|
-| 8 | Playwright service setup บน VPS |
-| 9 | Session login flow, AES-256 encryption |
-| 10 | Executor: Facebook, Instagram, TikTok |
-| 11 | Vercel Cron scheduler, Result logging, Retry |
+| สัปดาห์ | งาน                                          |
+| ------- | -------------------------------------------- |
+| 8       | Playwright service setup บน VPS              |
+| 9       | Session login flow, AES-256 encryption       |
+| 10      | Executor: Facebook, Instagram, TikTok        |
+| 11      | Vercel Cron scheduler, Result logging, Retry |
 
 ### Phase 3 — Production (สัปดาห์ที่ 12–17)
 
-| สัปดาห์ | งาน |
-|---|---|
-| 12 | Role management (Owner/Editor/Viewer), Team invite |
-| 13 | Meta API integration (หลังผ่าน review) |
-| 14 | Analytics dashboard |
-| 15 | Export calendar (PDF/Excel) |
-| 16 | White-label / custom domain |
-| 17 | Billing (Stripe/Omise), Launch |
+| สัปดาห์ | งาน                                                |
+| ------- | -------------------------------------------------- |
+| 12      | Role management (Owner/Editor/Viewer), Team invite |
+| 13      | Meta API integration (หลังผ่าน review)             |
+| 14      | Analytics dashboard                                |
+| 15      | Export calendar (PDF/Excel)                        |
+| 16      | White-label / custom domain                        |
+| 17      | Billing (Stripe/Omise), Launch                     |
 
 ---
 
@@ -1076,17 +1079,17 @@ export function encrypt(text: string): string {
 
 ## 16. Open Questions
 
-| # | หัวข้อ | ตัวเลือก | ผลกระทบ |
-|---|---|---|---|
-| 1 | ราคา SaaS | Per project / Per post / Monthly flat | Revenue model |
-| 2 | Media storage limit | Supabase Storage free 1GB / Cloudinary | Cost + CDN |
-| 9 | AI Image Generation API | DALL-E 3 / Midjourney API / Stable Diffusion | Phase 2 scope |
-| 3 | Analytics | Built-in / Meta Insights API | Phase 3 scope |
-| 4 | TikTok long-term | ต่อใช้ Playwright / ยื่น API | Risk + roadmap |
-| 5 | Offline/schedule miss | โพสต์ช้าหรือข้ามถ้า VPS down | Reliability |
-| 6 | LINE OA | เพิ่มกลับใน Phase 3 หรือไม่ | Scope |
-| 7 | noVNC สำหรับ session login | ใช้ noVNC / screenshot stream / อื่น | UX complexity |
-| 8 | Monthly plan re-generate | generate ใหม่ทับ draft ได้หรือไม่ | UX flow |
+| #   | หัวข้อ                     | ตัวเลือก                                     | ผลกระทบ        |
+| --- | -------------------------- | -------------------------------------------- | -------------- |
+| 1   | ราคา SaaS                  | Per project / Per post / Monthly flat        | Revenue model  |
+| 2   | Media storage limit        | Supabase Storage free 1GB / Cloudinary       | Cost + CDN     |
+| 9   | AI Image Generation API    | DALL-E 3 / Midjourney API / Stable Diffusion | Phase 2 scope  |
+| 3   | Analytics                  | Built-in / Meta Insights API                 | Phase 3 scope  |
+| 4   | TikTok long-term           | ต่อใช้ Playwright / ยื่น API                 | Risk + roadmap |
+| 5   | Offline/schedule miss      | โพสต์ช้าหรือข้ามถ้า VPS down                 | Reliability    |
+| 6   | LINE OA                    | เพิ่มกลับใน Phase 3 หรือไม่                  | Scope          |
+| 7   | noVNC สำหรับ session login | ใช้ noVNC / screenshot stream / อื่น         | UX complexity  |
+| 8   | Monthly plan re-generate   | generate ใหม่ทับ draft ได้หรือไม่            | UX flow        |
 
 ---
 
@@ -1134,15 +1137,15 @@ SESSION_ENCRYPTION_KEY=...  # 32 bytes hex (same กับ Vercel)
 ```typescript
 // Vercel Cron เรียก VPS
 await fetch(`https://vps-domain.com/api/execute`, {
-  method: 'POST',
+  method: "POST",
   headers: {
-    'Authorization': `Bearer ${process.env.VPS_API_SECRET}`,
-    'Content-Type': 'application/json'
+    Authorization: `Bearer ${process.env.VPS_API_SECRET}`,
+    "Content-Type": "application/json",
   },
-  body: JSON.stringify({ post_id: post.id })
-})
+  body: JSON.stringify({ post_id: post.id }),
+});
 ```
 
 ---
 
-*Best Solutions Corp • PostMate AI PRD v1.0 • มีนาคม 2026*
+_Best Solutions Corp • PostMate AI PRD v1.0 • มีนาคม 2026_

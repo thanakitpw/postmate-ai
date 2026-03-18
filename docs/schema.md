@@ -1,4 +1,5 @@
 # PostMate AI — Database Schema
+
 **Database:** Supabase (PostgreSQL)  
 **Updated:** มีนาคม 2026
 
@@ -6,16 +7,16 @@
 
 ## Tables Overview
 
-| Table | หน้าที่ |
-|---|---|
-| `user_profiles` | ข้อมูล user + role |
-| `clients` | ลูกค้าแต่ละเจ้า |
-| `projects` | 1 project = 1 social media page |
-| `project_sessions` | session cookies สำหรับ auto-post |
-| `monthly_plan_configs` | config สำหรับ AI monthly plan |
-| `ai_series` | กลุ่มโพสต์ที่ AI สร้างเป็น series |
-| `posts` | โพสต์ทั้งหมด |
-| `post_results` | ผลการโพสต์จริง |
+| Table                  | หน้าที่                           |
+| ---------------------- | --------------------------------- |
+| `user_profiles`        | ข้อมูล user + role                |
+| `clients`              | ลูกค้าแต่ละเจ้า                   |
+| `projects`             | 1 project = 1 social media page   |
+| `project_sessions`     | session cookies สำหรับ auto-post  |
+| `monthly_plan_configs` | config สำหรับ AI monthly plan     |
+| `ai_series`            | กลุ่มโพสต์ที่ AI สร้างเป็น series |
+| `posts`                | โพสต์ทั้งหมด                      |
+| `post_results`         | ผลการโพสต์จริง                    |
 
 ---
 
@@ -334,20 +335,20 @@ CREATE TRIGGER set_updated_at BEFORE UPDATE ON posts
 
 ## Enums Summary
 
-| Field | Values |
-|---|---|
-| `user_profiles.role` | `owner` `editor` `viewer` |
-| `projects.platform` | `facebook` `instagram` `tiktok` |
-| `projects.tone` | `Professional` `Friendly` `Humorous` `Inspirational` `Urgent` |
-| `projects.language` | `TH` `EN` `Both` |
-| `project_sessions.status` | `active` `expired` `revoked` |
-| `monthly_plan_configs.status` | `draft` `generated` `saved` |
-| `posts.content_type` | `regular_post` `article_share` `promotion` `engagement` `repost` |
-| `posts.status` | `draft` `scheduled` `publishing` `published` `failed` `failed_final` |
-| `posts.created_by` | `manual` `ai` `ai_monthly_plan` |
-| `posts.image_ratio` | `1:1` `4:5` `16:9` `9:16` |
-| `posts.tags[]` | `promotion` `education` `engagement` `branding` `seasonal` `testimonial` |
-| `post_results.status` | `success` `failed` |
+| Field                         | Values                                                                   |
+| ----------------------------- | ------------------------------------------------------------------------ |
+| `user_profiles.role`          | `owner` `editor` `viewer`                                                |
+| `projects.platform`           | `facebook` `instagram` `tiktok`                                          |
+| `projects.tone`               | `Professional` `Friendly` `Humorous` `Inspirational` `Urgent`            |
+| `projects.language`           | `TH` `EN` `Both`                                                         |
+| `project_sessions.status`     | `active` `expired` `revoked`                                             |
+| `monthly_plan_configs.status` | `draft` `generated` `saved`                                              |
+| `posts.content_type`          | `regular_post` `article_share` `promotion` `engagement` `repost`         |
+| `posts.status`                | `draft` `scheduled` `publishing` `published` `failed` `failed_final`     |
+| `posts.created_by`            | `manual` `ai` `ai_monthly_plan`                                          |
+| `posts.image_ratio`           | `1:1` `4:5` `16:9` `9:16`                                                |
+| `posts.tags[]`                | `promotion` `education` `engagement` `branding` `seasonal` `testimonial` |
+| `post_results.status`         | `success` `failed`                                                       |
 
 ---
 
@@ -359,4 +360,4 @@ npx supabase gen types typescript --local > types/database.ts
 
 ---
 
-*PostMate AI • schema.md v1.0 • มีนาคม 2026*
+_PostMate AI • schema.md v1.0 • มีนาคม 2026_

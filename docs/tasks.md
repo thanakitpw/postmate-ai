@@ -1,8 +1,10 @@
 # PostMate AI — Task List
+
 **Version:** 1.0  
 **Updated:** มีนาคม 2026
 
 ## สัญลักษณ์
+
 - `[ ]` ยังไม่เริ่ม
 - `[~]` กำลังทำ
 - `[x]` เสร็จแล้ว
@@ -15,6 +17,7 @@
 ## PHASE 1 — MVP (สัปดาห์ที่ 1–7)
 
 ### 🔐 TASK 1 — Authentication
+
 - [ ] 🔴 1.1 เปิด Supabase Auth (Email provider)
 - [ ] 🔴 1.2 สร้าง table `user_profiles` + RLS + trigger auto-create
 - [ ] 🔴 1.3 หน้า Login `/login` (email + password form)
@@ -26,6 +29,7 @@
 ---
 
 ### 🗄️ TASK 2 — Supabase Setup
+
 - [ ] 🔴 2.1 สร้าง Supabase project
 - [ ] 🔴 2.2 รัน schema ทั้งหมดจาก `docs/schema.md`
 - [ ] 🔴 2.3 ตรวจสอบ RLS ทุก table
@@ -37,6 +41,7 @@
 ---
 
 ### 🏗️ TASK 3 — Next.js Project Setup
+
 - [ ] 🔴 3.1 สร้าง Next.js 14 project (App Router + TypeScript + Tailwind)
 - [ ] 🔴 3.2 ติดตั้ง `@supabase/supabase-js` `@supabase/ssr`
 - [ ] 🔴 3.3 ติดตั้ง `shadcn/ui` + config
@@ -50,6 +55,7 @@
 ---
 
 ### 👥 TASK 4 — Client & Project Management
+
 - [ ] 🔴 4.1 Home page `/` — client grid + empty state
 - [ ] 🔴 4.2 Form สร้าง Client ใหม่ (validate ด้วย zod)
 - [ ] 🔴 4.3 Client Dashboard `/clients/[id]` — project grid + stats
@@ -61,6 +67,7 @@
 ---
 
 ### 📅 TASK 5 — Calendar View
+
 - [ ] 🔴 5.1 Calendar Month View component
 - [ ] 🔴 5.2 Post Chip component (สีตาม tag + content type icon + เวลา)
 - [ ] 🔴 5.3 คลิกวันว่าง → เปิด Post Modal (pre-fill date)
@@ -72,6 +79,7 @@
 ---
 
 ### ✍️ TASK 6 — Post Modal (Manual Mode)
+
 - [ ] 🔴 6.1 Post Modal component (overlay/drawer)
 - [ ] 🔴 6.2 Toggle Manual mode / AI Generate mode
 - [ ] 🔴 6.3 Caption textarea
@@ -89,6 +97,7 @@
 ---
 
 ### 🗓️ TASK 7 — AI Monthly Plan
+
 - [ ] 🔴 7.1 Monthly Plan page `/projects/[id]/monthly-plan`
 - [ ] 🔴 7.2 Month picker (เลือกเดือน + ปี)
 - [ ] 🔴 7.3 Checkbox เลือกวันโพสต์ต่อสัปดาห์ (จ–อา)
@@ -109,6 +118,7 @@
 ---
 
 ### 🤖 TASK 8 — AI Generate Mode (Single / Series)
+
 - [ ] 🔴 8.1 AI Generate panel ใน Post Modal
 - [ ] 🔴 8.2 Topic / Brief input
 - [ ] 🔴 8.3 เลือก Single post หรือ Series (3 / 5 / 7 วัน)
@@ -124,6 +134,7 @@
 ---
 
 ### 📋 TASK 9 — Post List & Filter
+
 - [ ] 🟡 9.1 Post List page `/projects/[id]/posts` (table view)
 - [ ] 🟡 9.2 Filter: tag, status, content type, date range
 - [ ] 🟡 9.3 Search by caption text
@@ -136,6 +147,7 @@
 ## PHASE 2 — Auto-Post Playwright (สัปดาห์ที่ 8–11)
 
 ### 🔗 TASK 10 — Platform Connect (Session)
+
 - [ ] 🔴 10.1 Platform Connect page `/projects/[id]/connect`
 - [ ] 🔴 10.2 แสดง session status ต่อ platform (active / expired / not connected)
 - [ ] 🔴 10.3 ปุ่ม Connect → เรียก VPS เปิด browser ให้ลูกค้า login
@@ -148,6 +160,7 @@
 ---
 
 ### ⚙️ TASK 11 — Playwright Service (VPS)
+
 - [ ] 🔴 11.1 ติดตั้ง Node.js 20 + Playwright + Chromium บน VPS
 - [ ] 🔴 11.2 ติดตั้ง PM2 + Nginx + SSL (Let's Encrypt)
 - [ ] 🔴 11.3 Express API server พร้อม API key auth
@@ -163,6 +176,7 @@
 ---
 
 ### ⏰ TASK 12 — Scheduler (Vercel Cron)
+
 - [ ] 🔴 12.1 Cron route `GET /api/cron/check-schedule`
 - [ ] 🔴 12.2 Query posts ที่ `scheduled_at <= now()` และ `status = 'scheduled'`
 - [ ] 🔴 12.3 อัปเดต status → `publishing` ก่อน trigger (ป้องกัน duplicate)
@@ -174,6 +188,7 @@
 ---
 
 ### 📊 TASK 13 — Post Result Log
+
 - [ ] 🟡 13.1 Log page `/projects/[id]/logs`
 - [ ] 🟡 13.2 แสดง status, error message, retry count, posted_at
 - [ ] 🟡 13.3 ปุ่ม Retry manual
@@ -183,6 +198,7 @@
 ---
 
 ### 🔔 TASK 14 — Notifications
+
 - [ ] 🟡 14.1 Email แจ้งเตือนเมื่อโพสต์สำเร็จ / ล้มเหลว (Brevo)
 - [ ] 🟡 14.2 Email แจ้งเตือน session ใกล้หมดอายุ
 - [ ] 🟢 14.3 In-app notification bell
@@ -192,6 +208,7 @@
 ## PHASE 3 — Production (สัปดาห์ที่ 12–17)
 
 ### 🚀 TASK 15 — Production Ready
+
 - [ ] 15.1 Role management (Owner / Editor / Viewer)
 - [ ] 15.2 Team invite flow (email invite → join workspace)
 - [ ] 15.3 Meta API integration หลังผ่าน App Review
@@ -207,13 +224,13 @@
 
 ## Progress Summary
 
-| Phase | Tasks | Done | Remaining |
-|---|---|---|---|
-| Phase 1 — MVP | 57 | 0 | 57 |
-| Phase 2 — Auto-Post | 28 | 0 | 28 |
-| Phase 3 — Production | 10 | 0 | 10 |
-| **Total** | **95** | **0** | **95** |
+| Phase                | Tasks  | Done  | Remaining |
+| -------------------- | ------ | ----- | --------- |
+| Phase 1 — MVP        | 57     | 0     | 57        |
+| Phase 2 — Auto-Post  | 28     | 0     | 28        |
+| Phase 3 — Production | 10     | 0     | 10        |
+| **Total**            | **95** | **0** | **95**    |
 
 ---
 
-*PostMate AI • tasks.md v1.0 • มีนาคม 2026*
+_PostMate AI • tasks.md v1.0 • มีนาคม 2026_
