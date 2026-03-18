@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+
+# env
+.env
+.env.local
+.env.production
+
+# next.js
+.next/
+out/
+
+# build
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# debug
+npm-debug.log*
+
+# vercel
+.vercel
+
+# supabase
+supabase/.temp/
+
+# playwright
+/tmp/playwright-*
