@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PostMate AI — เพิ่มลูกค้าใหม่</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo"><div class="logo-icon">PM</div><h1>PostMate AI</h1></div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">เมนูหลัก</div>
+        <a href="index.html" class="sidebar-link active">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          หน้าหลัก
+        </a>
+      </div>
+      <div style="margin-top:auto;padding:1rem 0.75rem;border-top:1px solid rgba(255,255,255,0.08)">
+        <a href="login.html" class="sidebar-link" style="color:#f87171">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          ออกจากระบบ
+        </a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="hamburger" onclick="toggleSidebar()">&#9776;</button>
+          <div class="topbar-breadcrumb">
+            <a href="index.html">หน้าหลัก</a> <span>/</span> <span class="current">เพิ่มลูกค้าใหม่</span>
+          </div>
+        </div>
+        <div class="topbar-right"><div class="topbar-avatar">A</div></div>
+      </header>
+
+      <div class="page-content" style="max-width:640px">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">เพิ่มลูกค้าใหม่</h2>
+            <p class="page-subtitle">กรอกข้อมูลลูกค้าเพื่อเริ่มจัดการโปรเจค</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <form onsubmit="event.preventDefault(); showToast('สร้างลูกค้าเรียบร้อย!'); setTimeout(() => window.location.href='client-detail.html', 1000)">
+            <div class="form-group">
+              <label class="form-label">ชื่อบริษัท / ร้านค้า *</label>
+              <input type="text" class="form-input" placeholder="เช่น ร้านอาหาร ABC" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">ชื่อผู้ติดต่อ</label>
+              <input type="text" class="form-input" placeholder="เช่น คุณสมชาย">
+            </div>
+            <div class="form-group">
+              <label class="form-label">อีเมลผู้ติดต่อ</label>
+              <input type="email" class="form-input" placeholder="contact@company.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">เบอร์โทรศัพท์</label>
+              <input type="tel" class="form-input" placeholder="08X-XXX-XXXX">
+            </div>
+            <div style="display:flex;gap:0.75rem;margin-top:1.5rem">
+              <button type="submit" class="btn btn-primary">สร้างลูกค้า</button>
+              <a href="index.html" class="btn btn-secondary">ยกเลิก</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

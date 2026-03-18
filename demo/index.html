@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PostMate AI — Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon">PM</div>
+        <h1>PostMate AI</h1>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">เมนูหลัก</div>
+        <a href="index.html" class="sidebar-link active">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          หน้าหลัก
+        </a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">ลูกค้า</div>
+        <a href="client-detail.html" class="sidebar-link">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          ร้านอาหาร ABC
+        </a>
+        <a href="#" class="sidebar-link">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          คลินิก XYZ
+        </a>
+        <a href="#" class="sidebar-link">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          โรงแรม Sunshine
+        </a>
+      </div>
+      <div style="margin-top:auto;padding:1rem 0.75rem;border-top:1px solid rgba(255,255,255,0.08)">
+        <a href="login.html" class="sidebar-link" style="color:#f87171">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          ออกจากระบบ
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="hamburger" onclick="toggleSidebar()">&#9776;</button>
+          <div class="topbar-breadcrumb">
+            <span class="current">หน้าหลัก</span>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-sm btn-secondary">&#128276;</button>
+          <div class="topbar-avatar" title="Admin">A</div>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <!-- Stats -->
+        <div class="stat-cards">
+          <div class="stat-card">
+            <div class="stat-label">ลูกค้าทั้งหมด</div>
+            <div class="stat-value">4</div>
+            <div class="stat-change up">&#9650; 1 เดือนนี้</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">โปรเจคที่ใช้งาน</div>
+            <div class="stat-value">8</div>
+            <div class="stat-change up">&#9650; 2 เดือนนี้</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">โพสต์ทั้งหมด</div>
+            <div class="stat-value">120</div>
+            <div class="stat-change up">&#9650; 23 เดือนนี้</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">โพสต์สำเร็จ</div>
+            <div class="stat-value" style="color:var(--success)">95%</div>
+            <div class="stat-change up">&#9650; 3% จากเดือนก่อน</div>
+          </div>
+        </div>
+
+        <!-- Client list -->
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">ลูกค้าของฉัน</h2>
+            <p class="page-subtitle">จัดการลูกค้าและโปรเจคทั้งหมด</p>
+          </div>
+          <a href="client-new.html" class="btn btn-primary">+ เพิ่มลูกค้า</a>
+        </div>
+
+        <div class="card-grid">
+          <!-- Client 1 -->
+          <a href="client-detail.html" class="card" style="text-decoration:none;color:inherit">
+            <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:0.75rem">
+              <div>
+                <h3 style="font-size:1.1rem;font-weight:600">ร้านอาหาร ABC</h3>
+                <p style="font-size:0.8rem;color:var(--text-muted)">ผู้ติดต่อ: คุณสมชาย</p>
+              </div>
+              <span class="status status-published">Active</span>
+            </div>
+            <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem">
+              <span class="platform-badge facebook">&#128218; Facebook</span>
+              <span class="platform-badge instagram">&#128247; Instagram</span>
+              <span class="platform-badge tiktok">&#127925; TikTok</span>
+            </div>
+            <div style="display:flex;gap:1.5rem;font-size:0.8rem;color:var(--text-muted)">
+              <span>3 โปรเจค</span>
+              <span>45 โพสต์</span>
+              <span>5 รอโพสต์</span>
+            </div>
+          </a>
+
+          <!-- Client 2 -->
+          <a href="client-detail.html" class="card" style="text-decoration:none;color:inherit">
+            <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:0.75rem">
+              <div>
+                <h3 style="font-size:1.1rem;font-weight:600">คลินิกความงาม XYZ</h3>
+                <p style="font-size:0.8rem;color:var(--text-muted)">ผู้ติดต่อ: คุณวิภา</p>
+              </div>
+              <span class="status status-published">Active</span>
+            </div>
+            <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem">
+              <span class="platform-badge facebook">&#128218; Facebook</span>
+              <span class="platform-badge instagram">&#128247; Instagram</span>
+            </div>
+            <div style="display:flex;gap:1.5rem;font-size:0.8rem;color:var(--text-muted)">
+              <span>2 โปรเจค</span>
+              <span>28 โพสต์</span>
+              <span>3 รอโพสต์</span>
+            </div>
+          </a>
+
+          <!-- Client 3 -->
+          <a href="#" class="card" style="text-decoration:none;color:inherit">
+            <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:0.75rem">
+              <div>
+                <h3 style="font-size:1.1rem;font-weight:600">โรงแรม Sunshine</h3>
+                <p style="font-size:0.8rem;color:var(--text-muted)">ผู้ติดต่อ: คุณพิมพ์</p>
+              </div>
+              <span class="status status-published">Active</span>
+            </div>
+            <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem">
+              <span class="platform-badge facebook">&#128218; Facebook</span>
+              <span class="platform-badge instagram">&#128247; Instagram</span>
+            </div>
+            <div style="display:flex;gap:1.5rem;font-size:0.8rem;color:var(--text-muted)">
+              <span>2 โปรเจค</span>
+              <span>32 โพสต์</span>
+              <span>4 รอโพสต์</span>
+            </div>
+          </a>
+
+          <!-- Client 4 (inactive) -->
+          <a href="#" class="card" style="text-decoration:none;color:inherit;opacity:0.6">
+            <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:0.75rem">
+              <div>
+                <h3 style="font-size:1.1rem;font-weight:600">ฟิตเนส PowerGym</h3>
+                <p style="font-size:0.8rem;color:var(--text-muted)">ผู้ติดต่อ: คุณธนา</p>
+              </div>
+              <span class="status status-draft">Inactive</span>
+            </div>
+            <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem">
+              <span class="platform-badge facebook">&#128218; Facebook</span>
+            </div>
+            <div style="display:flex;gap:1.5rem;font-size:0.8rem;color:var(--text-muted)">
+              <span>1 โปรเจค</span>
+              <span>15 โพสต์</span>
+              <span>0 รอโพสต์</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>
