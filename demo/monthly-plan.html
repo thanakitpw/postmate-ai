@@ -35,7 +35,7 @@
     <main class="main-content">
       <header class="topbar">
         <div class="topbar-left">
-          <button class="hamburger" onclick="toggleSidebar()">&#9776;</button>
+          <button class="hamburger" onclick="toggleSidebar()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
           <div class="topbar-breadcrumb">
             <a href="index.html">หน้าหลัก</a> <span>/</span>
             <a href="client-detail.html">ร้านอาหาร ABC</a> <span>/</span>
@@ -48,7 +48,7 @@
       <div class="page-content">
         <div class="page-header">
           <div>
-            <h2 class="page-title">&#10024; AI แผนรายเดือน</h2>
+            <h2 class="page-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> AI แผนรายเดือน</h2>
             <p class="page-subtitle">วางแผน content ทั้งเดือนอัตโนมัติด้วย AI</p>
           </div>
         </div>
@@ -93,8 +93,8 @@
             <div class="form-group">
               <label class="form-label">Content Type ต่อ Slot</label>
               <div style="font-size:0.8rem;color:var(--text-muted);background:#f8fafc;padding:0.75rem;border-radius:8px">
-                <div style="margin-bottom:0.35rem">ศุกร์ Slot 1: <strong>Branding</strong></div>
-                <div>ศุกร์ Slot 2: <strong>แชร์บทความ</strong></div>
+                <div style="margin-bottom:0.35rem">ศุกร์ Slot 1 <strong>Branding</strong></div>
+                <div>ศุกร์ Slot 2 <strong>แชร์บทความ</strong></div>
               </div>
             </div>
 
@@ -103,7 +103,7 @@
               <textarea class="form-textarea" rows="3" placeholder="เช่น เดือนสงกรานต์ เน้นความสนุก เทศกาลไทย โปรโมชั่นพิเศษ">เดือนสงกรานต์ — เน้นความสนุกสนาน เทศกาลไทย โปรโมชั่นต้อนรับปีใหม่ไทย</textarea>
             </div>
 
-            <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center" onclick="simulateMonthlyPlan(this)">&#10024; Generate แผนรายเดือน</button>
+            <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center" onclick="simulateMonthlyPlan(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Generate แผนรายเดือน</button>
 
             <div style="margin-top:0.75rem;text-align:center;font-size:0.75rem;color:var(--text-muted)">
               ประมาณ 16 โพสต์ &bull; 4 สัปดาห์ &bull; ใช้ Claude AI
@@ -117,7 +117,7 @@
             </div>
             <div id="planPreview">
               <div class="empty-state">
-                <div class="icon">&#128197;</div>
+                <div class="icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
                 <p>ตั้งค่าและกด "Generate แผนรายเดือน" เพื่อให้ AI สร้างแผน content ทั้งเดือน</p>
                 <p style="font-size:0.8rem;margin-top:0.5rem;color:var(--text-muted)">AI จะวิเคราะห์ Brand Profile + Theme แล้วสร้าง topic, caption, hashtag, และ image prompt ให้ทุก slot</p>
               </div>

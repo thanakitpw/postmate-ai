@@ -56,7 +56,7 @@ function showToast(message, type = 'success') {
     toast.className = 'toast';
     document.body.appendChild(toast);
   }
-  const icon = type === 'success' ? '&#10003;' : type === 'error' ? '&#10007;' : '&#9432;';
+  const icon = type === 'success' ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg>' : type === 'error' ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
   toast.innerHTML = `<span>${icon}</span> ${message}`;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 3000);
@@ -84,17 +84,17 @@ const MOCK_POSTS = [
   { id: '1', title: 'โปรโมชั่นสงกรานต์ ลด 30%', tag: 'promotion', status: 'published', type: 'promotion', date: '2026-03-15', time: '10:00', content: 'สงกรานต์นี้ ร้านอาหาร ABC จัดโปรสุดพิเศษ ลดทันที 30% ทุกเมนู! ตั้งแต่วันที่ 13-15 เมษายน 2569', hashtags: ['#สงกรานต์', '#ลด30', '#ABCrestaurant'] },
   { id: '2', title: '5 เมนูอาหารไทยยอดฮิต', tag: 'education', status: 'scheduled', type: 'regular_post', date: '2026-03-17', time: '12:00', content: 'มาทำความรู้จักกับ 5 เมนูอาหารไทยที่คนทั่วโลกหลงรัก 1. ต้มยำกุ้ง 2. ผัดไทย 3. แกงเขียวหวาน 4. ส้มตำ 5. มัสมั่น', hashtags: ['#อาหารไทย', '#ThaiFood', '#FoodLovers'] },
   { id: '3', title: 'คุณชอบเมนูไหนมากที่สุด?', tag: 'engagement', status: 'draft', type: 'engagement', date: '2026-03-18', time: '18:00', content: 'วันนี้มาโหวตกัน! คุณชอบเมนูไหนมากที่สุด? A. ต้มยำกุ้ง B. ผัดไทย C. แกงเขียวหวาน D. ส้มตำ', hashtags: ['#โหวต', '#อาหารไทย'] },
-  { id: '4', title: 'แชร์บทความ: เทรนด์อาหาร 2026', tag: 'education', status: 'scheduled', type: 'article_share', date: '2026-03-19', time: '09:00', content: 'เทรนด์อาหารปี 2026 ที่ร้านอาหารต้องรู้! อ่านบทความเต็มที่เว็บไซต์ของเรา', hashtags: ['#FoodTrend2026', '#RestaurantBusiness'] },
-  { id: '5', title: 'รีวิวจากลูกค้า: คุณแอน', tag: 'testimonial', status: 'published', type: 'regular_post', date: '2026-03-14', time: '15:00', content: '"อาหารอร่อยมาก บรรยากาศดี พนักงานบริการเยี่ยม จะมาอีกแน่นอนค่ะ" — คุณแอน ลูกค้าประจำ', hashtags: ['#รีวิว', '#ABCrestaurant', '#Testimonial'] },
+  { id: '4', title: 'แชร์บทความ เทรนด์อาหาร 2026', tag: 'education', status: 'scheduled', type: 'article_share', date: '2026-03-19', time: '09:00', content: 'เทรนด์อาหารปี 2026 ที่ร้านอาหารต้องรู้! อ่านบทความเต็มที่เว็บไซต์ของเรา', hashtags: ['#FoodTrend2026', '#RestaurantBusiness'] },
+  { id: '5', title: 'รีวิวจากลูกค้า คุณแอน', tag: 'testimonial', status: 'published', type: 'regular_post', date: '2026-03-14', time: '15:00', content: '"อาหารอร่อยมาก บรรยากาศดี พนักงานบริการเยี่ยม จะมาอีกแน่นอนค่ะ" — คุณแอน ลูกค้าประจำ', hashtags: ['#รีวิว', '#ABCrestaurant', '#Testimonial'] },
   { id: '6', title: 'วันสงกรานต์ร่วมสืบสานประเพณี', tag: 'seasonal', status: 'scheduled', type: 'regular_post', date: '2026-03-20', time: '08:00', content: 'สุขสันต์วันสงกรานต์ค่ะ ร้าน ABC ขอร่วมสืบสานประเพณีไทย', hashtags: ['#สงกรานต์', '#ประเพณีไทย'] },
-  { id: '7', title: 'Brand Story: ทำไมเราถึงเลือกใช้วัตถุดิบท้องถิ่น', tag: 'branding', status: 'draft', type: 'regular_post', date: '2026-03-21', time: '11:00', content: 'ที่ร้าน ABC เราเชื่อว่าวัตถุดิบที่ดีคือจุดเริ่มต้นของอาหารที่ดี เราเลือกใช้วัตถุดิบท้องถิ่นจากเกษตรกรไทย', hashtags: ['#BrandStory', '#LocalIngredients', '#ABCrestaurant'] },
-  { id: '8', title: 'ผลโพสต์ล้มเหลว: Connection timeout', tag: 'promotion', status: 'failed', type: 'promotion', date: '2026-03-16', time: '14:00', content: 'โปรโมชั่นพิเศษ ซื้อ 1 แถม 1', hashtags: ['#โปรโมชั่น'] },
+  { id: '7', title: 'Brand Story ทำไมเราถึงเลือกใช้วัตถุดิบท้องถิ่น', tag: 'branding', status: 'draft', type: 'regular_post', date: '2026-03-21', time: '11:00', content: 'ที่ร้าน ABC เราเชื่อว่าวัตถุดิบที่ดีคือจุดเริ่มต้นของอาหารที่ดี เราเลือกใช้วัตถุดิบท้องถิ่นจากเกษตรกรไทย', hashtags: ['#BrandStory', '#LocalIngredients', '#ABCrestaurant'] },
+  { id: '8', title: 'ผลโพสต์ล้มเหลว Connection timeout', tag: 'promotion', status: 'failed', type: 'promotion', date: '2026-03-16', time: '14:00', content: 'โปรโมชั่นพิเศษ ซื้อ 1 แถม 1', hashtags: ['#โปรโมชั่น'] },
 ];
 
 const MOCK_LOGS = [
   { postTitle: 'โปรโมชั่นสงกรานต์ ลด 30%', platform: 'facebook', status: 'success', date: '15 มี.ค. 2569 10:02', postId: 'fb_123456', error: null },
-  { postTitle: 'รีวิวจากลูกค้า: คุณแอน', platform: 'facebook', status: 'success', date: '14 มี.ค. 2569 15:03', postId: 'fb_123455', error: null },
-  { postTitle: 'ผลโพสต์ล้มเหลว: Connection timeout', platform: 'facebook', status: 'failed', date: '16 มี.ค. 2569 14:01', postId: null, error: 'Connection timeout after 30s — VPS unreachable', retry: 2 },
+  { postTitle: 'รีวิวจากลูกค้า คุณแอน', platform: 'facebook', status: 'success', date: '14 มี.ค. 2569 15:03', postId: 'fb_123455', error: null },
+  { postTitle: 'ผลโพสต์ล้มเหลว Connection timeout', platform: 'facebook', status: 'failed', date: '16 มี.ค. 2569 14:01', postId: null, error: 'Connection timeout after 30s — VPS unreachable', retry: 2 },
   { postTitle: 'โปรโมชั่นสงกรานต์ ลด 30%', platform: 'facebook', status: 'success', date: '15 มี.ค. 2569 10:02', postId: 'fb_123456', error: null },
 ];
 
@@ -209,14 +209,14 @@ function simulateAIGenerate(btn) {
 
   setTimeout(() => {
     btn.disabled = false;
-    btn.innerHTML = '&#10024; Generate ด้วย AI';
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Generate ด้วย AI';
     resultEl.innerHTML = `
       <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:1rem;margin-bottom:1rem">
-        <div style="font-weight:600;margin-bottom:0.5rem;color:#166534">&#10003; AI สร้าง Content สำเร็จ</div>
+        <div style="font-weight:600;margin-bottom:0.5rem;color:#166534"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> AI สร้าง Content สำเร็จ</div>
         <div style="font-size:0.85rem;line-height:1.7;color:#1e293b">
-          สงกรานต์นี้มาเติมความสดชื่นกับเมนูพิเศษจากร้าน ABC! &#127796;<br><br>
+          สงกรานต์นี้มาเติมความสดชื่นกับเมนูพิเศษจากร้าน ABC!<br><br>
           เรามีเมนูใหม่ที่ได้แรงบันดาลใจจากเทศกาลสงกรานต์ ทั้งรสชาติสดใส สีสันสะดุดตา เหมาะกับบรรยากาศแห่งความสุข<br><br>
-          &#128073; แวะมาลองได้ทุกสาขาตั้งแต่วันนี้เป็นต้นไป!
+          แวะมาลองได้ทุกสาขาตั้งแต่วันนี้เป็นต้นไป!
         </div>
         <div style="margin-top:0.75rem;display:flex;flex-wrap:wrap;gap:0.35rem">
           <span class="tag tag-seasonal">#สงกรานต์2569</span>
@@ -226,10 +226,10 @@ function simulateAIGenerate(btn) {
         </div>
       </div>
       <div style="background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;padding:1rem">
-        <div style="font-weight:600;margin-bottom:0.5rem;color:#3730a3">&#127912; Image Prompt</div>
-        <div style="font-size:0.8rem;color:#4338ca;margin-bottom:0.5rem"><strong>TH:</strong> ภาพอาหารไทยสีสันสดใส จานเต็ม บรรยากาศเทศกาลสงกรานต์ น้ำสาดเบาๆ ฉากหลังร้านอาหารไทยสวยงาม แสงธรรมชาติ สไตล์ food photography</div>
-        <div style="font-size:0.8rem;color:#4338ca"><strong>EN:</strong> Vibrant Thai food photography, colorful dishes on wooden table, Songkran festival atmosphere, soft water splash, warm natural lighting, shallow depth of field, professional food photo style</div>
-        <button class="btn btn-sm btn-outline" style="margin-top:0.75rem" onclick="showToast('คัดลอก Image Prompt แล้ว')">&#128203; คัดลอก Prompt</button>
+        <div style="font-weight:600;margin-bottom:0.5rem;color:#3730a3"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Image Prompt</div>
+        <div style="font-size:0.8rem;color:#4338ca;margin-bottom:0.5rem"><strong>TH</strong> ภาพอาหารไทยสีสันสดใส จานเต็ม บรรยากาศเทศกาลสงกรานต์ น้ำสาดเบาๆ ฉากหลังร้านอาหารไทยสวยงาม แสงธรรมชาติ สไตล์ food photography</div>
+        <div style="font-size:0.8rem;color:#4338ca"><strong>EN</strong> Vibrant Thai food photography, colorful dishes on wooden table, Songkran festival atmosphere, soft water splash, warm natural lighting, shallow depth of field, professional food photo style</div>
+        <button class="btn btn-sm btn-outline" style="margin-top:0.75rem" onclick="showToast('คัดลอก Image Prompt แล้ว')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg> คัดลอก Prompt</button>
       </div>
     `;
   }, 2500);
@@ -250,16 +250,16 @@ function simulateMonthlyPlan(btn) {
 
   setTimeout(() => {
     btn.disabled = false;
-    btn.innerHTML = '&#10024; Generate แผนรายเดือน';
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Generate แผนรายเดือน';
 
     const planSlots = [
       { date: '7 เม.ย.', day: 'จันทร์', type: 'education', topic: '5 เมนูอาหารไทยยอดนิยมช่วงสงกรานต์', time: '10:00' },
-      { date: '9 เม.ย.', day: 'พุธ', type: 'engagement', topic: 'โหวต: เมนูสงกรานต์ที่คุณอยากลอง?', time: '12:00' },
+      { date: '9 เม.ย.', day: 'พุธ', type: 'engagement', topic: 'โหวต เมนูสงกรานต์ที่คุณอยากลอง?', time: '12:00' },
       { date: '11 เม.ย.', day: 'ศุกร์', type: 'branding', topic: 'เรื่องราวความตั้งใจของเชฟ ABC', time: '10:00' },
-      { date: '11 เม.ย.', day: 'ศุกร์', type: 'education', topic: 'แชร์บทความ: เทรนด์อาหาร 2026', time: '15:00' },
+      { date: '11 เม.ย.', day: 'ศุกร์', type: 'education', topic: 'แชร์บทความ เทรนด์อาหาร 2026', time: '15:00' },
       { date: '12 เม.ย.', day: 'เสาร์', type: 'promotion', topic: 'โปรสงกรานต์ ลด 30% ทุกเมนู!', time: '09:00' },
       { date: '14 เม.ย.', day: 'จันทร์', type: 'seasonal', topic: 'สวัสดีปีใหม่ไทย! รดน้ำขอพรผู้ใหญ่', time: '08:00' },
-      { date: '16 เม.ย.', day: 'พุธ', type: 'testimonial', topic: 'รีวิวจากลูกค้า: "อาหารอร่อย บรรยากาศดี"', time: '12:00' },
+      { date: '16 เม.ย.', day: 'พุธ', type: 'testimonial', topic: 'รีวิวจากลูกค้า "อาหารอร่อย บรรยากาศดี"', time: '12:00' },
       { date: '18 เม.ย.', day: 'ศุกร์', type: 'education', topic: 'วิธีทำต้มยำกุ้งแบบต้นตำรับ', time: '10:00' },
     ];
 
@@ -280,13 +280,13 @@ function simulateMonthlyPlan(btn) {
           <div style="margin-top:0.5rem;display:flex;gap:0.5rem">
             <button class="btn btn-sm btn-secondary" onclick="showToast('เปิดแก้ไข slot ${i + 1}')">แก้ไข</button>
             <button class="btn btn-sm btn-outline" onclick="showToast('Regenerate slot ${i + 1}')">Regenerate</button>
-            <button class="btn btn-sm btn-secondary" onclick="showToast('คัดลอก Image Prompt')">&#128203; Image Prompt</button>
+            <button class="btn btn-sm btn-secondary" onclick="showToast('คัดลอก Image Prompt')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg> Image Prompt</button>
           </div>
         </div>
       `;
     });
     html += '</div>';
-    html += '<div style="margin-top:1.5rem;text-align:center"><button class="btn btn-primary btn-lg" onclick="showToast(\'บันทึก 8 โพสต์ลง Calendar เรียบร้อย!\')">&#128190; Save All to Calendar (8 โพสต์)</button></div>';
+    html += '<div style="margin-top:1.5rem;text-align:center"><button class="btn btn-primary btn-lg" onclick="showToast(\'บันทึก 8 โพสต์ลง Calendar เรียบร้อย!\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save All to Calendar (8 โพสต์)</button></div>';
     preview.innerHTML = html;
   }, 3000);
 }

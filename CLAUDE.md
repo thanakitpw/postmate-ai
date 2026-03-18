@@ -176,6 +176,13 @@ draft → scheduled → publishing → published
 
 ---
 
+## UI Rules
+
+- **ห้ามใช้ Emoji** ทุกกรณี — ใช้ SVG icon หรือ Lucide icon แทนเสมอ
+- **ห้ามใช้เครื่องหมาย ":"** ใน label, heading, หรือ UI text — เช่น ใช้ "ผู้ติดต่อ" ไม่ใช่ "ผู้ติดต่อ:"
+
+---
+
 ## Coding Conventions
 
 - ใช้ TypeScript strict mode เสมอ — ห้าม `any`
