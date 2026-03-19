@@ -1,4 +1,4 @@
-// Monthly plan generator using Claude via OpenRouter
+// Monthly plan generator using Claude API
 
 import {
   buildMonthlyPlanSystemPrompt,
@@ -72,12 +72,11 @@ export async function generateMonthlyPlan(
   project: Project,
   config: MonthlyPlanConfig
 ): Promise<MonthlyPlanGeneratedPost[]> {
-  const baseUrl = process.env.OPENROUTER_BASE_URL;
-  const apiKey = process.env.OPENROUTER_API_KEY;
-  const model = process.env.AI_MODEL;
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const model = process.env.AI_MODEL ?? "claude-sonnet-4-5-20250514";
 
-  if (!baseUrl || !apiKey || !model) {
-    throw new Error("Missing AI configuration environment variables");
+  if (!apiKey) {
+    throw new Error("Missing ANTHROPIC_API_KEY environment variable");
   }
 
   const slots = buildSlots(config);
@@ -99,36 +98,37 @@ export async function generateMonthlyPlan(
   let lastError: Error | null = null;
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
-      const response = await fetch(`${baseUrl}/chat/completions`, {
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01",
         },
         body: JSON.stringify({
           model,
+          system: systemPrompt,
           messages: [
-            { role: "system", content: systemPrompt },
             {
               role: "user",
               content: `Generate the monthly plan now. There are ${slots.length} slots to fill.`,
             },
           ],
           temperature: 0.7,
-          max_tokens: 8000,
+          max_tokens: 8192,
         }),
       });
 
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(`OpenRouter API error: ${response.status} - ${errorText}`);
+        throw new Error(`Claude API error: ${response.status} - ${errorText}`);
       }
 
       const data = await response.json() as {
-        choices: Array<{ message: { content: string } }>;
+        content: Array<{ type: string; text: string }>;
       };
 
-      const content = data.choices?.[0]?.message?.content;
+      const content = data.content?.find(b => b.type === "text")?.text;
       if (!content) {
         throw new Error("Empty response from AI");
       }

@@ -165,10 +165,7 @@ function NavSection({
         {title}
       </div>
       {items.map((item) => {
-        const isActive =
-          item.href === "/"
-            ? currentPath === "/"
-            : currentPath === item.href || currentPath.startsWith(item.href + "/");
+        const isActive = currentPath === item.href;
         return (
           <Link
             key={item.href}
@@ -444,10 +441,7 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
             <div className="mx-2 h-6 w-px bg-[#e5e7eb]" />
 
             {/* User */}
-            <button
-              onClick={handleSignOut}
-              className="flex cursor-pointer items-center gap-[0.65rem] rounded-lg px-2 py-[0.35rem] transition-colors hover:bg-[#f8fafc]"
-            >
+            <div className="flex items-center gap-[0.65rem] rounded-lg px-2 py-[0.35rem]">
               <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#6366f1] to-[#818cf8] text-[0.75rem] font-semibold text-white">
                 {user.fullName.charAt(0).toUpperCase()}
               </div>
@@ -457,12 +451,12 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
                 </span>
                 <span className="text-[0.65rem] leading-tight text-[#94a3b8]">{roleLabel}</span>
               </div>
-            </button>
+            </div>
           </div>
         </header>
 
         {/* Page content */}
-        <div className="min-w-0 flex-1 overflow-x-hidden p-4 sm:p-7 lg:max-w-[1400px]">{children}</div>
+        <div className="min-w-0 w-full max-w-[1400px] flex-1 overflow-x-hidden p-6 sm:p-8">{children}</div>
       </main>
     </div>
   );
