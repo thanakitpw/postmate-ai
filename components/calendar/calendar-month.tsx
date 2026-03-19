@@ -108,8 +108,10 @@ export function CalendarMonth({
           const today = isToday(day);
 
           return (
-            <button
+            <div
               key={dateKey}
+              role="button"
+              tabIndex={0}
               type="button"
               onClick={() => {
                 if (dayPosts.length === 0) {
@@ -150,7 +152,7 @@ export function CalendarMonth({
                   </p>
                 )}
               </div>
-            </button>
+            </div>
           );
         })}
       </div>

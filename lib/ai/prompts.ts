@@ -86,12 +86,33 @@ Return a valid JSON array. Each item must match this structure exactly:
   "image_ratio": "1:1" | "4:5" | "16:9" | "9:16"
 }
 
-## Rules
+## Caption Writing Rules
 - Write captions in ${brand.language === "TH" ? "Thai" : brand.language === "EN" ? "English" : "both Thai and English"}
 - Match the brand tone: ${brand.tone ?? "Professional"}
+- NEVER use ":" (colon) in captions — use spaces or line breaks instead
+- Use "." (dot) on a line by itself to create visual spacing between sections
+- Use emoji icons as bullet points or section headers
+- Structure captions like this:
+  1. Hook/headline (attention-grabbing first line)
+  2. . (dot for spacing)
+  3. Main content with emoji bullet points
+  4. . (dot for spacing)
+  5. Call-to-Action (e.g. "สอบถามทีมงานทางแชทนี้ได้เลยนะคะ", "กดเซฟเก็บไว้ได้เลยค่า")
+  6. . (dot for spacing)
+  7. Contact info section (Inbox, Line, Call)
+  8. . (dot for spacing)
+  9. Hashtags on the LAST line, separated by spaces
+
+## Image Prompt Rules
 - Each post MUST have both image_prompt_th and image_prompt_en
-- image_prompt should describe a visually compelling image suitable for the post
+- image_prompt MUST include text overlay instructions: specify a short headline text in Thai AND English to be displayed ON the image (like a social media graphic with text overlay, not just a photo)
+- image_prompt should describe a visually compelling graphic/banner with text overlay, background design, color scheme, and typography style
+- Use brand gradient colors: #ee0f39 (red) to #381f8f (dark purple), diagonal from top-left to bottom-right as the primary background gradient
+- Example: "Gradient background from #ee0f39 to #381f8f (top-left to bottom-right), with upward trending graph icons in white/light colors, text overlay: 'การตลาดออนไลน์สำหรับธุรกิจยุคดิจิทัล' in bold white Thai font at top center, 'Digital Marketing for Businesses in the Digital Age' in smaller white English below, modern flat design style, professional social media banner"
+
+## Other Rules
 - Hashtags should be relevant and include a mix of popular and niche tags
+- Put hashtags AFTER the caption, separated by a blank line with "."
 - tags must only use: promotion, education, engagement, branding, seasonal, testimonial
 - Return ONLY the JSON array, no markdown code blocks, no explanation`;
 }
@@ -134,11 +155,31 @@ Return a valid JSON array with ${count} item(s). Each item must match this struc
   "content_type": "regular_post" | "article_share" | "promotion" | "engagement" | "repost"
 }
 
-## Rules
+## Caption Writing Rules
 - Write captions in ${lang === "TH" ? "Thai" : lang === "EN" ? "English" : "both Thai and English"}
 - Match the brand tone: ${brand.tone ?? "Professional"}
+- NEVER use ":" (colon) in captions — use spaces or line breaks instead
+- Use "." (dot) on a line by itself to create visual spacing between sections
+- Use emoji icons as bullet points or section headers
+- Structure captions like this:
+  1. Hook/headline (attention-grabbing first line)
+  2. . (dot for spacing)
+  3. Main content with emoji bullet points
+  4. . (dot for spacing)
+  5. Call-to-Action (e.g. "สอบถามทีมงานทางแชทนี้ได้เลยนะคะ", "กดเซฟเก็บไว้ได้เลยค่า")
+  6. . (dot for spacing)
+  7. Contact info section (Inbox, Line, Call)
+  8. . (dot for spacing)
+  9. Hashtags on the LAST line, separated by spaces
+
+## Image Prompt Rules
 - Each post MUST have both image_prompt_th and image_prompt_en
-- image_prompt should describe a visually compelling image suitable for the post
+- image_prompt MUST include text overlay instructions: specify a short headline text in Thai AND English to be displayed ON the image
+- image_prompt should describe a visually compelling graphic/banner with text overlay, background design, color scheme, and typography style
+- Use brand gradient colors: #ee0f39 (red) to #381f8f (dark purple), diagonal from top-left to bottom-right as the primary background gradient
+- Example: "Gradient background from #ee0f39 to #381f8f (top-left to bottom-right), with upward trending graph icons in white/light colors, text overlay: 'การตลาดออนไลน์สำหรับธุรกิจยุคดิจิทัล' in bold white Thai font at top center, 'Digital Marketing for Businesses in the Digital Age' in smaller white English below, modern flat design style, professional social media banner"
+
+## Other Rules
 - Hashtags should be relevant and include a mix of popular and niche tags
 - tags must only use: promotion, education, engagement, branding, seasonal, testimonial
 - Return ONLY the JSON array, no markdown code blocks, no explanation`;

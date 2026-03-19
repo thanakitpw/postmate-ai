@@ -511,31 +511,9 @@ export function ManualEditor({
 
       <Separator />
 
-      {/* Date + Time */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="space-y-1.5">
-          <Label htmlFor="schedule-date">วันที่</Label>
-          <Input
-            id="schedule-date"
-            type="date"
-            value={scheduledDate}
-            onChange={(e) => setScheduledDate((e.target as HTMLInputElement).value)}
-          />
-        </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="schedule-time">เวลา</Label>
-          <Input
-            id="schedule-time"
-            type="time"
-            value={scheduledTime}
-            onChange={(e) => setScheduledTime((e.target as HTMLInputElement).value)}
-          />
-        </div>
-      </div>
-
-      {/* Status toggle */}
+      {/* Publish mode */}
       <div className="space-y-1.5">
-        <Label>สถานะ</Label>
+        <Label>วิธีโพสต์</Label>
         <div className="flex gap-2">
           <Button
             type="button"
@@ -544,11 +522,11 @@ export function ManualEditor({
             onClick={() => setStatus("draft")}
             className={cn(
               status === "draft"
-                ? "bg-gray-700 hover:bg-gray-800"
+                ? "bg-green-600 hover:bg-green-700"
                 : ""
             )}
           >
-            แบบร่าง
+            โพสเลย
           </Button>
           <Button
             type="button"
@@ -561,10 +539,34 @@ export function ManualEditor({
                 : ""
             )}
           >
-            ตั้งเวลาโพสต์
+            ตั้งเวลาโพส
           </Button>
         </div>
       </div>
+
+      {/* Date + Time — show only when scheduling */}
+      {status === "scheduled" && (
+        <div className="grid grid-cols-2 gap-3 rounded-lg border border-indigo-100 bg-indigo-50/50 p-3">
+          <div className="space-y-1.5">
+            <Label htmlFor="schedule-date">วันที่</Label>
+            <Input
+              id="schedule-date"
+              type="date"
+              value={scheduledDate}
+              onChange={(e) => setScheduledDate((e.target as HTMLInputElement).value)}
+            />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="schedule-time">เวลา</Label>
+            <Input
+              id="schedule-time"
+              type="time"
+              value={scheduledTime}
+              onChange={(e) => setScheduledTime((e.target as HTMLInputElement).value)}
+            />
+          </div>
+        </div>
+      )}
 
       <Separator />
 

@@ -8,6 +8,7 @@ import {
   RefreshCw,
   ShieldOff,
   AlertTriangle,
+  Loader2,
   Check,
   X,
   Clock,
@@ -133,11 +134,40 @@ export function ConnectClient({
 
   const effectiveStatus = getEffectiveStatus(currentSession);
 
-  const handleConnect = useCallback(() => {
-    toast.info("กำลังเชื่อมต่อ...", {
-      description: "ฟีเจอร์นี้จะพร้อมใช้งานเมื่อเชื่อมต่อ VPS แล้ว",
+  const [connecting, setConnecting] = useState(false);
+
+  const handleConnect = useCallback(async () => {
+    setConnecting(true);
+    toast.info("กำลังเปิด browser สำหรับ login...", {
+      description: "กรุณา login บน browser ที่เปิดขึ้นมา",
     });
-  }, []);
+
+    try {
+      const response = await fetch("/api/connect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ platform, projectId }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error ?? "เชื่อมต่อไม่สำเร็จ");
+      }
+
+      toast.success("เชื่อมต่อสำเร็จ!", {
+        description: "Session cookies ถูกบันทึกเรียบร้อย",
+      });
+
+      window.location.reload();
+    } catch (err) {
+      toast.error("เชื่อมต่อไม่สำเร็จ", {
+        description: err instanceof Error ? err.message : "กรุณาลองใหม่อีกครั้ง",
+      });
+    } finally {
+      setConnecting(false);
+    }
+  }, [platform, projectId]);
 
   const handleRevoke = useCallback(async () => {
     if (!revokeTarget) return;
@@ -278,9 +308,9 @@ export function ConnectClient({
             </Button>
           )}
           {effectiveStatus === "not_connected" && (
-            <Button size="sm" className="gap-1.5" onClick={handleConnect}>
-              <LinkIcon className="size-3.5" />
-              Connect
+            <Button size="sm" className="gap-1.5" onClick={handleConnect} disabled={connecting}>
+              {connecting ? <Loader2 className="size-3.5 animate-spin" /> : <LinkIcon className="size-3.5" />}
+              {connecting ? "กำลังเชื่อมต่อ..." : "Connect"}
             </Button>
           )}
         </div>
