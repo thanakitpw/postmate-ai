@@ -149,7 +149,7 @@ export function PlanPreview({
         image_prompt_en: post.image_prompt_en,
         image_ratio: post.image_ratio,
         scheduled_at: new Date(`${post.date}T09:00:00`).toISOString(),
-        status: "draft" as const,
+        status: "pending_review" as const,
         created_by: "ai_monthly_plan" as const,
       }));
 

@@ -13,6 +13,9 @@ import {
   Square,
   MinusSquare,
   AlertTriangle,
+  CheckCircle2,
+  XCircle,
+  MessageSquare,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,6 +33,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { PostModal } from "@/components/post-modal/post-modal";
@@ -39,6 +43,9 @@ import type { Post, PostStatus, PostTag, ContentType } from "@/types/database";
 
 const STATUS_CONFIG: Record<PostStatus, { label: string; className: string }> = {
   draft: { label: "แบบร่าง", className: "bg-gray-100 text-gray-700" },
+  pending_review: { label: "รอตรวจสอบ", className: "bg-amber-100 text-amber-700" },
+  approved: { label: "อนุมัติแล้ว", className: "bg-emerald-100 text-emerald-700" },
+  rejected: { label: "ไม่อนุมัติ", className: "bg-rose-100 text-rose-700" },
   scheduled: { label: "ตั้งเวลา", className: "bg-blue-100 text-blue-700" },
   publishing: { label: "กำลังโพสต์", className: "bg-yellow-100 text-yellow-700" },
   published: { label: "โพสต์แล้ว", className: "bg-green-100 text-green-700" },
@@ -74,6 +81,9 @@ const CONTENT_TYPE_LABELS: Record<string, string> = {
 
 const ALL_STATUSES: PostStatus[] = [
   "draft",
+  "pending_review",
+  "approved",
+  "rejected",
   "scheduled",
   "publishing",
   "published",
@@ -136,6 +146,13 @@ export function PostListClient({
   // Modal state
   const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [showModal, setShowModal] = useState(false);
+
+  // Review state
+  const [reviewingPostId, setReviewingPostId] = useState<string | null>(null);
+  const [showRejectDialog, setShowRejectDialog] = useState(false);
+  const [rejectPostId, setRejectPostId] = useState<string | null>(null);
+  const [rejectReason, setRejectReason] = useState("");
+  const [reviewUpdating, setReviewUpdating] = useState(false);
 
   // ─── Filtered posts ───────────────────────────────────
 
@@ -259,6 +276,80 @@ export function PostListClient({
       setError(err instanceof Error ? err.message : "ลบล้มเหลว");
     } finally {
       setBulkDeleting(false);
+    }
+  }
+
+  // ─── Approve / Reject handlers ──────────────────────
+
+  async function handleApprove(postId: string) {
+    setReviewUpdating(true);
+    setReviewingPostId(postId);
+    setError(null);
+
+    try {
+      const supabase = createClient();
+      const { data, error: updateError } = await supabase
+        .from("posts")
+        .update({
+          status: "approved",
+          reject_reason: null,
+          reviewed_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", postId)
+        .select()
+        .single();
+
+      if (updateError) throw new Error(updateError.message);
+
+      setPosts((prev) =>
+        prev.map((p) => (p.id === postId && data ? (data as Post) : p))
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "อนุมัติล้มเหลว");
+    } finally {
+      setReviewUpdating(false);
+      setReviewingPostId(null);
+    }
+  }
+
+  function openRejectDialog(postId: string) {
+    setRejectPostId(postId);
+    setRejectReason("");
+    setShowRejectDialog(true);
+  }
+
+  async function handleReject() {
+    if (!rejectPostId) return;
+    setReviewUpdating(true);
+    setError(null);
+
+    try {
+      const supabase = createClient();
+      const { data, error: updateError } = await supabase
+        .from("posts")
+        .update({
+          status: "rejected",
+          reject_reason: rejectReason.trim() || null,
+          reviewed_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", rejectPostId)
+        .select()
+        .single();
+
+      if (updateError) throw new Error(updateError.message);
+
+      setPosts((prev) =>
+        prev.map((p) => (p.id === rejectPostId && data ? (data as Post) : p))
+      );
+      setShowRejectDialog(false);
+      setRejectPostId(null);
+      setRejectReason("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "ปฏิเสธล้มเหลว");
+    } finally {
+      setReviewUpdating(false);
     }
   }
 
@@ -425,6 +516,8 @@ export function PostListClient({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="draft">แบบร่าง</SelectItem>
+                <SelectItem value="pending_review">รอตรวจสอบ</SelectItem>
+                <SelectItem value="approved">อนุมัติ</SelectItem>
                 <SelectItem value="scheduled">ตั้งเวลา</SelectItem>
               </SelectContent>
             </Select>
@@ -452,7 +545,7 @@ export function PostListClient({
       <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
         <div className="min-w-[640px]">
         {/* Table header */}
-        <div className="grid grid-cols-[40px_1fr_120px_120px_140px_80px] items-center gap-2 border-b border-gray-200 bg-gray-50 px-4 py-3 text-xs font-medium text-gray-500">
+        <div className="grid grid-cols-[40px_1fr_120px_120px_140px_80px_100px] items-center gap-2 border-b border-gray-200 bg-gray-50 px-4 py-3 text-xs font-medium text-gray-500">
           <button type="button" onClick={toggleSelectAll} className="flex justify-center">
             {allSelected ? (
               <CheckSquare className="size-4 text-indigo-600" />
@@ -470,6 +563,7 @@ export function PostListClient({
             วันที่
           </span>
           <span>สถานะ</span>
+          <span>ดำเนินการ</span>
         </div>
 
         {/* Table body */}
@@ -490,7 +584,7 @@ export function PostListClient({
               <div
                 key={post.id}
                 className={cn(
-                  "grid grid-cols-[40px_1fr_120px_120px_140px_80px] items-center gap-2 border-b border-gray-100 px-4 py-3 transition-colors last:border-b-0 hover:bg-gray-50",
+                  "grid grid-cols-[40px_1fr_120px_120px_140px_80px_100px] items-center gap-2 border-b border-gray-100 px-4 py-3 transition-colors last:border-b-0 hover:bg-gray-50",
                   isSelected && "bg-indigo-50/50"
                 )}
               >
@@ -522,6 +616,13 @@ export function PostListClient({
                   {post.title && (
                     <p className="truncate text-xs text-gray-500">
                       {post.content.slice(0, 80)}
+                    </p>
+                  )}
+                  {/* Show reject reason inline */}
+                  {post.status === "rejected" && post.reject_reason && (
+                    <p className="mt-0.5 flex items-center gap-1 truncate text-xs text-rose-600">
+                      <MessageSquare className="inline size-3 shrink-0" />
+                      {post.reject_reason}
                     </p>
                   )}
                 </button>
@@ -565,6 +666,42 @@ export function PostListClient({
                 >
                   {statusConfig.label}
                 </Badge>
+
+                {/* Actions */}
+                <div className="flex gap-1">
+                  {post.status === "pending_review" && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleApprove(post.id);
+                        }}
+                        disabled={reviewUpdating && reviewingPostId === post.id}
+                        className="rounded p-1 text-emerald-600 transition-colors hover:bg-emerald-50 disabled:opacity-50"
+                        title="อนุมัติ"
+                      >
+                        {reviewUpdating && reviewingPostId === post.id ? (
+                          <Loader2 className="size-4 animate-spin" />
+                        ) : (
+                          <CheckCircle2 className="size-4" />
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openRejectDialog(post.id);
+                        }}
+                        disabled={reviewUpdating}
+                        className="rounded p-1 text-rose-600 transition-colors hover:bg-rose-50 disabled:opacity-50"
+                        title="ไม่อนุมัติ"
+                      >
+                        <XCircle className="size-4" />
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
             );
           })
@@ -635,6 +772,66 @@ export function PostListClient({
                 <Trash2 className="size-3.5" />
               )}
               ลบ {selectedIds.size} โพสต์
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Reject confirmation dialog */}
+      <Dialog
+        open={showRejectDialog}
+        onOpenChange={(isOpen) => {
+          if (!isOpen) {
+            setShowRejectDialog(false);
+            setRejectPostId(null);
+            setRejectReason("");
+          }
+        }}
+      >
+        <DialogContent className="sm:max-w-md" showCloseButton>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <XCircle className="size-5 text-rose-500" />
+              ไม่อนุมัติโพสต์
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3">
+            <p className="text-sm text-gray-600">
+              ระบุเหตุผลที่ไม่อนุมัติ (ไม่บังคับ)
+            </p>
+            <Textarea
+              placeholder="เหตุผลที่ไม่อนุมัติ..."
+              value={rejectReason}
+              onChange={(e) => setRejectReason((e.target as HTMLTextAreaElement).value)}
+              className="min-h-[80px]"
+            />
+          </div>
+          <div className="flex justify-end gap-2 pt-4">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setShowRejectDialog(false);
+                setRejectPostId(null);
+                setRejectReason("");
+              }}
+            >
+              ยกเลิก
+            </Button>
+            <Button
+              type="button"
+              size="sm"
+              onClick={handleReject}
+              disabled={reviewUpdating}
+              className="gap-1.5 bg-rose-600 hover:bg-rose-700"
+            >
+              {reviewUpdating ? (
+                <Loader2 className="size-3.5 animate-spin" />
+              ) : (
+                <XCircle className="size-3.5" />
+              )}
+              ไม่อนุมัติ
             </Button>
           </div>
         </DialogContent>

@@ -2,7 +2,7 @@
 
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
-import type { Post, PostTag } from "@/types/database";
+import type { Post, PostTag, PostStatus } from "@/types/database";
 
 const TAG_COLORS: Record<PostTag, { bg: string; text: string; border: string }> = {
   promotion: { bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200" },
@@ -14,6 +14,12 @@ const TAG_COLORS: Record<PostTag, { bg: string; text: string; border: string }> 
 };
 
 const DEFAULT_COLOR = { bg: "bg-gray-50", text: "text-gray-700", border: "border-gray-200" };
+
+/** Status-based style overrides for review workflow */
+const STATUS_CHIP_STYLES: Partial<Record<PostStatus, string>> = {
+  pending_review: "border-dashed border-amber-400 bg-amber-50/60 text-amber-700",
+  rejected: "border-rose-300 bg-rose-50/60 text-rose-500 line-through",
+};
 
 interface PostChipProps {
   post: Post;
@@ -29,6 +35,9 @@ export function PostChip({ post, onClick, compact = false }: PostChipProps) {
     : null;
   const title = post.title || post.content.slice(0, 40);
 
+  // Use status-based styling if applicable, otherwise fall back to tag color
+  const statusStyle = STATUS_CHIP_STYLES[post.status];
+
   return (
     <button
       type="button"
@@ -38,9 +47,9 @@ export function PostChip({ post, onClick, compact = false }: PostChipProps) {
       }}
       className={cn(
         "w-full rounded border px-1.5 py-0.5 text-left text-xs transition-colors hover:opacity-80",
-        color.bg,
-        color.text,
-        color.border,
+        statusStyle
+          ? statusStyle
+          : cn(color.bg, color.text, color.border),
         compact ? "truncate" : ""
       )}
       title={title}

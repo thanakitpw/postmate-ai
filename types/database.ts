@@ -328,8 +328,14 @@ export type Database = {
             | "engagement"
             | "repost";
           scheduled_at: string | null;
+          reject_reason: string | null;
+          reviewed_at: string | null;
+          reviewed_by: string | null;
           status:
             | "draft"
+            | "pending_review"
+            | "approved"
+            | "rejected"
             | "scheduled"
             | "publishing"
             | "published"
@@ -361,8 +367,14 @@ export type Database = {
             | "engagement"
             | "repost";
           scheduled_at?: string | null;
+          reject_reason?: string | null;
+          reviewed_at?: string | null;
+          reviewed_by?: string | null;
           status?:
             | "draft"
+            | "pending_review"
+            | "approved"
+            | "rejected"
             | "scheduled"
             | "publishing"
             | "published"
@@ -394,8 +406,14 @@ export type Database = {
             | "engagement"
             | "repost";
           scheduled_at?: string | null;
+          reject_reason?: string | null;
+          reviewed_at?: string | null;
+          reviewed_by?: string | null;
           status?:
             | "draft"
+            | "pending_review"
+            | "approved"
+            | "rejected"
             | "scheduled"
             | "publishing"
             | "published"
@@ -551,6 +569,9 @@ export type ContentType = (typeof CONTENT_TYPES)[number];
 
 export const POST_STATUSES = [
   "draft",
+  "pending_review",
+  "approved",
+  "rejected",
   "scheduled",
   "publishing",
   "published",

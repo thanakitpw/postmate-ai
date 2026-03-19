@@ -72,6 +72,50 @@ export async function GET() {
       }
     }
 
+    // Get posts pending review
+    const { data: pendingPosts } = await supabase
+      .from("posts")
+      .select(`
+        id,
+        title,
+        created_at,
+        projects!inner (
+          id,
+          project_name,
+          platform,
+          clients!inner (
+            id,
+            owner_id
+          )
+        )
+      `)
+      .eq("status", "pending_review")
+      .order("created_at", { ascending: false })
+      .limit(20);
+
+    if (pendingPosts) {
+      for (const post of pendingPosts) {
+        const project = post.projects as unknown as {
+          id: string;
+          project_name: string;
+          platform: string;
+          clients: { id: string; owner_id: string };
+        };
+
+        notifications.push({
+          id: `post-review-${post.id}`,
+          type: "post_pending_review",
+          title: `รอตรวจสอบ`,
+          message: `"${post.title ?? "Untitled"}" ใน ${project.project_name}`,
+          projectId: project.id,
+          postId: post.id,
+          platform: project.platform,
+          severity: "warning",
+          createdAt: post.created_at,
+        });
+      }
+    }
+
     // Get recently published posts (last 24 hours)
     const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 

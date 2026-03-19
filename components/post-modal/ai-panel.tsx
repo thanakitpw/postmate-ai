@@ -204,7 +204,7 @@ export function AiPanel({
         image_prompt_en: post.image_prompt_en,
         image_ratio: post.image_ratio,
         scheduled_at: scheduledAt,
-        status: "draft",
+        status: "pending_review",
         created_by: "ai",
       };
 

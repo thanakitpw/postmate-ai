@@ -4,7 +4,7 @@
 
 export interface NotificationItem {
   id: string;
-  type: "post_failed" | "post_published" | "session_expiring";
+  type: "post_failed" | "post_published" | "session_expiring" | "post_pending_review";
   title: string;
   message: string;
   projectId: string;

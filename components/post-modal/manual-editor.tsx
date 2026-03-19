@@ -12,6 +12,7 @@ import {
   Hash,
   Trash2,
   Loader2,
+  Send,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -305,6 +306,95 @@ export function ManualEditor({
     scheduledDate,
     scheduledTime,
     status,
+    tags,
+    hashtags,
+    mediaUrls,
+    imageRatio,
+    isEditing,
+    post,
+    projectId,
+    onSaved,
+  ]);
+
+  // ─── Submit for review ─────────────────────────────────
+
+  const handleSubmitForReview = useCallback(async () => {
+    if (!content.trim()) {
+      setError("กรุณากรอกเนื้อหาโพสต์");
+      return;
+    }
+
+    setSaving(true);
+    setError(null);
+
+    try {
+      const supabase = createClient();
+      const scheduledAt = scheduledDate && scheduledTime
+        ? new Date(`${scheduledDate}T${scheduledTime}:00`).toISOString()
+        : null;
+
+      if (isEditing && post) {
+        const updateData: UpdateDto<"posts"> = {
+          title: title || null,
+          content,
+          content_type: contentType,
+          article_url: contentType === "article_share" ? articleUrl || null : null,
+          scheduled_at: scheduledAt,
+          status: "pending_review",
+          tags,
+          hashtags,
+          media_urls: mediaUrls,
+          image_ratio: imageRatio,
+          reject_reason: null,
+          updated_at: new Date().toISOString(),
+        };
+
+        const { data, error: updateError } = await supabase
+          .from("posts")
+          .update(updateData)
+          .eq("id", post.id)
+          .select()
+          .single();
+
+        if (updateError) throw new Error(updateError.message);
+        if (data) onSaved(data as Post);
+      } else {
+        const insertData: InsertDto<"posts"> = {
+          project_id: projectId,
+          title: title || null,
+          content,
+          content_type: contentType,
+          article_url: contentType === "article_share" ? articleUrl || null : null,
+          scheduled_at: scheduledAt,
+          status: "pending_review",
+          tags,
+          hashtags,
+          media_urls: mediaUrls,
+          image_ratio: imageRatio,
+          created_by: "manual",
+        };
+
+        const { data, error: insertError } = await supabase
+          .from("posts")
+          .insert(insertData)
+          .select()
+          .single();
+
+        if (insertError) throw new Error(insertError.message);
+        if (data) onSaved(data as Post);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "ส่งตรวจสอบล้มเหลว");
+    } finally {
+      setSaving(false);
+    }
+  }, [
+    content,
+    title,
+    contentType,
+    articleUrl,
+    scheduledDate,
+    scheduledTime,
     tags,
     hashtags,
     mediaUrls,
@@ -705,6 +795,14 @@ export function ManualEditor({
         </>
       )}
 
+      {/* Reject reason display */}
+      {post?.status === "rejected" && post.reject_reason && (
+        <div className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">
+          <p className="text-xs font-medium text-rose-800">เหตุผลที่ไม่อนุมัติ</p>
+          <p className="mt-0.5">{post.reject_reason}</p>
+        </div>
+      )}
+
       <Separator />
 
       {/* Actions */}
@@ -741,13 +839,28 @@ export function ManualEditor({
           </Button>
           <Button
             type="button"
+            variant="outline"
+            size="sm"
+            onClick={handleSubmitForReview}
+            disabled={saving || !content.trim()}
+            className="gap-1.5 border-amber-300 text-amber-700 hover:bg-amber-50"
+          >
+            {saving ? (
+              <Loader2 className="size-3.5 animate-spin" />
+            ) : (
+              <Send className="size-3.5" />
+            )}
+            ส่งตรวจสอบ
+          </Button>
+          <Button
+            type="button"
             size="sm"
             onClick={handleSave}
             disabled={saving || !content.trim()}
             className="gap-1.5 bg-indigo-600 hover:bg-indigo-700"
           >
             {saving && <Loader2 className="size-3.5 animate-spin" />}
-            {isEditing ? "บันทึก" : "สร้างโพสต์"}
+            {isEditing ? "บันทึก" : "บันทึกแบบร่าง"}
           </Button>
         </div>
       </div>
