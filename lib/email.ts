@@ -5,6 +5,18 @@
 
 const BREVO_API_URL = "https://api.brevo.com/v3/smtp/email";
 
+/**
+ * Escape HTML special characters to prevent XSS in email templates.
+ */
+function escapeHtml(unsafe: string): string {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 interface EmailPayload {
   to: string;
   subject: string;
@@ -73,6 +85,9 @@ export async function sendPostResultEmail(
   status: "success" | "failed",
   errorMessage?: string
 ): Promise<boolean> {
+  const safePostTitle = escapeHtml(postTitle);
+  const safeErrorMessage = errorMessage ? escapeHtml(errorMessage) : undefined;
+
   const isSuccess = status === "success";
   const subject = isSuccess
     ? `[PostMate AI] โพสต์สำเร็จ "${postTitle}"`
@@ -105,15 +120,15 @@ export async function sendPostResultEmail(
 
           <div style="background: #f8fafc; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
             <p style="color: #64748b; font-size: 13px; margin: 0 0 4px 0;">ชื่อโพสต์</p>
-            <p style="color: #1e293b; font-size: 15px; font-weight: 600; margin: 0;">${postTitle}</p>
+            <p style="color: #1e293b; font-size: 15px; font-weight: 600; margin: 0;">${safePostTitle}</p>
           </div>
 
           ${
-            errorMessage
+            safeErrorMessage
               ? `
           <div style="background: #fef2f2; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
             <p style="color: #991b1b; font-size: 13px; margin: 0 0 4px 0;">รายละเอียดข้อผิดพลาด</p>
-            <p style="color: #dc2626; font-size: 14px; margin: 0;">${errorMessage}</p>
+            <p style="color: #dc2626; font-size: 14px; margin: 0;">${safeErrorMessage}</p>
           </div>
           `
               : ""
@@ -147,6 +162,9 @@ export async function sendSessionExpiryWarningEmail(
     day: "numeric",
   });
 
+  const safeProjectName = escapeHtml(projectName);
+  const safePlatform = escapeHtml(platform);
+
   const subject = `[PostMate AI] Session ใกล้หมดอายุ — ${projectName} (${platform})`;
 
   const htmlContent = `
@@ -173,12 +191,12 @@ export async function sendSessionExpiryWarningEmail(
 
           <div style="background: #f8fafc; border-radius: 8px; padding: 16px; margin-bottom: 12px;">
             <p style="color: #64748b; font-size: 13px; margin: 0 0 4px 0;">โปรเจค</p>
-            <p style="color: #1e293b; font-size: 15px; font-weight: 600; margin: 0;">${projectName}</p>
+            <p style="color: #1e293b; font-size: 15px; font-weight: 600; margin: 0;">${safeProjectName}</p>
           </div>
 
           <div style="background: #f8fafc; border-radius: 8px; padding: 16px; margin-bottom: 12px;">
             <p style="color: #64748b; font-size: 13px; margin: 0 0 4px 0;">แพลตฟอร์ม</p>
-            <p style="color: #1e293b; font-size: 15px; font-weight: 600; margin: 0; text-transform: capitalize;">${platform}</p>
+            <p style="color: #1e293b; font-size: 15px; font-weight: 600; margin: 0; text-transform: capitalize;">${safePlatform}</p>
           </div>
 
           <div style="background: #fffbeb; border-radius: 8px; padding: 16px; margin-bottom: 16px;">

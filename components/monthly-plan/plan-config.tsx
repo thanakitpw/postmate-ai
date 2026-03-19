@@ -64,7 +64,9 @@ interface PlanConfigProps {
 
 export function PlanConfig({ onGenerate, generating, initialConfig }: PlanConfigProps) {
   const now = new Date();
-  const defaultMonth = `${now.getFullYear()}-${String(now.getMonth() + 2).padStart(2, "0")}`;
+  // Calculate next month with proper year overflow (e.g. Dec -> Jan next year)
+  const nextMonthDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+  const defaultMonth = `${nextMonthDate.getFullYear()}-${String(nextMonthDate.getMonth() + 1).padStart(2, "0")}`;
 
   const [month, setMonth] = useState(initialConfig?.month ?? defaultMonth);
   const [activeDays, setActiveDays] = useState<number[]>(

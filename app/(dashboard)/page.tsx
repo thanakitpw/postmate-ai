@@ -209,21 +209,6 @@ export default async function HomePage() {
           <div className="text-[1.75rem] font-bold leading-tight tracking-tight text-[#1e293b]">
             {clientsWithStats.length}
           </div>
-          <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#ecfdf5] px-2 py-[0.15rem] text-[0.7rem] font-semibold text-[#059669]">
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="18 15 12 9 6 15" />
-            </svg>
-            +1 เดือนนี้
-          </div>
         </div>
 
         {/* Stat 2: Projects */}
@@ -247,21 +232,6 @@ export default async function HomePage() {
           </div>
           <div className="text-[1.75rem] font-bold leading-tight tracking-tight text-[#1e293b]">
             {totalProjects}
-          </div>
-          <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#ecfdf5] px-2 py-[0.15rem] text-[0.7rem] font-semibold text-[#059669]">
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="18 15 12 9 6 15" />
-            </svg>
-            +2 เดือนนี้
           </div>
         </div>
 
@@ -290,21 +260,6 @@ export default async function HomePage() {
           <div className="text-[1.75rem] font-bold leading-tight tracking-tight text-[#1e293b]">
             {totalPosts}
           </div>
-          <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#ecfdf5] px-2 py-[0.15rem] text-[0.7rem] font-semibold text-[#059669]">
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="18 15 12 9 6 15" />
-            </svg>
-            +23 เดือนนี้
-          </div>
         </div>
 
         {/* Stat 4: Success rate */}
@@ -328,21 +283,6 @@ export default async function HomePage() {
           </div>
           <div className="text-[1.75rem] font-bold leading-tight tracking-tight text-[#1e293b]">
             {successRate}%
-          </div>
-          <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#ecfdf5] px-2 py-[0.15rem] text-[0.7rem] font-semibold text-[#059669]">
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="18 15 12 9 6 15" />
-            </svg>
-            +3% จากเดือนก่อน
           </div>
         </div>
       </div>

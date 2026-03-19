@@ -336,8 +336,8 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
 
       {/* Footer */}
       <div className="border-t border-[#f1f5f9] p-3">
-        {/* Team switcher */}
-        <div className="flex cursor-pointer items-center gap-[0.65rem] rounded-lg px-[0.65rem] py-2 transition-colors hover:bg-[#f8fafc]">
+        {/* User info */}
+        <div className="flex items-center gap-[0.65rem] rounded-lg px-[0.65rem] py-2">
           <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#6366f1] to-[#818cf8] text-[0.7rem] font-semibold text-white">
             <svg
               width="16"
@@ -355,41 +355,11 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
           </div>
           <div className="min-w-0 flex-1">
             <div className="truncate text-[0.775rem] font-semibold text-[#1e293b]">
-              BestSolution Team
+              {user.fullName || user.email}
             </div>
-            <div className="text-[0.675rem] text-[#94a3b8]">แพ็คเกจ Pro</div>
+            <div className="text-[0.675rem] text-[#94a3b8]">{roleLabel}</div>
           </div>
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="shrink-0 text-[#94a3b8]"
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
         </div>
-
-        {/* Upgrade button */}
-        <button className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-[#6366f1] px-4 py-[0.55rem] text-[0.775rem] font-semibold text-white transition-colors hover:bg-[#4f46e5]">
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-          </svg>
-          อัปเกรดแพ็คเกจ
-        </button>
       </div>
     </>
   );

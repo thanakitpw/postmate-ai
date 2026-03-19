@@ -1,15 +1,18 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { generatePosts, type GenerateRequest } from "@/lib/ai/generate";
 import type { Project } from "@/types/database";
 
-interface GenerateRequestBody {
-  projectId: string;
-  topic: string;
-  type: "single" | "series";
-  seriesCount?: number;
-  language?: string;
-}
+const generateRequestSchema = z.object({
+  projectId: z.string().uuid("projectId ต้องเป็น UUID"),
+  topic: z.string().min(1, "กรุณาระบุหัวข้อ").max(500, "หัวข้อต้องไม่เกิน 500 ตัวอักษร"),
+  type: z.enum(["single", "series"], {
+    error: "type ต้องเป็น 'single' หรือ 'series'",
+  }),
+  seriesCount: z.number().int().min(2).max(10).optional(),
+  language: z.string().max(10).optional(),
+});
 
 export async function POST(request: Request) {
   try {
@@ -22,22 +25,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = (await request.json()) as GenerateRequestBody;
-    const { projectId, topic, type, seriesCount, language } = body;
+    const rawBody: unknown = await request.json();
+    const parseResult = generateRequestSchema.safeParse(rawBody);
 
-    if (!projectId || !topic || !type) {
+    if (!parseResult.success) {
+      const errors = parseResult.error.issues.map((i) => i.message);
       return NextResponse.json(
-        { error: "Missing required fields: projectId, topic, type" },
+        { error: "Validation failed", details: errors },
         { status: 400 }
       );
     }
 
-    if (type !== "single" && type !== "series") {
-      return NextResponse.json(
-        { error: "type must be 'single' or 'series'" },
-        { status: 400 }
-      );
-    }
+    const { projectId, topic, type, seriesCount, language } = parseResult.data;
 
     // Fetch project with ownership check
     const { data: project, error: projectError } = await supabase

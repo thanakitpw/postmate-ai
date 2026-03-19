@@ -224,12 +224,12 @@
 
 ## Progress Summary
 
-| Phase                | Tasks  | Done   | In Progress | Remaining |
-| -------------------- | ------ | ------ | ----------- | --------- |
-| Phase 1 — MVP        | 57     | 54     | 0           | 3         |
-| Phase 2 — Auto-Post  | 28     | 25     | 0           | 3         |
-| Phase 3 — Production | 10     | 0      | 0           | 10        |
-| **Total**            | **95** | **79** | **0**       | **16**    |
+| Phase                | Tasks   | Done    | In Progress | Remaining |
+| -------------------- | ------- | ------- | ----------- | --------- |
+| Phase 1 — MVP        | 83      | 79      | 0           | 4         |
+| Phase 2 — Auto-Post  | 34      | 30      | 2           | 2         |
+| Phase 3 — Production | 10      | 0       | 0           | 10        |
+| **Total**            | **127** | **109** | **2**       | **16**    |
 
 ---
 

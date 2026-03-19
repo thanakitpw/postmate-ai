@@ -242,9 +242,15 @@ CREATE TABLE posts (
   scheduled_at      timestamptz,
   status            text DEFAULT 'draft'
                     CHECK (status IN (
-                      'draft', 'scheduled', 'publishing',
+                      'draft', 'pending_review', 'approved', 'rejected',
+                      'scheduled', 'publishing',
                       'published', 'failed', 'failed_final'
                     )),
+
+  -- Review workflow
+  reject_reason     text,
+  reviewed_at       timestamptz,
+  reviewed_by       uuid REFERENCES auth.users(id),
 
   -- Metadata
   created_by        text DEFAULT 'manual'
@@ -272,6 +278,7 @@ CREATE INDEX idx_posts_scheduled   ON posts(scheduled_at) WHERE status = 'schedu
 CREATE INDEX idx_posts_project_date ON posts(project_id, scheduled_at);
 CREATE INDEX idx_posts_status       ON posts(status);
 CREATE INDEX idx_posts_monthly_plan ON posts(monthly_plan_id);
+CREATE INDEX idx_posts_pending_review ON posts(project_id) WHERE status = 'pending_review';
 
 
 -- ─────────────────────────────────────────
@@ -344,7 +351,7 @@ CREATE TRIGGER set_updated_at BEFORE UPDATE ON posts
 | `project_sessions.status`     | `active` `expired` `revoked`                                             |
 | `monthly_plan_configs.status` | `draft` `generated` `saved`                                              |
 | `posts.content_type`          | `regular_post` `article_share` `promotion` `engagement` `repost`         |
-| `posts.status`                | `draft` `scheduled` `publishing` `published` `failed` `failed_final`     |
+| `posts.status`                | `draft` `pending_review` `approved` `rejected` `scheduled` `publishing` `published` `failed` `failed_final` |
 | `posts.created_by`            | `manual` `ai` `ai_monthly_plan`                                          |
 | `posts.image_ratio`           | `1:1` `4:5` `16:9` `9:16`                                                |
 | `posts.tags[]`                | `promotion` `education` `engagement` `branding` `seasonal` `testimonial` |

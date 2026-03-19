@@ -18,11 +18,11 @@
 | Auth      | Supabase Auth (email/password)                       |
 | Database  | Supabase (PostgreSQL)                                |
 | Storage   | Supabase Storage (media uploads)                     |
-| AI        | Claude API (Anthropic direct)                        |
-| Auto-Post | Playwright (Node.js) — local Mac หรือ VPS            |
+| AI        | Claude API via OpenRouter                            |
+| Auto-Post | Playwright (Node.js) บน VPS แยก                      |
 | Scheduler | Vercel Cron Job                                      |
 | Email     | Brevo (SMTP)                                         |
-| Hosting   | Vercel (frontend) + Local/VPS (Playwright service)   |
+| Hosting   | Vercel (frontend) + VPS ส่วนตัว (Playwright service) |
 
 ---
 
@@ -53,7 +53,9 @@ postmate-ai/
 │   └── api/
 │       ├── ai/
 │       │   ├── generate/route.ts            # Single/Series post generate
-│       │   └── monthly-plan/route.ts        # Monthly plan generate
+│       │   ├── monthly-plan/route.ts        # Monthly plan generate
+│       │   └── analyze-brand/route.ts       # AI Brand Analyzer
+│       ├── notifications/route.ts           # In-app notifications
 │       ├── posts/
 │       │   └── execute/route.ts             # Trigger Playwright on VPS
 │       └── cron/
@@ -74,7 +76,8 @@ postmate-ai/
 │   ├── ai/
 │   │   ├── prompts.ts                       # system prompt builders
 │   │   ├── generate.ts                      # single/series generator
-│   │   └── monthly-plan.ts                  # monthly plan generator
+│   │   ├── monthly-plan.ts                  # monthly plan generator
+│   │   └── analyze-brand.ts                 # brand analyzer from URL
 │   ├── encryption.ts                        # AES-256-GCM encrypt/decrypt
 │   └── utils.ts
 ├── types/
@@ -158,6 +161,7 @@ draft → scheduled → publishing → published
 - ทุก AI generate ต้องมี `image_prompt` (TH + EN) ควบคู่เสมอ
 - Parse response เป็น JSON เสมอ — ถ้า parse ไม่ได้ให้ retry ไม่เกิน 2 ครั้ง
 - Model: ใช้ Claude ผ่าน OpenRouter
+- AI Brand Analyzer (`/api/ai/analyze-brand`) วิเคราะห์ข้อมูลแบรนด์จาก Facebook page หรือ website URL
 
 ### Auto-Post
 

@@ -49,10 +49,6 @@ export async function updateSession(request: NextRequest) {
     return supabaseResponse;
   }
 
-  // Debug: log all cookies and auth result
-  const allCookies = request.cookies.getAll().map(c => c.name);
-  console.log(`[MW] path=${pathname} user=${user?.email ?? "NULL"} cookies=[${allCookies.join(", ")}]`);
-
   // Only redirect: unauthenticated on protected routes
   if (!user && !isPublicRoute(pathname)) {
     const url = request.nextUrl.clone();

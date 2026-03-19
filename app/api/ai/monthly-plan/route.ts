@@ -1,17 +1,21 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { generateMonthlyPlan, type MonthlyPlanConfig } from "@/lib/ai/monthly-plan";
 import type { Project } from "@/types/database";
 
-interface MonthlyPlanRequestBody {
-  projectId: string;
-  month: string;
-  activeDays: number[];
-  defaultPostsPerDay: number;
-  dayOverrides: Record<string, number>;
-  slotTypes: Record<string, string>;
-  theme: string | null;
-}
+const monthlyPlanRequestSchema = z.object({
+  projectId: z.string().uuid("projectId ต้องเป็น UUID"),
+  month: z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/, "month ต้องอยู่ในรูปแบบ YYYY-MM"),
+  activeDays: z
+    .array(z.number().int().min(0).max(6))
+    .min(1, "ต้องเลือกวันโพสต์อย่างน้อย 1 วัน")
+    .max(7),
+  defaultPostsPerDay: z.number().int().min(1).max(5).default(1),
+  dayOverrides: z.record(z.string(), z.number().int().min(1).max(5)).default({}),
+  slotTypes: z.record(z.string(), z.string()).default({}),
+  theme: z.string().max(500).nullable().default(null),
+});
 
 export async function POST(request: Request) {
   try {
@@ -24,7 +28,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = (await request.json()) as MonthlyPlanRequestBody;
+    const rawBody: unknown = await request.json();
+    const parseResult = monthlyPlanRequestSchema.safeParse(rawBody);
+
+    if (!parseResult.success) {
+      const errors = parseResult.error.issues.map((i) => i.message);
+      return NextResponse.json(
+        { error: "Validation failed", details: errors },
+        { status: 400 }
+      );
+    }
+
     const {
       projectId,
       month,
@@ -33,14 +47,7 @@ export async function POST(request: Request) {
       dayOverrides,
       slotTypes,
       theme,
-    } = body;
-
-    if (!projectId || !month || !activeDays || activeDays.length === 0) {
-      return NextResponse.json(
-        { error: "Missing required fields: projectId, month, activeDays" },
-        { status: 400 }
-      );
-    }
+    } = parseResult.data;
 
     // Fetch project with ownership check
     const { data: project, error: projectError } = await supabase

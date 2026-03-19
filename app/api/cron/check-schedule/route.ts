@@ -43,6 +43,17 @@ async function triggerVps(payload: VpsPostPayload): Promise<VpsResponse | null> 
     return null;
   }
 
+  // In production, require HTTPS for VPS URL (allow http://localhost in development)
+  const isProduction = process.env.NODE_ENV === "production";
+  const isLocalhost = vpsUrl.startsWith("http://localhost") || vpsUrl.startsWith("http://127.0.0.1");
+  if (isProduction && !vpsUrl.startsWith("https://")) {
+    console.error(`[Cron] VPS_API_URL must use HTTPS in production. Got: ${vpsUrl}`);
+    return { success: false, error: "VPS_API_URL must use HTTPS in production" };
+  }
+  if (!isProduction && !vpsUrl.startsWith("https://") && !isLocalhost) {
+    console.warn(`[Cron] VPS_API_URL is not HTTPS and not localhost: ${vpsUrl}`);
+  }
+
   try {
     const response = await fetch(`${vpsUrl}/api/post`, {
       method: "POST",
@@ -171,12 +182,12 @@ export async function GET(request: Request) {
         continue;
       }
 
-      // Get active session for this project
+      // Get active session for this project (check expiry)
       let decryptedCookies = "{}";
       try {
         const { data: session } = await supabase
           .from("project_sessions")
-          .select("cookies_encrypted")
+          .select("id, cookies_encrypted, expires_at")
           .eq("project_id", post.project_id)
           .eq("platform", project.platform)
           .eq("status", "active")
@@ -184,8 +195,31 @@ export async function GET(request: Request) {
           .limit(1)
           .single();
 
-        if (session?.cookies_encrypted) {
-          decryptedCookies = decrypt(session.cookies_encrypted);
+        if (session) {
+          // Check if session has expired
+          if (session.expires_at && new Date(session.expires_at) <= new Date()) {
+            console.warn(`[Cron] Session expired for project ${post.project_id}, marking as expired`);
+
+            // Update session status to expired
+            await supabase
+              .from("project_sessions")
+              .update({ status: "expired" })
+              .eq("id", session.id);
+
+            // Revert post to scheduled — skip this run
+            await supabase
+              .from("posts")
+              .update({ status: "scheduled" })
+              .eq("id", post.id);
+
+            results.skipped++;
+            results.errors.push(`Post ${post.id}: session expired for project ${post.project_id}`);
+            continue;
+          }
+
+          if (session.cookies_encrypted) {
+            decryptedCookies = decrypt(session.cookies_encrypted);
+          }
         } else {
           console.warn(`[Cron] No active session for project ${post.project_id}`);
         }
@@ -211,38 +245,16 @@ export async function GET(request: Request) {
 
       const vpsResult = await triggerVps(vpsPayload);
 
-      // If VPS not configured, simulate success for development
+      // If VPS not configured, revert to scheduled and skip (do NOT fake publish)
       if (vpsResult === null) {
-        console.log(`[Cron] VPS placeholder — marking post ${post.id} as published (dev mode)`);
+        console.warn(`[Cron] VPS not configured — reverting post ${post.id} to scheduled, skipping`);
 
-        // 12.6 — Update to published
         await supabase
           .from("posts")
-          .update({ status: "published" })
+          .update({ status: "scheduled" })
           .eq("id", post.id);
 
-        // Insert success result
-        await supabase.from("post_results").insert({
-          post_id: post.id,
-          platform: project.platform,
-          status: "success",
-          error_message: null,
-          platform_post_id: null,
-        });
-
-        results.published++;
-
-        // Send success email
-        const ownerEmail = project.clients?.contact_email;
-        if (ownerEmail) {
-          await sendPostResultEmail(ownerEmail, post.title ?? "Untitled", "success").catch(
-            (err: unknown) => {
-              const msg = err instanceof Error ? err.message : String(err);
-              console.error("[Cron] Email send error:", msg);
-            }
-          );
-        }
-
+        results.skipped++;
         continue;
       }
 
