@@ -54,7 +54,7 @@ export function CalendarMonth({
     for (const post of posts) {
       const dateKey = post.scheduled_at
         ? format(new Date(post.scheduled_at), "yyyy-MM-dd")
-        : null;
+        : format(new Date(post.created_at), "yyyy-MM-dd");
       if (dateKey) {
         const existing = map.get(dateKey) ?? [];
         existing.push(post);
@@ -112,7 +112,6 @@ export function CalendarMonth({
               key={dateKey}
               role="button"
               tabIndex={0}
-              type="button"
               onClick={() => {
                 if (dayPosts.length === 0) {
                   onDayClick(day);

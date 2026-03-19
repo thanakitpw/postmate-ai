@@ -1,4 +1,4 @@
-import { chromium, type Browser, type Page, type BrowserContext } from "playwright";
+import { chromium, firefox, type Browser, type Page, type BrowserContext } from "playwright";
 import { randomDelay, slowTypeKeyboard, humanClick, humanScroll, randomMouseMove } from "../lib/human-like.js";
 import { takeScreenshotAndUpload } from "../lib/screenshot.js";
 import type { PostPayload, PostResult, PlatformCookie } from "../types.js";
@@ -60,33 +60,74 @@ export async function executeFacebook(payload: PostPayload): Promise<PostResult>
   let page: Page | null = null;
   const tempFiles: string[] = [];
 
+  // Browser mode: "firefox-profile" | "chrome-profile" | "cookies"
+  const browserMode = process.env.BROWSER_MODE || "cookies";
+  const firefoxProfilePath = process.env.FIREFOX_PROFILE_PATH ||
+    `${process.env.HOME}/Library/Application Support/Firefox/Profiles`;
+  const chromeProfilePath = process.env.CHROME_PROFILE_PATH ||
+    `${process.env.HOME}/Library/Application Support/Google/Chrome`;
+
   try {
-    // Launch browser
-    browser = await chromium.launch({
-      headless: HEADLESS,
-      args: [
-        "--disable-blink-features=AutomationControlled",
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-      ],
-    });
+    if (browserMode === "firefox-profile") {
+      // Find Firefox default profile directory
+      const fs = await import("fs");
+      let profileDir = firefoxProfilePath;
 
-    context = await browser.newContext({
-      viewport: { width: 1280, height: 900 },
-      userAgent:
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
-      locale: "th-TH",
-      timezoneId: "Asia/Bangkok",
-    });
+      // If path is the Profiles directory, find the default profile
+      if (profileDir.endsWith("Profiles")) {
+        const profiles = fs.readdirSync(profileDir).filter((d: string) => d.endsWith(".default-release") || d.endsWith(".default"));
+        if (profiles.length > 0) {
+          profileDir = `${profileDir}/${profiles[0]}`;
+        }
+      }
 
-    // Set cookies from decrypted session
-    const cookies = parseCookies(payload.cookies);
-    if (cookies.length > 0) {
-      await context.addCookies(
-        cookies.map((c) => ({
-          name: c.name,
-          value: c.value,
-          domain: c.domain || ".facebook.com",
+      console.log(`[Facebook] Using Firefox profile: ${profileDir}`);
+      context = await firefox.launchPersistentContext(profileDir, {
+        headless: false,
+        viewport: { width: 1280, height: 900 },
+      });
+      page = context.pages()[0] || await context.newPage();
+
+    } else if (browserMode === "chrome-profile") {
+      console.log("[Facebook] Using Chrome profile (must close Chrome first)");
+      context = await chromium.launchPersistentContext(
+        `${chromeProfilePath}/Default`,
+        {
+          headless: false,
+          channel: "chrome",
+          viewport: { width: 1280, height: 900 },
+          args: ["--disable-blink-features=AutomationControlled", "--no-sandbox"],
+        }
+      );
+      page = context.pages()[0] || await context.newPage();
+
+    } else {
+      // Default: fresh browser with cookies
+      browser = await chromium.launch({
+        headless: HEADLESS,
+        args: [
+          "--disable-blink-features=AutomationControlled",
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+        ],
+      });
+
+      context = await browser.newContext({
+        viewport: { width: 1280, height: 900 },
+        userAgent:
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+        locale: "th-TH",
+        timezoneId: "Asia/Bangkok",
+      });
+
+      // Set cookies from decrypted session
+      const cookies = parseCookies(payload.cookies);
+      if (cookies.length > 0) {
+        await context.addCookies(
+          cookies.map((c) => ({
+            name: c.name,
+            value: c.value,
+            domain: c.domain || ".facebook.com",
           path: c.path || "/",
           expires: c.expires || -1,
           httpOnly: c.httpOnly ?? false,
@@ -94,9 +135,10 @@ export async function executeFacebook(payload: PostPayload): Promise<PostResult>
           sameSite: c.sameSite || ("None" as const),
         }))
       );
-    }
+      }
 
-    page = await context.newPage();
+      page = await context.newPage();
+    }
 
     // Navigate to Facebook
     await page.goto("https://www.facebook.com", {

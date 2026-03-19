@@ -197,7 +197,7 @@ export function ManualEditor({
         const path = `${projectId}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
 
         const { error: uploadError } = await supabase.storage
-          .from("media")
+          .from("post-media")
           .upload(path, file);
 
         if (uploadError) {
@@ -205,7 +205,7 @@ export function ManualEditor({
         }
 
         const { data: urlData } = supabase.storage
-          .from("media")
+          .from("post-media")
           .getPublicUrl(path);
 
         newUrls.push(urlData.publicUrl);
@@ -267,6 +267,24 @@ export function ManualEditor({
           .single();
 
         if (updateError) throw new Error(updateError.message);
+
+        // If "โพสเลย" on existing post, trigger execute
+        if (data && status === "draft") {
+          try {
+            const execRes = await fetch("/api/posts/execute", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ postId: post.id }),
+            });
+            const execJson = await execRes.json();
+            if (!execRes.ok) {
+              setError(`บันทึกแล้ว แต่โพสไม่สำเร็จ: ${execJson.error ?? "ไม่ทราบสาเหตุ"}`);
+            }
+          } catch (execErr) {
+            setError(`บันทึกแล้ว แต่เชื่อมต่อไม่ได้: ${execErr instanceof Error ? execErr.message : ""}`);
+          }
+        }
+
         if (data) onSaved(data as Post);
       } else {
         const insertData: InsertDto<"posts"> = {
@@ -291,6 +309,25 @@ export function ManualEditor({
           .single();
 
         if (insertError) throw new Error(insertError.message);
+
+        // If "โพสเลย" mode, trigger immediate posting
+        if (data && status === "draft") {
+          setError(null);
+          try {
+            const execResponse = await fetch("/api/posts/execute", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ postId: data.id }),
+            });
+            const execData = await execResponse.json();
+            if (!execResponse.ok) {
+              setError(`บันทึกแล้ว แต่โพสไม่สำเร็จ: ${execData.error ?? "ไม่ทราบสาเหตุ"}`);
+            }
+          } catch (execErr) {
+            setError(`บันทึกแล้ว แต่เชื่อมต่อ Playwright Service ไม่ได้: ${execErr instanceof Error ? execErr.message : "ไม่ทราบสาเหตุ"}`);
+          }
+        }
+
         if (data) onSaved(data as Post);
       }
     } catch (err) {
@@ -859,10 +896,10 @@ export function ManualEditor({
             size="sm"
             onClick={handleSave}
             disabled={saving || !content.trim()}
-            className="gap-1.5 bg-indigo-600 hover:bg-indigo-700"
+            className={cn("gap-1.5", status === "draft" ? "bg-green-600 hover:bg-green-700" : "bg-indigo-600 hover:bg-indigo-700")}
           >
             {saving && <Loader2 className="size-3.5 animate-spin" />}
-            {isEditing ? "บันทึก" : "บันทึกแบบร่าง"}
+            {status === "draft" ? "โพสเลย" : "ตั้งเวลาโพส"}
           </Button>
         </div>
       </div>
