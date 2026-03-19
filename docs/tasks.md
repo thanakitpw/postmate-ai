@@ -98,48 +98,48 @@
 
 ### 🗓️ TASK 7 — AI Monthly Plan
 
-- [ ] 🔴 7.1 Monthly Plan page `/projects/[id]/monthly-plan`
-- [ ] 🔴 7.2 Month picker (เลือกเดือน + ปี)
-- [ ] 🔴 7.3 Checkbox เลือกวันโพสต์ต่อสัปดาห์ (จ–อา)
-- [ ] 🔴 7.4 Input จำนวนโพสต์ default ต่อวัน
-- [ ] 🔴 7.5 Override จำนวนโพสต์แต่ละวัน (เช่น เสาร์ = 2)
-- [ ] 🔴 7.6 เลือก content type ต่อแต่ละ slot
-- [ ] 🔴 7.7 Input theme ของเดือน
-- [ ] 🔴 7.8 API route `POST /api/ai/monthly-plan`
-- [ ] 🔴 7.9 สร้าง system prompt จาก config + Brand Profile
-- [ ] 🔴 7.10 Parse + validate JSON response จาก Claude API
-- [ ] 🔴 7.11 Calendar Preview — แสดงแผนทั้งเดือน
-- [ ] 🔴 7.12 ปุ่ม "Save All to Calendar" → bulk insert posts
-- [ ] 🟡 7.13 แก้ไข caption แต่ละโพสต์ใน preview ก่อน save
-- [ ] 🟡 7.14 Regenerate โพสต์รายตัว
-- [ ] 🟡 7.15 แสดง `image_prompt` + `image_ratio` ต่อ slot พร้อมปุ่ม Copy
-- [ ] 🟡 7.16 บันทึก config ใน `monthly_plan_configs`
+- [x] 🔴 7.1 Monthly Plan page `/projects/[id]/monthly-plan`
+- [x] 🔴 7.2 Month picker (เลือกเดือน + ปี)
+- [x] 🔴 7.3 Checkbox เลือกวันโพสต์ต่อสัปดาห์ (จ–อา)
+- [x] 🔴 7.4 Input จำนวนโพสต์ default ต่อวัน
+- [x] 🔴 7.5 Override จำนวนโพสต์แต่ละวัน (เช่น เสาร์ = 2)
+- [x] 🔴 7.6 เลือก content type ต่อแต่ละ slot
+- [x] 🔴 7.7 Input theme ของเดือน
+- [x] 🔴 7.8 API route `POST /api/ai/monthly-plan`
+- [x] 🔴 7.9 สร้าง system prompt จาก config + Brand Profile
+- [x] 🔴 7.10 Parse + validate JSON response จาก Claude API
+- [x] 🔴 7.11 Calendar Preview — แสดงแผนทั้งเดือน
+- [x] 🔴 7.12 ปุ่ม "Save All to Calendar" → bulk insert posts
+- [x] 🟡 7.13 แก้ไข caption แต่ละโพสต์ใน preview ก่อน save
+- [x] 🟡 7.14 Regenerate โพสต์รายตัว
+- [x] 🟡 7.15 แสดง `image_prompt` + `image_ratio` ต่อ slot พร้อมปุ่ม Copy
+- [x] 🟡 7.16 บันทึก config ใน `monthly_plan_configs`
 
 ---
 
 ### 🤖 TASK 8 — AI Generate Mode (Single / Series)
 
-- [ ] 🔴 8.1 AI Generate panel ใน Post Modal
-- [ ] 🔴 8.2 Topic / Brief input
-- [ ] 🔴 8.3 เลือก Single post หรือ Series (3 / 5 / 7 วัน)
-- [ ] 🔴 8.4 API route `POST /api/ai/generate`
-- [ ] 🔴 8.5 สร้าง system prompt ดึง Brand Profile อัตโนมัติ
-- [ ] 🔴 8.6 Parse + validate JSON response
-- [ ] 🔴 8.7 แสดง caption + hashtag + image_prompt
-- [ ] 🟡 8.8 Language override selector
-- [ ] 🟡 8.9 Regenerate button
-- [ ] 🟡 8.10 แก้ไข caption ก่อน save
-- [ ] 🟡 8.11 Save series → bulk insert + `ai_series` record
+- [x] 🔴 8.1 AI Generate panel ใน Post Modal
+- [x] 🔴 8.2 Topic / Brief input
+- [x] 🔴 8.3 เลือก Single post หรือ Series (3 / 5 / 7 วัน)
+- [x] 🔴 8.4 API route `POST /api/ai/generate`
+- [x] 🔴 8.5 สร้าง system prompt ดึง Brand Profile อัตโนมัติ
+- [x] 🔴 8.6 Parse + validate JSON response
+- [x] 🔴 8.7 แสดง caption + hashtag + image_prompt
+- [x] 🟡 8.8 Language override selector
+- [x] 🟡 8.9 Regenerate button
+- [x] 🟡 8.10 แก้ไข caption ก่อน save
+- [x] 🟡 8.11 Save series → bulk insert + `ai_series` record
 
 ---
 
 ### 📋 TASK 9 — Post List & Filter
 
-- [ ] 🟡 9.1 Post List page `/projects/[id]/posts` (table view)
-- [ ] 🟡 9.2 Filter: tag, status, content type, date range
-- [ ] 🟡 9.3 Search by caption text
-- [ ] 🟡 9.4 Bulk action: เปลี่ยน status
-- [ ] 🟡 9.5 Bulk delete + confirmation
+- [x] 🟡 9.1 Post List page `/projects/[id]/posts` (table view)
+- [x] 🟡 9.2 Filter: tag, status, content type, date range
+- [x] 🟡 9.3 Search by caption text
+- [x] 🟡 9.4 Bulk action: เปลี่ยน status
+- [x] 🟡 9.5 Bulk delete + confirmation
 - [ ] 🟢 9.6 Export post list เป็น CSV
 
 ---
@@ -226,10 +226,10 @@
 
 | Phase                | Tasks  | Done   | In Progress | Remaining |
 | -------------------- | ------ | ------ | ----------- | --------- |
-| Phase 1 — MVP        | 57     | 47     | 0           | 10        |
+| Phase 1 — MVP        | 57     | 54     | 0           | 3         |
 | Phase 2 — Auto-Post  | 28     | 0      | 0           | 28        |
 | Phase 3 — Production | 10     | 0      | 0           | 10        |
-| **Total**            | **95** | **47** | **0**       | **48**    |
+| **Total**            | **95** | **54** | **0**       | **41**    |
 
 ---
 

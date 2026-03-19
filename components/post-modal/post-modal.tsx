@@ -93,7 +93,13 @@ export function PostModal({
             onClose={onClose}
           />
         ) : (
-          <AiPanel />
+          <AiPanel
+            projectId={projectId}
+            platform={platform}
+            prefillDate={prefillDate}
+            onSaved={onSaved}
+            onClose={onClose}
+          />
         )}
       </DialogContent>
     </Dialog>

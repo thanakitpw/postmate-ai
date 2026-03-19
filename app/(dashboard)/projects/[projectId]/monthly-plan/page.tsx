@@ -1,9 +1,105 @@
-// AI Monthly Plan page placeholder
-export default function MonthlyPlanPage({ params }: { params: { projectId: string } }) {
+import { redirect, notFound } from "next/navigation";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { MonthlyPlanClient } from "./monthly-plan-client";
+import type { MonthlyPlanConfig } from "@/types/database";
+
+const PLATFORM_CONFIG: Record<string, { label: string; className: string }> = {
+  facebook: {
+    label: "Facebook",
+    className: "bg-blue-50 text-blue-700 border-blue-200",
+  },
+  instagram: {
+    label: "Instagram",
+    className: "bg-pink-50 text-pink-700 border-pink-200",
+  },
+  tiktok: {
+    label: "TikTok",
+    className: "bg-gray-900 text-white border-gray-900",
+  },
+};
+
+export default async function MonthlyPlanPage({
+  params,
+}: {
+  params: Promise<{ projectId: string }>;
+}) {
+  const { projectId } = await params;
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  // Fetch project with client info to verify ownership
+  const { data: project, error: projectError } = await supabase
+    .from("projects")
+    .select("*, clients!inner(owner_id)")
+    .eq("id", projectId)
+    .single();
+
+  if (projectError || !project) {
+    notFound();
+  }
+
+  const clientData = project.clients as unknown as { owner_id: string };
+  if (clientData.owner_id !== user.id) {
+    notFound();
+  }
+
+  // Fetch existing monthly plan config for this project
+  const { data: existingConfig } = await supabase
+    .from("monthly_plan_configs")
+    .select("*")
+    .eq("project_id", projectId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  const platformConfig = PLATFORM_CONFIG[project.platform] ?? {
+    label: project.platform,
+    className: "bg-gray-50 text-gray-700 border-gray-200",
+  };
+
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold">Monthly Plan</h1>
-      <p>Project ID: {params.projectId}</p>
+    <div className="space-y-6">
+      {/* Back link */}
+      <Link href={`/projects/${projectId}`}>
+        <Button variant="ghost" className="gap-2 text-gray-600">
+          <ArrowLeft className="size-4" />
+          กลับไปปฏิทิน
+        </Button>
+      </Link>
+
+      {/* Header */}
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+              แผนรายเดือน AI
+            </h1>
+            <Badge variant="outline" className={platformConfig.className}>
+              {platformConfig.label}
+            </Badge>
+          </div>
+          <p className="mt-1 text-sm text-gray-500">
+            {project.project_name}
+            {project.business_type ? ` - ${project.business_type}` : ""}
+          </p>
+        </div>
+      </div>
+
+      {/* Client component */}
+      <MonthlyPlanClient
+        projectId={projectId}
+        existingConfig={existingConfig as MonthlyPlanConfig | null}
+      />
     </div>
   );
 }
