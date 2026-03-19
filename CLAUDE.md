@@ -18,11 +18,11 @@
 | Auth      | Supabase Auth (email/password)                       |
 | Database  | Supabase (PostgreSQL)                                |
 | Storage   | Supabase Storage (media uploads)                     |
-| AI        | Claude API via OpenRouter                            |
-| Auto-Post | Playwright (Node.js) บน VPS แยก                      |
+| AI        | Claude API (Anthropic direct)                        |
+| Auto-Post | Playwright (Node.js) — local Mac หรือ VPS            |
 | Scheduler | Vercel Cron Job                                      |
 | Email     | Brevo (SMTP)                                         |
-| Hosting   | Vercel (frontend) + VPS ส่วนตัว (Playwright service) |
+| Hosting   | Vercel (frontend) + Local/VPS (Playwright service)   |
 
 ---
 

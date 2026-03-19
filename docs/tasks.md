@@ -148,60 +148,60 @@
 
 ### 🔗 TASK 10 — Platform Connect (Session)
 
-- [ ] 🔴 10.1 Platform Connect page `/projects/[id]/connect`
-- [ ] 🔴 10.2 แสดง session status ต่อ platform (active / expired / not connected)
-- [ ] 🔴 10.3 ปุ่ม Connect → เรียก VPS เปิด browser ให้ลูกค้า login
-- [ ] 🔴 10.4 VPS จับ cookies + ส่งกลับ Next.js
-- [ ] 🔴 10.5 AES-256-GCM encrypt (`lib/encryption.ts`)
-- [ ] 🔴 10.6 บันทึกใน `project_sessions`
-- [ ] 🟡 10.7 แจ้งเตือน session ใกล้หมดอายุ (7 วันล่วงหน้า — email Brevo)
-- [ ] 🟡 10.8 ปุ่ม Revoke session
+- [x] 🔴 10.1 Platform Connect page `/projects/[id]/connect`
+- [x] 🔴 10.2 แสดง session status ต่อ platform (active / expired / not connected)
+- [~] 🔴 10.3 ปุ่ม Connect → เรียก Playwright service (รอ Task 11)
+- [~] 🔴 10.4 Playwright จับ cookies + ส่งกลับ Next.js (รอ Task 11)
+- [x] 🔴 10.5 AES-256-GCM encrypt (`lib/encryption.ts`)
+- [x] 🔴 10.6 บันทึกใน `project_sessions`
+- [x] 🟡 10.7 แจ้งเตือน session ใกล้หมดอายุ (7 วันล่วงหน้า)
+- [x] 🟡 10.8 ปุ่ม Revoke session
 
 ---
 
-### ⚙️ TASK 11 — Playwright Service (VPS)
+### ⚙️ TASK 11 — Playwright Service (Local Mac → ย้าย VPS ทีหลัง)
 
-- [ ] 🔴 11.1 ติดตั้ง Node.js 20 + Playwright + Chromium บน VPS
-- [ ] 🔴 11.2 ติดตั้ง PM2 + Nginx + SSL (Let's Encrypt)
-- [ ] 🔴 11.3 Express API server พร้อม API key auth
-- [ ] 🔴 11.4 Playwright executor — Facebook Page
-- [ ] 🔴 11.5 Playwright executor — Instagram
-- [ ] 🔴 11.6 Playwright executor — TikTok
-- [ ] 🔴 11.7 Human-like behavior (random delay 800–3000ms, slow typing)
-- [ ] 🟡 11.8 Article share handler (เปิด URL + share)
-- [ ] 🟡 11.9 Media upload handler (attach รูป/วิดีโอ)
-- [ ] 🟡 11.10 Error handling + screenshot on failure → Supabase Storage
-- [ ] 🔴 11.11 บันทึกผลใน `post_results` ผ่าน Supabase service role
+- [ ] 🔴 11.1 ติดตั้ง Node.js 20 + Playwright + Chromium บนเครื่อง local
+- [ ] 🔴 11.2 Express API server (port 4000) พร้อม API key auth
+- [ ] 🔴 11.3 Playwright executor — Facebook Page
+- [ ] 🔴 11.4 Playwright executor — Instagram
+- [ ] 🔴 11.5 Playwright executor — TikTok
+- [ ] 🔴 11.6 Human-like behavior (random delay 800–3000ms, slow typing)
+- [ ] 🟡 11.7 Article share handler (เปิด URL + share)
+- [ ] 🟡 11.8 Media upload handler (attach รูป/วิดีโอ)
+- [ ] 🟡 11.9 Error handling + screenshot on failure → Supabase Storage
+- [ ] 🔴 11.10 บันทึกผลใน `post_results` ผ่าน Supabase service role
+- [ ] 🟡 11.11 ย้ายไป VPS (PM2 + Nginx + SSL) เมื่อพร้อม
 
 ---
 
 ### ⏰ TASK 12 — Scheduler (Vercel Cron)
 
-- [ ] 🔴 12.1 Cron route `GET /api/cron/check-schedule`
-- [ ] 🔴 12.2 Query posts ที่ `scheduled_at <= now()` และ `status = 'scheduled'`
-- [ ] 🔴 12.3 อัปเดต status → `publishing` ก่อน trigger (ป้องกัน duplicate)
-- [ ] 🔴 12.4 Trigger Playwright service บน VPS ต่อโพสต์
-- [ ] 🔴 12.5 Retry logic (max 3 ครั้ง, exponential backoff)
-- [ ] 🔴 12.6 อัปเดต status → `published` หรือ `failed_final`
-- [ ] 🟡 12.7 ตั้ง `vercel.json` cron schedule (`"*/1 * * * *"`)
+- [x] 🔴 12.1 Cron route `GET /api/cron/check-schedule`
+- [x] 🔴 12.2 Query posts ที่ `scheduled_at <= now()` และ `status = 'scheduled'`
+- [x] 🔴 12.3 อัปเดต status → `publishing` ก่อน trigger (ป้องกัน duplicate)
+- [x] 🔴 12.4 Trigger Playwright service ต่อโพสต์
+- [x] 🔴 12.5 Retry logic (max 3 ครั้ง, exponential backoff)
+- [x] 🔴 12.6 อัปเดต status → `published` หรือ `failed_final`
+- [x] 🟡 12.7 ตั้ง `vercel.json` cron schedule (`"*/1 * * * *"`)
 
 ---
 
 ### 📊 TASK 13 — Post Result Log
 
-- [ ] 🟡 13.1 Log page `/projects/[id]/logs`
-- [ ] 🟡 13.2 แสดง status, error message, retry count, posted_at
-- [ ] 🟡 13.3 ปุ่ม Retry manual
-- [ ] 🟡 13.4 Link ไปโพสต์จริงบน platform (platform_post_id)
+- [x] 🟡 13.1 Log page `/projects/[id]/logs`
+- [x] 🟡 13.2 แสดง status, error message, retry count, posted_at
+- [x] 🟡 13.3 ปุ่ม Retry manual
+- [x] 🟡 13.4 Link ไปโพสต์จริงบน platform (platform_post_id)
 - [ ] 🟢 13.5 Export log เป็น CSV
 
 ---
 
 ### 🔔 TASK 14 — Notifications
 
-- [ ] 🟡 14.1 Email แจ้งเตือนเมื่อโพสต์สำเร็จ / ล้มเหลว (Brevo)
-- [ ] 🟡 14.2 Email แจ้งเตือน session ใกล้หมดอายุ
-- [ ] 🟢 14.3 In-app notification bell
+- [x] 🟡 14.1 Email แจ้งเตือนเมื่อโพสต์สำเร็จ / ล้มเหลว (Brevo)
+- [x] 🟡 14.2 Email แจ้งเตือน session ใกล้หมดอายุ
+- [x] 🟢 14.3 In-app notification bell
 
 ---
 
@@ -227,9 +227,9 @@
 | Phase                | Tasks  | Done   | In Progress | Remaining |
 | -------------------- | ------ | ------ | ----------- | --------- |
 | Phase 1 — MVP        | 57     | 54     | 0           | 3         |
-| Phase 2 — Auto-Post  | 28     | 0      | 0           | 28        |
+| Phase 2 — Auto-Post  | 28     | 21     | 2           | 5         |
 | Phase 3 — Production | 10     | 0      | 0           | 10        |
-| **Total**            | **95** | **54** | **0**       | **41**    |
+| **Total**            | **95** | **75** | **2**       | **18**    |
 
 ---
 

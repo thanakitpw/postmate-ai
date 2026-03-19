@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
+import type { NotificationsResponse, NotificationItem } from "@/types/notifications";
 
 interface DashboardUser {
   id: string;
@@ -186,10 +187,97 @@ function NavSection({
   );
 }
 
+const severityColors: Record<NotificationItem["severity"], string> = {
+  success: "bg-[#22c55e]",
+  warning: "bg-[#f59e0b]",
+  error: "bg-[#ef4444]",
+};
+
+function NotificationDropdown({
+  notifications,
+  onClose,
+}: {
+  notifications: NotificationItem[];
+  onClose: () => void;
+}) {
+  if (notifications.length === 0) {
+    return (
+      <div className="absolute right-0 top-full z-50 mt-2 w-[320px] rounded-xl border border-[#e5e7eb] bg-white shadow-lg">
+        <div className="border-b border-[#f1f5f9] px-4 py-3">
+          <h3 className="text-[0.8125rem] font-semibold text-[#1e293b]">การแจ้งเตือน</h3>
+        </div>
+        <div className="px-4 py-8 text-center text-[0.8125rem] text-[#94a3b8]">
+          ไม่มีการแจ้งเตือน
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="fixed inset-0 z-40" onClick={onClose} />
+      <div className="absolute right-0 top-full z-50 mt-2 w-[340px] rounded-xl border border-[#e5e7eb] bg-white shadow-lg">
+        <div className="border-b border-[#f1f5f9] px-4 py-3">
+          <h3 className="text-[0.8125rem] font-semibold text-[#1e293b]">การแจ้งเตือน</h3>
+        </div>
+        <div className="max-h-[360px] overflow-y-auto">
+          {notifications.map((item) => (
+            <div
+              key={item.id}
+              className="flex items-start gap-3 border-b border-[#f8fafc] px-4 py-3 transition-colors hover:bg-[#f8fafc]"
+            >
+              <div
+                className={cn(
+                  "mt-1 size-2 shrink-0 rounded-full",
+                  severityColors[item.severity]
+                )}
+              />
+              <div className="min-w-0 flex-1">
+                <div className="text-[0.775rem] font-medium text-[#1e293b]">{item.title}</div>
+                <div className="mt-0.5 truncate text-[0.7rem] text-[#64748b]">{item.message}</div>
+                <div className="mt-1 text-[0.65rem] text-[#94a3b8]">
+                  {new Date(item.createdAt).toLocaleDateString("th-TH", {
+                    day: "numeric",
+                    month: "short",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
 export function DashboardShell({ user, children }: DashboardShellProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(0);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const fetchNotifications = useCallback(async () => {
+    try {
+      const response = await fetch("/api/notifications");
+      if (response.ok) {
+        const data = (await response.json()) as NotificationsResponse;
+        setNotificationCount(data.unreadCount);
+        setNotifications(data.notifications.slice(0, 10));
+      }
+    } catch {
+      // Silently handle notification fetch errors
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchNotifications();
+    const interval = setInterval(fetchNotifications, 60_000);
+    return () => clearInterval(interval);
+  }, [fetchNotifications]);
 
   // Determine if we are inside a project context
   const currentProjectId = getProjectIdFromPath(pathname);
@@ -401,23 +489,41 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
               </svg>
             </button>
 
-            {/* Bell icon with red dot */}
-            <button className="relative flex size-9 items-center justify-center rounded-lg text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            {/* Bell icon with notification count */}
+            <div className="relative">
+              <button
+                className="relative flex size-9 items-center justify-center rounded-lg text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]"
+                onClick={() => setShowNotifications(!showNotifications)}
               >
-                <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                <path d="M13.73 21a2 2 0 01-3.46 0" />
-              </svg>
-              <span className="absolute right-2 top-2 size-[7px] rounded-full border-[1.5px] border-white bg-[#ef4444]" />
-            </button>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                  <path d="M13.73 21a2 2 0 01-3.46 0" />
+                </svg>
+                {notificationCount > 0 ? (
+                  <span className="absolute -right-0.5 -top-0.5 flex size-[18px] items-center justify-center rounded-full bg-[#ef4444] text-[0.6rem] font-bold text-white">
+                    {notificationCount > 9 ? "9+" : notificationCount}
+                  </span>
+                ) : (
+                  <span className="absolute right-2 top-2 size-[7px] rounded-full border-[1.5px] border-white bg-[#94a3b8]" />
+                )}
+              </button>
+
+              {showNotifications && (
+                <NotificationDropdown
+                  notifications={notifications}
+                  onClose={() => setShowNotifications(false)}
+                />
+              )}
+            </div>
 
             {/* Help icon */}
             <button className="flex size-9 items-center justify-center rounded-lg text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]">
