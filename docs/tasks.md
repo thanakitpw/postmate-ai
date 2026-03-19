@@ -161,16 +161,16 @@
 
 ### ⚙️ TASK 11 — Playwright Service (Local Mac → ย้าย VPS ทีหลัง)
 
-- [ ] 🔴 11.1 ติดตั้ง Node.js 20 + Playwright + Chromium บนเครื่อง local
-- [ ] 🔴 11.2 Express API server (port 4000) พร้อม API key auth
-- [ ] 🔴 11.3 Playwright executor — Facebook Page
-- [ ] 🔴 11.4 Playwright executor — Instagram
-- [ ] 🔴 11.5 Playwright executor — TikTok
-- [ ] 🔴 11.6 Human-like behavior (random delay 800–3000ms, slow typing)
-- [ ] 🟡 11.7 Article share handler (เปิด URL + share)
-- [ ] 🟡 11.8 Media upload handler (attach รูป/วิดีโอ)
-- [ ] 🟡 11.9 Error handling + screenshot on failure → Supabase Storage
-- [ ] 🔴 11.10 บันทึกผลใน `post_results` ผ่าน Supabase service role
+- [x] 🔴 11.1 ติดตั้ง Node.js 20 + Playwright + Chromium บนเครื่อง local
+- [x] 🔴 11.2 Express API server (port 4000) พร้อม API key auth
+- [x] 🔴 11.3 Playwright executor — Facebook Page
+- [x] 🔴 11.4 Playwright executor — Instagram
+- [x] 🔴 11.5 Playwright executor — TikTok
+- [x] 🔴 11.6 Human-like behavior (random delay 800–3000ms, slow typing)
+- [x] 🟡 11.7 Article share handler (เปิด URL + share)
+- [x] 🟡 11.8 Media upload handler (attach รูป/วิดีโอ)
+- [x] 🟡 11.9 Error handling + screenshot on failure → Supabase Storage
+- [x] 🔴 11.10 บันทึกผลใน `post_results` ผ่าน Supabase service role
 - [ ] 🟡 11.11 ย้ายไป VPS (PM2 + Nginx + SSL) เมื่อพร้อม
 
 ---
@@ -227,9 +227,9 @@
 | Phase                | Tasks  | Done   | In Progress | Remaining |
 | -------------------- | ------ | ------ | ----------- | --------- |
 | Phase 1 — MVP        | 57     | 54     | 0           | 3         |
-| Phase 2 — Auto-Post  | 28     | 21     | 2           | 5         |
+| Phase 2 — Auto-Post  | 28     | 25     | 0           | 3         |
 | Phase 3 — Production | 10     | 0      | 0           | 10        |
-| **Total**            | **95** | **75** | **2**       | **18**    |
+| **Total**            | **95** | **79** | **0**       | **16**    |
 
 ---
 
