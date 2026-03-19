@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { ArrowLeft, Sparkles } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
@@ -67,10 +67,6 @@ export default async function ProjectSettingsPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect("/login");
-  }
-
   // Fetch project with client info (verify ownership through client.owner_id)
   const { data: project, error: projectError } = await supabase
     .from("projects")
@@ -82,7 +78,7 @@ export default async function ProjectSettingsPage({
     projectError ||
     !project ||
     !project.clients ||
-    (project.clients as { owner_id: string }).owner_id !== user.id
+    (project.clients as { owner_id: string }).owner_id !== user?.id
   ) {
     notFound();
   }

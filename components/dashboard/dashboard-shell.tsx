@@ -24,7 +24,13 @@ interface NavItem {
   iconPath: React.ReactNode;
 }
 
-const generalNav: NavItem[] = [
+// Extract projectId from current pathname (if inside /projects/[id]/...)
+function getProjectIdFromPath(pathname: string): string | null {
+  const match = pathname.match(/^\/projects\/([a-f0-9-]+)/);
+  return match?.[1] ?? null;
+}
+
+const generalNavBase: NavItem[] = [
   {
     label: "แดชบอร์ด",
     href: "/",
@@ -35,45 +41,48 @@ const generalNav: NavItem[] = [
       </>
     ),
   },
-  {
-    label: "ปฏิทิน",
-    href: "/calendar",
-    iconPath: (
-      <>
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-        <line x1="16" y1="2" x2="16" y2="6" />
-        <line x1="8" y1="2" x2="8" y2="6" />
-        <line x1="3" y1="10" x2="21" y2="10" />
-      </>
-    ),
-  },
-  {
-    label: "รายการโพสต์",
-    href: "/posts",
-    iconPath: (
-      <>
-        <line x1="8" y1="6" x2="21" y2="6" />
-        <line x1="8" y1="12" x2="21" y2="12" />
-        <line x1="8" y1="18" x2="21" y2="18" />
-        <line x1="3" y1="6" x2="3.01" y2="6" />
-        <line x1="3" y1="12" x2="3.01" y2="12" />
-        <line x1="3" y1="18" x2="3.01" y2="18" />
-      </>
-    ),
-  },
 ];
 
-const toolsNav: NavItem[] = [
+// Project-scoped nav items -- these use the projectId prefix
+const projectCalendarNav = {
+  label: "ปฏิทิน",
+  suffix: "",
+  iconPath: (
+    <>
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+      <line x1="16" y1="2" x2="16" y2="6" />
+      <line x1="8" y1="2" x2="8" y2="6" />
+      <line x1="3" y1="10" x2="21" y2="10" />
+    </>
+  ),
+};
+
+const projectPostsNav = {
+  label: "รายการโพสต์",
+  suffix: "/posts",
+  iconPath: (
+    <>
+      <line x1="8" y1="6" x2="21" y2="6" />
+      <line x1="8" y1="12" x2="21" y2="12" />
+      <line x1="8" y1="18" x2="21" y2="18" />
+      <line x1="3" y1="6" x2="3.01" y2="6" />
+      <line x1="3" y1="12" x2="3.01" y2="12" />
+      <line x1="3" y1="18" x2="3.01" y2="18" />
+    </>
+  ),
+};
+
+const projectToolsNavDefs = [
   {
     label: "AI แผนรายเดือน",
-    href: "/monthly-plan",
+    suffix: "/monthly-plan",
     iconPath: (
       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
     ),
   },
   {
     label: "เชื่อมต่อ Platform",
-    href: "/connect",
+    suffix: "/connect",
     iconPath: (
       <>
         <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" />
@@ -83,23 +92,47 @@ const toolsNav: NavItem[] = [
   },
   {
     label: "ผลการโพสต์",
-    href: "/logs",
+    suffix: "/logs",
     iconPath: <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />,
   },
 ];
 
-const supportNav: NavItem[] = [
-  {
-    label: "ตั้งค่า",
-    href: "/settings",
-    iconPath: (
-      <>
-        <circle cx="12" cy="12" r="3" />
-        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
-      </>
-    ),
-  },
-];
+const projectSettingsNavDef = {
+  label: "ตั้งค่า",
+  suffix: "/settings",
+  iconPath: (
+    <>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+    </>
+  ),
+};
+
+function buildProjectNav(projectId: string) {
+  const prefix = `/projects/${projectId}`;
+  const generalNav: NavItem[] = [
+    ...generalNavBase,
+    { ...projectCalendarNav, href: prefix + projectCalendarNav.suffix },
+    { ...projectPostsNav, href: prefix + projectPostsNav.suffix },
+  ];
+  const toolsNav: NavItem[] = projectToolsNavDefs.map((d) => ({
+    label: d.label,
+    href: prefix + d.suffix,
+    iconPath: d.iconPath,
+  }));
+  const supportNav: NavItem[] = [
+    { ...projectSettingsNavDef, href: prefix + projectSettingsNavDef.suffix },
+  ];
+  return { generalNav, toolsNav, supportNav };
+}
+
+// Default nav when no project is active (only dashboard link)
+function buildDefaultNav() {
+  const generalNav: NavItem[] = [...generalNavBase];
+  const toolsNav: NavItem[] = [];
+  const supportNav: NavItem[] = [];
+  return { generalNav, toolsNav, supportNav };
+}
 
 function SidebarIcon({ children }: { children: React.ReactNode }) {
   return (
@@ -133,7 +166,9 @@ function NavSection({
       </div>
       {items.map((item) => {
         const isActive =
-          item.href === "/" ? currentPath === "/" : currentPath.startsWith(item.href);
+          item.href === "/"
+            ? currentPath === "/"
+            : currentPath === item.href || currentPath.startsWith(item.href + "/");
         return (
           <Link
             key={item.href}
@@ -158,6 +193,12 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Determine if we are inside a project context
+  const currentProjectId = getProjectIdFromPath(pathname);
+  const { generalNav, toolsNav, supportNav } = currentProjectId
+    ? buildProjectNav(currentProjectId)
+    : buildDefaultNav();
 
   async function handleSignOut() {
     try {
@@ -197,8 +238,12 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto py-2">
         <NavSection title="GENERAL" items={generalNav} currentPath={pathname} />
-        <NavSection title="TOOLS" items={toolsNav} currentPath={pathname} />
-        <NavSection title="SUPPORT" items={supportNav} currentPath={pathname} />
+        {toolsNav.length > 0 && (
+          <NavSection title="TOOLS" items={toolsNav} currentPath={pathname} />
+        )}
+        {supportNav.length > 0 && (
+          <NavSection title="SUPPORT" items={supportNav} currentPath={pathname} />
+        )}
       </nav>
 
       {/* Footer */}
@@ -287,7 +332,7 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
       </aside>
 
       {/* Main content */}
-      <main className="ml-0 flex flex-1 flex-col lg:ml-0">
+      <main className="ml-0 flex min-w-0 flex-1 flex-col overflow-hidden lg:ml-0">
         {/* Topbar */}
         <header className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-[#f1f5f9] bg-white px-6">
           <div className="flex items-center gap-4">
@@ -417,7 +462,7 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
         </header>
 
         {/* Page content */}
-        <div className="flex-1 p-7 lg:max-w-[1400px]">{children}</div>
+        <div className="min-w-0 flex-1 overflow-x-hidden p-4 sm:p-7 lg:max-w-[1400px]">{children}</div>
       </main>
     </div>
   );

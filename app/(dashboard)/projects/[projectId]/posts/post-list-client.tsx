@@ -290,7 +290,7 @@ export function PostListClient({
   // ─── Render ───────────────────────────────────────────
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 overflow-hidden">
       {/* Error */}
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
@@ -449,7 +449,8 @@ export function PostListClient({
       )}
 
       {/* Post table */}
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+      <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
+        <div className="min-w-[640px]">
         {/* Table header */}
         <div className="grid grid-cols-[40px_1fr_120px_120px_140px_80px] items-center gap-2 border-b border-gray-200 bg-gray-50 px-4 py-3 text-xs font-medium text-gray-500">
           <button type="button" onClick={toggleSelectAll} className="flex justify-center">
@@ -568,6 +569,7 @@ export function PostListClient({
             );
           })
         )}
+        </div>
       </div>
 
       {/* Results count */}

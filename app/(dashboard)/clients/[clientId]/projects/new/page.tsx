@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
@@ -23,16 +23,12 @@ export default async function NewProjectPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect("/login");
-  }
-
-  // Verify client belongs to user
+  // Verify client belongs to user (middleware guarantees auth)
   const { data: client, error } = await supabase
     .from("clients")
     .select("id, name")
     .eq("id", clientId)
-    .eq("owner_id", user.id)
+    .eq("owner_id", user?.id ?? "")
     .single();
 
   if (error || !client) {

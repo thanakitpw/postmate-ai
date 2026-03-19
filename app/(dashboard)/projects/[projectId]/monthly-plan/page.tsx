@@ -1,4 +1,4 @@
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
@@ -33,11 +33,7 @@ export default async function MonthlyPlanPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect("/login");
-  }
-
-  // Fetch project with client info to verify ownership
+  // Fetch project with client info to verify ownership (middleware guarantees auth)
   const { data: project, error: projectError } = await supabase
     .from("projects")
     .select("*, clients!inner(owner_id)")
@@ -49,7 +45,7 @@ export default async function MonthlyPlanPage({
   }
 
   const clientData = project.clients as unknown as { owner_id: string };
-  if (clientData.owner_id !== user.id) {
+  if (clientData.owner_id !== user?.id) {
     notFound();
   }
 
@@ -68,7 +64,7 @@ export default async function MonthlyPlanPage({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-6 overflow-hidden">
       {/* Back link */}
       <Link href={`/projects/${projectId}`}>
         <Button variant="ghost" className="gap-2 text-gray-600">

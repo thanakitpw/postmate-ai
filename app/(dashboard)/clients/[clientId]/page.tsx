@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import {
   ArrowLeft,
   Plus,
@@ -63,16 +63,12 @@ export default async function ClientDashboardPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect("/login");
-  }
-
-  // Fetch client
+  // Fetch client (middleware guarantees auth)
   const { data: client, error: clientError } = await supabase
     .from("clients")
     .select("*")
     .eq("id", clientId)
-    .eq("owner_id", user.id)
+    .eq("owner_id", user?.id ?? "")
     .single();
 
   if (clientError || !client) {

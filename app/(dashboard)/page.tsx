@@ -83,16 +83,17 @@ export default async function HomePage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect("/login");
-  }
+  // Middleware handles auth redirect - if no user, show empty state
+  const userId = user?.id;
 
   // Fetch clients with project count
-  const { data: clients, error: clientsError } = await supabase
-    .from("clients")
-    .select("*, projects(id, platform)")
-    .eq("owner_id", user.id)
-    .order("created_at", { ascending: false });
+  const { data: clients, error: clientsError } = userId
+    ? await supabase
+        .from("clients")
+        .select("*, projects(id, platform)")
+        .eq("owner_id", userId)
+        .order("created_at", { ascending: false })
+    : { data: [] as (Client & { projects: Pick<Project, "id" | "platform">[] })[], error: null };
 
   if (clientsError) {
     throw new Error("ไม่สามารถโหลดข้อมูลลูกค้าได้");

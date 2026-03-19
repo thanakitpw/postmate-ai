@@ -167,7 +167,7 @@ export function PlanConfig({ onGenerate, generating, initialConfig }: PlanConfig
   const totalPosts = calculateTotalPosts();
 
   return (
-    <div className="space-y-6 rounded-xl border border-gray-200 bg-white p-6">
+    <div className="space-y-6 overflow-hidden rounded-xl border border-gray-200 bg-white p-4 sm:p-6">
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="flex size-10 items-center justify-center rounded-lg bg-indigo-50">
@@ -339,7 +339,7 @@ export function PlanConfig({ onGenerate, generating, initialConfig }: PlanConfig
       </div>
 
       {/* Summary + Generate */}
-      <div className="flex items-center justify-between rounded-lg border border-indigo-100 bg-indigo-50 p-4">
+      <div className="flex flex-col gap-3 rounded-lg border border-indigo-100 bg-indigo-50 p-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm font-medium text-indigo-900">
             รวม {totalPosts} โพสต์ในเดือนนี้

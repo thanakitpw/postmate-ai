@@ -67,7 +67,9 @@ export default function LoginPage() {
         return;
       }
 
-      // Full page reload to ensure auth cookies are sent with the request
+      // Wait for cookies to be set, then redirect
+      // Supabase SSR client sets cookies asynchronously
+      await new Promise((resolve) => setTimeout(resolve, 500));
       window.location.href = "/";
     } catch {
       setServerError("เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง");
