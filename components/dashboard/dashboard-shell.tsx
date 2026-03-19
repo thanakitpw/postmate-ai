@@ -202,14 +202,17 @@ function NotificationDropdown({
 }) {
   if (notifications.length === 0) {
     return (
-      <div className="absolute right-0 top-full z-50 mt-2 w-[320px] rounded-xl border border-[#e5e7eb] bg-white shadow-lg">
-        <div className="border-b border-[#f1f5f9] px-4 py-3">
-          <h3 className="text-[0.8125rem] font-semibold text-[#1e293b]">การแจ้งเตือน</h3>
+      <>
+        <div className="fixed inset-0 z-40" onClick={onClose} />
+        <div className="absolute right-0 top-full z-50 mt-2 w-[320px] rounded-xl border border-[#e5e7eb] bg-white shadow-lg">
+          <div className="border-b border-[#f1f5f9] px-4 py-3">
+            <h3 className="text-[0.8125rem] font-semibold text-[#1e293b]">การแจ้งเตือน</h3>
+          </div>
+          <div className="px-4 py-8 text-center text-[0.8125rem] text-[#94a3b8]">
+            ไม่มีการแจ้งเตือน
+          </div>
         </div>
-        <div className="px-4 py-8 text-center text-[0.8125rem] text-[#94a3b8]">
-          ไม่มีการแจ้งเตือน
-        </div>
-      </div>
+      </>
     );
   }
 
