@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { decrypt } from "@/lib/encryption";
 import { sendPostResultEmail } from "@/lib/email";
@@ -18,8 +19,21 @@ interface VpsResponse {
  * POST /api/posts/execute
  * Manually trigger VPS Playwright service for a single post.
  * Used for manual retry or immediate publish.
+ * Requires authenticated user session.
  */
 export async function POST(request: NextRequest) {
+  // Verify user is authenticated
+  const userSupabase = await createClient();
+  const {
+    data: { user },
+    error: authError,
+  } = await userSupabase.auth.getUser();
+
+  if (authError || !user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // Use service client for operations that need to bypass RLS (status updates, post_results insert)
   const supabase = createServiceClient();
 
   let body: ExecuteRequestBody;

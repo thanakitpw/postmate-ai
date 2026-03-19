@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import type { NotificationItem } from "@/types/notifications";
 
 /**
  * GET /api/notifications
@@ -190,15 +191,3 @@ export async function GET() {
   }
 }
 
-// Type for notification items
-interface NotificationItem {
-  id: string;
-  type: "post_failed" | "post_published" | "session_expiring";
-  title: string;
-  message: string;
-  projectId: string;
-  postId?: string;
-  platform: string;
-  severity: "success" | "warning" | "error";
-  createdAt: string;
-}
