@@ -18,81 +18,81 @@
 
 ### 🔐 TASK 1 — Authentication
 
-- [ ] 🔴 1.1 เปิด Supabase Auth (Email provider)
-- [ ] 🔴 1.2 สร้าง table `user_profiles` + RLS + trigger auto-create
-- [ ] 🔴 1.3 หน้า Login `/login` (email + password form)
-- [ ] 🔴 1.4 Middleware ป้องกัน routes ที่ต้อง login (`middleware.ts`)
-- [ ] 🔴 1.5 Logout + clear session
-- [ ] 🟡 1.6 หน้า Forgot Password + Reset Password flow
+- [x] 🔴 1.1 เปิด Supabase Auth (Email provider)
+- [x] 🔴 1.2 สร้าง table `user_profiles` + RLS + trigger auto-create
+- [x] 🔴 1.3 หน้า Login `/login` (email + password form)
+- [x] 🔴 1.4 Middleware ป้องกัน routes ที่ต้อง login (`middleware.ts`)
+- [x] 🔴 1.5 Logout + clear session
+- [x] 🟡 1.6 หน้า Forgot Password + Reset Password flow
 - [ ] 🟡 1.7 ตั้ง Supabase Auth email template ผ่าน Brevo SMTP
 
 ---
 
 ### 🗄️ TASK 2 — Supabase Setup
 
-- [ ] 🔴 2.1 สร้าง Supabase project
-- [ ] 🔴 2.2 รัน schema ทั้งหมดจาก `docs/schema.md`
-- [ ] 🔴 2.3 ตรวจสอบ RLS ทุก table
-- [ ] 🔴 2.4 สร้าง Storage bucket `media` (public read, auth write)
-- [ ] 🔴 2.5 สร้าง Storage bucket `screenshots` (private — VPS เขียน)
+- [x] 🔴 2.1 สร้าง Supabase project
+- [x] 🔴 2.2 รัน schema ทั้งหมดจาก `docs/schema.md`
+- [x] 🔴 2.3 ตรวจสอบ RLS ทุก table
+- [x] 🔴 2.4 สร้าง Storage bucket `media` (public read, auth write)
+- [x] 🔴 2.5 สร้าง Storage bucket `screenshots` (private — VPS เขียน)
 - [ ] 🟡 2.6 Seed mock data (2 clients, 4 projects, 10 posts)
-- [ ] 🟡 2.7 Generate TypeScript types → `types/database.ts`
+- [x] 🟡 2.7 Generate TypeScript types → `types/database.ts`
 
 ---
 
 ### 🏗️ TASK 3 — Next.js Project Setup
 
-- [ ] 🔴 3.1 สร้าง Next.js 14 project (App Router + TypeScript + Tailwind)
-- [ ] 🔴 3.2 ติดตั้ง `@supabase/supabase-js` `@supabase/ssr`
-- [ ] 🔴 3.3 ติดตั้ง `shadcn/ui` + config
-- [ ] 🔴 3.4 ติดตั้ง `lucide-react` `date-fns` `zod` `zustand`
-- [ ] 🔴 3.5 สร้าง `.env.local` จาก `.env.example`
-- [ ] 🔴 3.6 สร้าง Supabase client helper (`lib/supabase/client.ts` + `server.ts`)
-- [ ] 🔴 3.7 ตั้ง folder structure ตาม `CLAUDE.md`
-- [ ] 🟡 3.8 ตั้ง ESLint + Prettier config
-- [ ] 🟡 3.9 ตั้ง `tsconfig.json` strict mode
+- [x] 🔴 3.1 สร้าง Next.js 14 project (App Router + TypeScript + Tailwind)
+- [x] 🔴 3.2 ติดตั้ง `@supabase/supabase-js` `@supabase/ssr`
+- [x] 🔴 3.3 ติดตั้ง `shadcn/ui` + config
+- [x] 🔴 3.4 ติดตั้ง `lucide-react` `date-fns` `zod` `zustand`
+- [x] 🔴 3.5 สร้าง `.env.local` จาก `.env.example`
+- [x] 🔴 3.6 สร้าง Supabase client helper (`lib/supabase/client.ts` + `server.ts`)
+- [x] 🔴 3.7 ตั้ง folder structure ตาม `CLAUDE.md`
+- [x] 🟡 3.8 ตั้ง ESLint + Prettier config
+- [x] 🟡 3.9 ตั้ง `tsconfig.json` strict mode
 
 ---
 
 ### 👥 TASK 4 — Client & Project Management
 
-- [ ] 🔴 4.1 Home page `/` — client grid + empty state
-- [ ] 🔴 4.2 Form สร้าง Client ใหม่ (validate ด้วย zod)
-- [ ] 🔴 4.3 Client Dashboard `/clients/[id]` — project grid + stats
-- [ ] 🔴 4.4 Form สร้าง Project ใหม่ (เลือก platform + Brand Profile)
-- [ ] 🟡 4.5 Brand Profile edit page `/projects/[id]/settings`
-- [ ] 🟡 4.6 Toggle `is_active` สำหรับ Project
-- [ ] 🟡 4.7 Delete client + confirmation dialog
+- [x] 🔴 4.1 Home page `/` — client grid + empty state
+- [x] 🔴 4.2 Form สร้าง Client ใหม่ (validate ด้วย zod)
+- [x] 🔴 4.3 Client Dashboard `/clients/[id]` — project grid + stats
+- [x] 🔴 4.4 Form สร้าง Project ใหม่ (เลือก platform + Brand Profile)
+- [x] 🟡 4.5 Brand Profile edit page `/projects/[id]/settings`
+- [x] 🟡 4.6 Toggle `is_active` สำหรับ Project
+- [x] 🟡 4.7 Delete client + confirmation dialog
 
 ---
 
 ### 📅 TASK 5 — Calendar View
 
-- [ ] 🔴 5.1 Calendar Month View component
-- [ ] 🔴 5.2 Post Chip component (สีตาม tag + content type icon + เวลา)
-- [ ] 🔴 5.3 คลิกวันว่าง → เปิด Post Modal (pre-fill date)
-- [ ] 🔴 5.4 คลิก Post Chip → เปิด Post Modal (edit mode)
-- [ ] 🟡 5.5 Calendar Week View component
-- [ ] 🟡 5.6 Toggle Month / Week
+- [x] 🔴 5.1 Calendar Month View component
+- [x] 🔴 5.2 Post Chip component (สีตาม tag + content type icon + เวลา)
+- [x] 🔴 5.3 คลิกวันว่าง → เปิด Post Modal (pre-fill date)
+- [x] 🔴 5.4 คลิก Post Chip → เปิด Post Modal (edit mode)
+- [x] 🟡 5.5 Calendar Week View component
+- [x] 🟡 5.6 Toggle Month / Week
 - [ ] 🟢 5.7 Drag & drop โพสต์ระหว่างวัน (`@dnd-kit/core`)
 
 ---
 
 ### ✍️ TASK 6 — Post Modal (Manual Mode)
 
-- [ ] 🔴 6.1 Post Modal component (overlay/drawer)
-- [ ] 🔴 6.2 Toggle Manual mode / AI Generate mode
-- [ ] 🔴 6.3 Caption textarea
-- [ ] 🔴 6.4 Content type selector (regular / article_share / promotion / engagement / repost)
-- [ ] 🔴 6.5 Article URL input (แสดงเมื่อเลือก `article_share`)
-- [ ] 🔴 6.6 Date + Time picker
-- [ ] 🔴 6.7 Status selector (Draft / Scheduled)
-- [ ] 🔴 6.8 Tag multi-select (Promotion, Education ฯลฯ)
-- [ ] 🔴 6.9 Save (create/update) + Delete
-- [ ] 🟡 6.10 Hashtag tag input
-- [ ] 🟡 6.11 Media upload (jpg, png, mp4, mov → Supabase Storage)
-- [ ] 🟡 6.12 แสดง `image_prompt` (TH + EN) พร้อมปุ่ม Copy
-- [ ] 🟡 6.13 แสดง `image_ratio` แนะนำตาม platform
+- [x] 🔴 6.1 Post Modal component (overlay/drawer)
+- [x] 🔴 6.2 Toggle Manual mode / AI Generate mode
+- [x] 🔴 6.3 Caption textarea
+- [x] 🔴 6.4 Content type selector (regular / article_share / promotion / engagement / repost)
+- [x] 🔴 6.5 Article URL input (แสดงเมื่อเลือก `article_share`)
+- [x] 🔴 6.6 Date + Time picker
+- [x] 🔴 6.7 Status selector (Draft / Scheduled)
+- [x] 🔴 6.8 Tag multi-select (Promotion, Education ฯลฯ)
+- [x] 🔴 6.9 Save (create/update) + Delete
+- [x] 🟡 6.10 Hashtag tag input
+- [x] 🟡 6.11 Media upload (jpg, png, mp4, mov → Supabase Storage)
+- [x] 🟡 6.12 แสดง `image_prompt` (TH + EN) พร้อมปุ่ม Copy
+- [x] 🟡 6.13 แสดง `image_ratio` แนะนำตาม platform
 
 ---
 
@@ -224,12 +224,12 @@
 
 ## Progress Summary
 
-| Phase                | Tasks  | Done  | Remaining |
-| -------------------- | ------ | ----- | --------- |
-| Phase 1 — MVP        | 57     | 0     | 57        |
-| Phase 2 — Auto-Post  | 28     | 0     | 28        |
-| Phase 3 — Production | 10     | 0     | 10        |
-| **Total**            | **95** | **0** | **95**    |
+| Phase                | Tasks  | Done   | In Progress | Remaining |
+| -------------------- | ------ | ------ | ----------- | --------- |
+| Phase 1 — MVP        | 57     | 47     | 0           | 10        |
+| Phase 2 — Auto-Post  | 28     | 0      | 0           | 28        |
+| Phase 3 — Production | 10     | 0      | 0           | 10        |
+| **Total**            | **95** | **47** | **0**       | **48**    |
 
 ---
 
