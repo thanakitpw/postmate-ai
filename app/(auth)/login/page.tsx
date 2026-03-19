@@ -81,8 +81,8 @@ export default function LoginPage() {
         return;
       }
 
-      router.push("/");
-      router.refresh();
+      // Full page reload to ensure auth cookies are sent with the request
+      window.location.href = "/";
     } catch {
       setServerError("เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง");
     } finally {
