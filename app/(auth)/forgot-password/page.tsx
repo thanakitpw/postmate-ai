@@ -3,19 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { z } from "zod";
-import { Mail, ArrowLeft, AlertCircle, CheckCircle2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
 
 const forgotPasswordSchema = z.object({
   email: z.email("กรุณากรอกอีเมลที่ถูกต้อง"),
@@ -67,99 +55,139 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="w-full max-w-md">
-      <Card className="border-0 shadow-lg">
-        <CardHeader className="space-y-2 text-center">
-          <CardTitle className="text-2xl font-bold tracking-tight">รีเซ็ตรหัสผ่าน</CardTitle>
-          <CardDescription className="text-muted-foreground">
-            {isSent
-              ? "ตรวจสอบอีเมลของคุณเพื่อรีเซ็ตรหัสผ่าน"
-              : "กรอกอีเมลเพื่อรับลิงก์รีเซ็ตรหัสผ่าน"}
-          </CardDescription>
-        </CardHeader>
+    <div className="w-full max-w-[420px]">
+      <div className="rounded-2xl border border-[#e5e7eb] bg-white p-10 shadow-lg">
+        {/* Logo */}
+        <div className="mb-8 text-center">
+          <div className="mx-auto mb-3 inline-flex h-[52px] w-[52px] items-center justify-center rounded-[14px] bg-[#6366f1] text-white">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+          </div>
+          <h1 className="text-[1.375rem] font-bold tracking-tight text-[#1e293b]">ลืมรหัสผ่าน</h1>
+          <p className="mt-1 text-[0.8125rem] text-[#94a3b8]">
+            กรอกอีเมลเพื่อรับลิงก์รีเซ็ตรหัสผ่าน
+          </p>
+        </div>
 
-        <CardContent>
-          {isSent ? (
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 rounded-lg bg-green-50 p-4 text-sm text-green-700">
-                <CheckCircle2 className="size-5 shrink-0" />
-                <div>
-                  <p className="font-medium">ส่งลิงก์รีเซ็ตรหัสผ่านแล้ว</p>
-                  <p className="mt-1 text-green-600">
-                    กรุณาตรวจสอบอีเมล {email} และทำตามขั้นตอนในอีเมลเพื่อรีเซ็ตรหัสผ่าน
-                  </p>
-                </div>
+        {/* Form */}
+        {!isSent ? (
+          <form onSubmit={handleSubmit}>
+            {serverError && (
+              <div className="mb-4 flex items-center gap-2 rounded-lg bg-red-50 p-3 text-sm text-red-600">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="shrink-0"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span>{serverError}</span>
               </div>
+            )}
 
-              <Button
-                variant="outline"
-                className="h-10 w-full"
-                size="lg"
-                onClick={() => {
-                  setIsSent(false);
-                  setEmail("");
+            <div className="mb-4">
+              <label className="mb-1.5 block text-[0.775rem] font-medium text-[#1e293b]">
+                อีเมล
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="you@company.com"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (error) setError(null);
+                  if (serverError) setServerError(null);
                 }}
-              >
-                ส่งอีเมลอีกครั้ง
-              </Button>
+                className="w-full rounded-lg border border-[#e5e7eb] bg-white px-3.5 py-2.5 text-[0.8125rem] text-[#1e293b] placeholder-[#94a3b8] transition-all focus:border-[#6366f1] focus:outline-none focus:ring-[3px] focus:ring-[rgba(99,102,241,0.08)]"
+                aria-invalid={!!error}
+                autoComplete="email"
+                disabled={isLoading}
+              />
+              {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {serverError && (
-                <div className="bg-destructive/10 text-destructive flex items-center gap-2 rounded-lg p-3 text-sm">
-                  <AlertCircle className="size-4 shrink-0" />
-                  <span>{serverError}</span>
-                </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#6366f1] px-5 py-2.5 text-[0.875rem] font-medium text-white shadow-[0_1px_2px_rgba(99,102,241,0.2)] transition-all hover:bg-[#4f46e5] hover:shadow-[0_2px_4px_rgba(99,102,241,0.3)] disabled:opacity-50"
+            >
+              {isLoading ? (
+                <>
+                  <span className="size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                  กำลังส่ง...
+                </>
+              ) : (
+                "ส่งลิงก์รีเซ็ต"
               )}
+            </button>
+          </form>
+        ) : (
+          /* Success message */
+          <div className="rounded-xl border border-[#bbf7d0] bg-[#f0fdf4] p-6 text-center">
+            <div className="mb-2">
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#166534"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="mx-auto"
+              >
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="M22 4L12 13 2 4" />
+              </svg>
+            </div>
+            <h3 className="mb-2 font-semibold text-[#166534]">ส่งอีเมลเรียบร้อย!</h3>
+            <p className="text-[0.85rem] text-[#15803d]">
+              กรุณาตรวจสอบอีเมลของคุณ แล้วคลิกลิงก์เพื่อรีเซ็ตรหัสผ่าน
+            </p>
+          </div>
+        )}
 
-              <div className="space-y-2">
-                <Label htmlFor="email">อีเมล</Label>
-                <div className="relative">
-                  <Mail className="text-muted-foreground absolute left-3 top-1/2 size-4 -translate-y-1/2" />
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="you@example.com"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      if (error) setError(null);
-                      if (serverError) setServerError(null);
-                    }}
-                    className="h-10 pl-10"
-                    aria-invalid={!!error}
-                    autoComplete="email"
-                    disabled={isLoading}
-                  />
-                </div>
-                {error && <p className="text-destructive text-sm">{error}</p>}
-              </div>
-
-              <Button type="submit" className="h-10 w-full" size="lg" disabled={isLoading}>
-                {isLoading ? (
-                  <span className="flex items-center gap-2">
-                    <span className="size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                    กำลังส่ง...
-                  </span>
-                ) : (
-                  "ส่งลิงก์รีเซ็ตรหัสผ่าน"
-                )}
-              </Button>
-            </form>
-          )}
-        </CardContent>
-
-        <CardFooter className="justify-center">
+        {/* Back link */}
+        <div className="mt-6 text-center">
           <Link
             href="/login"
-            className="text-muted-foreground hover:text-primary flex items-center gap-2 text-sm transition-colors"
+            className="inline-flex items-center gap-1.5 text-[0.85rem] text-[#6366f1] no-underline hover:text-[#4f46e5]"
           >
-            <ArrowLeft className="size-4" />
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
             กลับไปหน้าเข้าสู่ระบบ
           </Link>
-        </CardFooter>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }
